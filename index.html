@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Joey Chung — Chemistry, University of Michigan</title>
+<meta name="description" content="Joey Chung — B.S. Chemistry, University of Michigan. Thin film deposition, surface characterization, and process control. Seeking semiconductor and manufacturing internships.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E7E9E8;--paper-2:#F2F3F2;--ink:#171B21;--muted:#5F6872;
+  --line:rgba(23,27,33,.16);--line-soft:rgba(23,27,33,.08);
+  --gold:#8A6414;--violet:#5A55A8;
+}
+[data-theme="dark"]{
+  --paper:#14181C;--paper-2:#1B2026;--ink:#E7E9E8;--muted:#8A939D;
+  --line:rgba(231,233,232,.18);--line-soft:rgba(231,233,232,.09);
+  --gold:#D9A63E;--violet:#8E88DD;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;transition:background .35s,color .35s;
+}
+a{color:inherit}
+
+/* bar */
+.bar{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:13px 28px;background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line-soft);
+}
+.bar-id{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.bar-id b{color:var(--ink);font-weight:600}
+.toggle{
+  font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  background:none;border:1px solid var(--line);color:var(--muted);padding:5px 11px;cursor:pointer;
+  transition:color .2s,border-color .2s;
+}
+.toggle:hover{color:var(--ink);border-color:var(--ink)}
+.toggle:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.shell{max-width:1060px;margin:0 auto;padding:104px 28px 60px}
+
+/* ---- identity band (compact, above the fold) ---- */
+.ident{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;
+  padding-bottom:26px;border-bottom:1px solid var(--line)}
+h1{font-weight:700;font-size:clamp(38px,5.6vw,62px);letter-spacing:-.045em;line-height:.95;margin:0 0 12px}
+h1 .dot{color:var(--gold)}
+.tagline{font-family:"IBM Plex Serif",Georgia,serif;font-size:clamp(15px,1.6vw,18px);
+  line-height:1.5;max-width:40ch;margin:0;color:var(--ink)}
+.ident-meta{font-family:"IBM Plex Mono",monospace;font-size:11.5px;line-height:2;
+  letter-spacing:.04em;color:var(--muted);text-align:right;white-space:nowrap}
+.ident-meta b{color:var(--ink);font-weight:500}
+.ident-meta .hl{color:var(--gold)}
+
+/* ---- deposition log : the hero ---- */
+.log{margin-top:44px}
+.log-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+.log-head h2{
+  font-family:"IBM Plex Mono",monospace;font-weight:600;
+  font-size:clamp(15px,2.1vw,21px);letter-spacing:.22em;text-transform:uppercase;margin:0;
+}
+.log-head .key{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;color:var(--muted)}
+.log-lede{font-size:14.5px;color:var(--muted);max-width:62ch;margin:0 0 26px}
+
+.stack{display:flex;flex-direction:column;gap:3px}
+.row{
+  display:grid;grid-template-columns:44px 108px 1fr auto;gap:0 20px;align-items:center;
+  height:var(--h);text-decoration:none;position:relative;
+  border-bottom:1px solid transparent;
+  transition:border-color .25s;
+}
+.row:hover,.row:focus-visible{border-bottom-color:var(--gold);outline:none}
+.rid{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;color:var(--muted);transition:color .25s}
+.row:hover .rid{color:var(--gold)}
+.band{
+  height:100%;background:var(--face);border:1px solid var(--line);
+  transition:transform .3s cubic-bezier(.2,.7,.3,1),border-color .3s;
+  position:relative;overflow:hidden;
+}
+.row:hover .band{transform:translateX(8px);border-color:var(--gold)}
+.rtext b{display:block;font-size:clamp(15px,1.8vw,19px);font-weight:600;letter-spacing:-.02em;transition:color .25s}
+.row:hover .rtext b{color:var(--gold)}
+.rtext span{display:block;font-size:13.5px;color:var(--muted);margin-top:2px}
+.rtext em{
+  display:block;font-style:normal;font-family:"IBM Plex Mono",monospace;
+  font-size:10.5px;letter-spacing:.08em;color:var(--muted);margin-top:6px;
+}
+.rmeas{
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.06em;
+  color:var(--muted);text-align:right;white-space:nowrap;
+}
+.rmeas b{display:block;color:var(--ink);font-weight:500;font-size:13px}
+.row:hover .rmeas b{color:var(--gold)}
+
+/* substrate */
+.row.sub .band{
+  border-color:var(--ink);
+  background:linear-gradient(180deg,rgba(90,85,168,.26),rgba(138,100,20,.16) 45%,transparent 75%),var(--face);
+}
+.row.sub .rtext b{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+
+/* still depositing */
+.growing::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--gold) 45%,transparent),transparent);
+  animation:sweep 3.6s ease-in-out infinite;
+}
+@keyframes sweep{0%,100%{transform:translateX(-101%)}50%{transform:translateX(101%)}}
+
+/* deposition sequence on load */
+.row{opacity:0;animation:deposit .5s cubic-bezier(.2,.8,.3,1) forwards}
+.row:nth-child(4){animation-delay:.10s}
+.row:nth-child(3){animation-delay:.40s}
+.row:nth-child(2){animation-delay:.70s}
+.row:nth-child(1){animation-delay:1.00s}
+@keyframes deposit{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+.log-foot{
+  margin-top:14px;padding-top:11px;border-top:1px solid var(--line-soft);
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;color:var(--muted);
+  display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+}
+
+/* nav */
+.nav{margin-top:52px;display:flex;flex-wrap:wrap;gap:9px}
+.nav a{
+  font-family:"IBM Plex Mono",monospace;font-size:12.5px;letter-spacing:.06em;
+  text-decoration:none;padding:9px 15px;border:1px solid var(--line);color:var(--muted);
+  transition:color .2s,border-color .2s,background .2s;
+}
+.nav a::after{content:" ↗";opacity:.5}
+.nav a:hover{color:var(--paper);background:var(--ink);border-color:var(--ink)}
+.nav a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.foot{
+  margin-top:52px;padding-top:18px;border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;gap:24px;
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.06em;
+}
+.foot a{color:var(--muted);text-decoration:none;transition:color .2s}
+.foot a:hover{color:var(--gold)}
+.foot .stamp{margin-left:auto;color:var(--line);letter-spacing:.14em}
+
+@media (max-width:760px){
+  .ident{grid-template-columns:1fr;gap:20px;align-items:start}
+  .ident-meta{text-align:left;white-space:normal}
+  .row{grid-template-columns:32px 56px 1fr;gap:0 14px}
+  .rmeas{display:none}
+  .shell{padding-top:90px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .row{opacity:1}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-id"><b>Joey Chung</b> / index</div>
+  <button class="toggle" id="tg">Dark</button>
+</div>
+
+<main class="shell">
+
+  <section class="ident">
+    <div>
+      <h1>Joey Chung<span class="dot">.</span></h1>
+      <p class="tagline">Thin films, surfaces, and the discipline to make them repeatable.</p>
+    </div>
+    <div class="ident-meta">
+      <b>B.S. Chemistry</b> · University of Michigan<br>
+      Class of 2027 · GPA <b>3.99</b><br>
+      <span class="hl">Co-op now · full-time from May 2027</span><br>
+      Semiconductor &amp; manufacturing · F-1, CPT/OPT eligible
+    </div>
+  </section>
+
+  <section class="log">
+    <div class="log-head">
+      <h2>Deposition Log</h2>
+      <span class="key">4 layers · 2019 → present</span>
+    </div>
+    <p class="log-lede">Every experience I've built on, stacked in the order it went down. Layer thickness scales with time spent. The top layer is still growing.</p>
+
+    <div class="stack">
+
+      <a class="row" href="research.html" style="--h:74px;--face:color-mix(in srgb,var(--gold) 30%,var(--paper-2))">
+        <span class="rid">L03</span>
+        <span class="band growing"></span>
+        <span class="rtext">
+          <b>Maldonado Group, University of Michigan</b>
+          <span>Undergraduate Research Assistant · Thin film metrology</span>
+          <em>AFM · ELLIPSOMETRY · ALD</em>
+        </span>
+        <span class="rmeas">2026.04 — present<br><b>depositing</b></span>
+      </a>
+
+      <a class="row" href="experience.html#daeyang" style="--h:106px;--face:color-mix(in srgb,var(--violet) 22%,var(--paper-2))">
+        <span class="rid">L02</span>
+        <span class="band"></span>
+        <span class="rtext">
+          <b>DAEYANG Co., Ltd.</b>
+          <span>Research Assistant · Thermoelectric module R&amp;D, Daegu KR</span>
+          <em>ELECTROLESS PLATING · SMT · DEVICE CHARACTERIZATION</em>
+        </span>
+        <span class="rmeas">2024.09 — 2025.05<br><b>9 mo</b></span>
+      </a>
+
+      <a class="row" href="experience.html#police" style="--h:170px;--face:color-mix(in srgb,var(--ink) 13%,var(--paper-2))">
+        <span class="rid">L01</span>
+        <span class="band"></span>
+        <span class="rtext">
+          <b>Republic of Korea Auxiliary Police</b>
+          <span>Sergeant · 12-officer squad lead, mandatory national service</span>
+          <em>FIELD OPERATIONS · EMERGENCY RESPONSE · COMMENDED</em>
+        </span>
+        <span class="rmeas">2019.11 — 2021.05<br><b>18 mo</b></span>
+      </a>
+
+      <a class="row sub" href="about.html" style="--h:64px;--face:color-mix(in srgb,var(--ink) 7%,var(--paper-2))">
+        <span class="rid">L00</span>
+        <span class="band"></span>
+        <span class="rtext">
+          <b>Substrate</b>
+          <span>UW–Madison, Food Science → University of Michigan, Chemistry</span>
+        </span>
+        <span class="rmeas">2022.08 — 2027.05<br><b>3.99 / 3.96</b></span>
+      </a>
+
+    </div>
+
+    <div class="log-foot">
+      <span>Hover a layer to open it.</span>
+      <span>SUBSTRATE ↑ SURFACE</span>
+    </div>
+  </section>
+
+  <nav class="nav">
+    <a href="about.html">about</a>
+    <a href="experience.html">experience</a>
+    <a href="research.html">research</a>
+    <a href="off-hours.html">off-hours</a>
+    <a href="contact.html">contact</a>
+  </nav>
+
+  <footer class="foot">
+    <a href="mailto:cychung@umich.edu">cychung@umich.edu</a>
+    <a href="http://www.linkedin.com/in/joey-chung-793b6a240">linkedin</a>
+    <a href="resume/joey-chung-resume.pdf">resume ↓</a>
+    <span class="stamp">JC / 2026</span>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('tg');
+  if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){
+    root.setAttribute('data-theme','dark'); btn.textContent='Light';
+  }
+  btn.addEventListener('click',function(){
+    var d=root.getAttribute('data-theme')==='dark';
+    root.setAttribute('data-theme',d?'light':'dark');
+    btn.textContent=d?'Dark':'Light';
+  });
+})();
+</script>
+</body>
+</html>

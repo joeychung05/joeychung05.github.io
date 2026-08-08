@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Off-Hours · Joey Chung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E7E9E8;--paper-2:#F2F3F2;--ink:#171B21;--muted:#5F6872;
+  --line:rgba(23,27,33,.16);--line-soft:rgba(23,27,33,.08);
+  --gold:#8A6414;--violet:#5A55A8;
+}
+[data-theme="dark"]{
+  --paper:#14181C;--paper-2:#1B2026;--ink:#E7E9E8;--muted:#8A939D;
+  --line:rgba(231,233,232,.18);--line-soft:rgba(231,233,232,.09);
+  --gold:#D9A63E;--violet:#8E88DD;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;transition:background .35s,color .35s;
+}
+a{color:inherit}
+
+.bar{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;align-items:center;gap:24px;
+  padding:13px 28px;background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line-soft);
+}
+.bar-id{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.bar-id a{color:var(--ink);font-weight:600;text-decoration:none}
+.bar-nav{display:flex;gap:18px;margin-left:auto}
+.bar-nav a{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-decoration:none;color:var(--muted);transition:color .2s}
+.bar-nav a:hover,.bar-nav a[aria-current]{color:var(--gold)}
+.toggle{
+  font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  background:none;border:1px solid var(--line);color:var(--muted);padding:5px 11px;cursor:pointer;
+}
+.toggle:hover{color:var(--ink);border-color:var(--ink)}
+.toggle:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.shell{max-width:1000px;margin:0 auto;padding:112px 28px 72px}
+
+h1.page{font-weight:700;font-size:clamp(40px,6.6vw,68px);letter-spacing:-.045em;line-height:1;margin:0 0 10px}
+h1.page .dot{color:var(--gold)}
+.sub{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
+.intro{font-family:"IBM Plex Serif",Georgia,serif;font-size:17px;line-height:1.7;max-width:60ch;margin:0 0 22px}
+.jump{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:76px}
+.jump a{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.06em;text-decoration:none;
+  border:1px solid var(--line);padding:7px 13px;color:var(--muted);transition:.2s}
+.jump a:hover{color:var(--paper);background:var(--ink);border-color:var(--ink)}
+
+.sec{margin-bottom:88px;scroll-margin-top:90px}
+.sec-head{display:flex;align-items:center;gap:16px;padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.sec-head h2{font-size:23px;font-weight:600;letter-spacing:-.025em;margin:0}
+.sec-head .n{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.sec-head .r{margin-left:auto;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;color:var(--muted)}
+.lede{font-size:15.5px;color:var(--muted);max-width:64ch;margin:0 0 28px;line-height:1.65}
+.lede b{color:var(--ink);font-weight:500}
+
+/* rifle */
+.rifle{display:grid;grid-template-columns:150px 1fr;gap:34px;align-items:start;margin-bottom:26px}
+.target{width:150px;height:150px;display:block}
+.target circle{fill:none;stroke:var(--line);stroke-width:1}
+.target .bull{fill:color-mix(in srgb,var(--gold) 22%,transparent);stroke:var(--gold)}
+.target .shot{fill:var(--gold);stroke:none;opacity:0;animation:pop .3s ease forwards}
+.target .shot:nth-of-type(1){animation-delay:.30s}
+.target .shot:nth-of-type(2){animation-delay:.50s}
+.target .shot:nth-of-type(3){animation-delay:.70s}
+.target .shot:nth-of-type(4){animation-delay:.90s}
+.target .shot:nth-of-type(5){animation-delay:1.10s}
+@keyframes pop{from{opacity:0}to{opacity:1}}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;background:var(--line-soft);border:1px solid var(--line-soft)}
+.stat{background:var(--paper);padding:14px 16px}
+.stat b{display:block;font-size:17px;font-weight:600;letter-spacing:-.02em;line-height:1.3}
+.stat span{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-top:4px}
+
+/* generic listing rows */
+.rows{border-top:1px solid var(--line-soft);margin-bottom:30px}
+.row-item{display:grid;grid-template-columns:1fr auto;gap:16px;padding:13px 0;border-bottom:1px solid var(--line-soft);align-items:baseline}
+.row-item b{font-size:15.5px;font-weight:600}
+.row-item b a{color:inherit;text-decoration:none;border-bottom:1px solid var(--line)}
+.row-item b a:hover{color:var(--gold);border-color:var(--gold)}
+.row-item i{font-style:normal;font-size:13.5px;color:var(--muted);display:block;margin-top:2px;max-width:58ch}
+.row-item .meta{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;color:var(--muted);white-space:nowrap}
+
+.countries{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:26px}
+.countries span{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.06em;
+  border:1px solid var(--line);padding:5px 11px;color:var(--muted);transition:.2s}
+.countries span:hover{border-color:var(--gold);color:var(--gold)}
+
+/* photos */
+.grid{display:grid;gap:14px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.shot-fig{margin:0;position:relative}
+.shot-fig img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border:1px solid var(--line)}
+.shot-fig figcaption{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;color:var(--muted);margin-top:7px;line-height:1.5}
+.shot-fig.empty img{display:none}
+.shot-fig.empty::before{
+  content:attr(data-path);
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  aspect-ratio:4/3;border:1px dashed var(--gold);color:var(--gold);
+  font-family:"IBM Plex Mono",monospace;font-size:11px;line-height:1.6;padding:12px;
+  background:color-mix(in srgb,var(--gold) 5%,transparent);
+}
+
+.todo{display:block;font-family:"IBM Plex Mono",monospace;font-size:12px;line-height:1.65;
+  border:1px dashed var(--gold);color:var(--gold);padding:11px 14px;margin:22px 0 0;max-width:64ch}
+.todo::before{content:"⌁ "}
+
+.foot{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:24px;
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.06em}
+.foot a{color:var(--muted);text-decoration:none}
+.foot a:hover{color:var(--gold)}
+.foot .stamp{margin-left:auto;color:var(--line);letter-spacing:.14em}
+
+@media (max-width:760px){
+  .bar-nav{display:none}
+  .rifle{grid-template-columns:1fr;gap:22px}
+  .g3{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:480px){.g3{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.target .shot{opacity:1}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-id"><a href="index.html">Joey Chung</a> / off-hours</div>
+  <nav class="bar-nav">
+    <a href="about.html">about</a>
+    <a href="experience.html">experience</a>
+    <a href="research.html">research</a>
+    <a href="off-hours.html" aria-current="page">off-hours</a>
+    <a href="contact.html">contact</a>
+  </nav>
+  <button class="toggle" id="tg">Dark</button>
+</div>
+
+<main class="shell">
+  <h1 class="page">Off-Hours<span class="dot">.</span></h1>
+  <div class="sub">What I do when I'm not in the lab</div>
+  <p class="intro">Two things have followed me across every place I've lived: a rifle range and a kitchen. One rewards holding still. The other rewards adjusting fast. I've needed both.</p>
+
+  <div class="jump">
+    <a href="#range">rifle team</a>
+    <a href="#kitchen">kitchen</a>
+    <a href="#travel">travel</a>
+  </div>
+
+  <!-- RANGE -->
+  <section class="sec" id="range">
+    <div class="sec-head"><span class="n">01</span><h2>Michigan Rifle Team.</h2><span class="r">since 2025.08</span></div>
+    <p class="lede">I shoot <b>air rifle</b> and <b>three-position</b> relays with the Michigan Rifle Team. Precision rifle is mostly not about the shot — it's about controlling everything that happens before it. Breathing, position, trigger break, and the discipline to do it identically every time. <b>Repeatability under pressure is the entire sport</b>, which is probably not unrelated to why I ended up drawn to process work.</p>
+
+    <div class="rifle">
+      <svg class="target" viewBox="0 0 100 100" aria-label="Rifle target with a shot group">
+        <circle cx="50" cy="50" r="46"/><circle cx="50" cy="50" r="36"/>
+        <circle cx="50" cy="50" r="26"/><circle cx="50" cy="50" r="16"/>
+        <circle class="bull" cx="50" cy="50" r="8"/>
+        <circle class="shot" cx="49" cy="47" r="2.6"/>
+        <circle class="shot" cx="52" cy="50" r="2.6"/>
+        <circle class="shot" cx="47.5" cy="51.5" r="2.6"/>
+        <circle class="shot" cx="51" cy="45.5" r="2.6"/>
+        <circle class="shot" cx="48" cy="53" r="2.6"/>
+      </svg>
+      <div class="stats">
+        <div class="stat"><b>Air Rifle<br>3P Relay</b><span>disciplines</span></div>
+        <div class="stat"><b>Aug 2025</b><span>joined</span></div>
+        <div class="stat"><b>2</b><span>matches shot</span></div>
+        <div class="stat"><b>2025–26</b><span>first season</span></div>
+      </div>
+    </div>
+
+    <div class="rows">
+      <div class="row-item">
+        <div><b><a href="https://thecmp.org/">Camp Perry Matches</a></b><i>Civilian Marksmanship Program, Camp Perry.</i></div>
+        <div class="meta">2026.01</div>
+      </div>
+      <div class="row-item">
+        <div><b>Western Intercollegiate Rifle Conference Championships</b><i>Conference championship match, first season on the team.</i></div>
+        <div class="meta">2026.02</div>
+      </div>
+    </div>
+
+    <div class="grid g3">
+      <figure class="shot-fig" data-path="images/offhours/range-01.jpg">
+        <img src="images/offhours/range-01.jpg" alt="Competing at the Camp Perry Matches">
+        <figcaption>Camp Perry Matches · 2026.01</figcaption>
+      </figure>
+      <figure class="shot-fig" data-path="images/offhours/range-02.jpg">
+        <img src="images/offhours/range-02.jpg" alt="Practice session on the range">
+        <figcaption>Practice. Most of the season is this.</figcaption>
+      </figure>
+      <figure class="shot-fig" data-path="images/offhours/range-03.jpg">
+        <img src="images/offhours/range-03.jpg" alt="Dinner with teammates">
+        <figcaption>Dinner with the team. The other half of a season.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- KITCHEN -->
+  <section class="sec" id="kitchen">
+    <div class="sec-head"><span class="n">02</span><h2>Kitchen.</h2><span class="r">since 2021</span></div>
+    <p class="lede">Cooking is how I meet people. I show up somewhere, cook Korean food for friends who have never eaten it, and by the end of the night they're teaching me theirs. In Poland that meant standing at a counter learning to fold pierogi from people who had grown up folding them. <b>It goes both directions, and that's the part I actually travel for.</b></p>
+    <p class="lede">The food never stays Korean, because the ingredients aren't there. Gochujang cut into tomato sauce becomes a calzone base. Bulgogi ends up in a tortilla in Mexico. <b>What survives the substitutions is the part worth sharing anyway</b> — the way a table works when everyone is eating something unfamiliar at the same time.</p>
+
+    <div class="countries">
+      <span>Spain</span><span>Poland</span><span>Mexico</span><span>Türkiye</span><span>Japan</span><span>China</span>
+    </div>
+
+    <div class="grid g3">
+      <figure class="shot-fig" data-path="images/offhours/food-01.jpg">
+        <img src="images/offhours/food-01.jpg" alt="Calzone made with a gochujang and tomato sauce base">
+        <figcaption>Calzone on a gochujang–tomato base<br>United States · 2026</figcaption>
+      </figure>
+      <figure class="shot-fig" data-path="images/offhours/food-02.jpg">
+        <img src="images/offhours/food-02.jpg" alt="Learning to fold pierogi with friends in Poland">
+        <figcaption>Learning pierogi from the people who grew up making them<br>Poland · 2024</figcaption>
+      </figure>
+      <figure class="shot-fig" data-path="images/offhours/food-03.jpg">
+        <img src="images/offhours/food-03.jpg" alt="Korean braised short ribs cooked for friends abroad">
+        <figcaption>Jjim-galbi for friends who had never had Korean food — rebuilt from what the local market carried<br>Mexico · 2023</figcaption>
+      </figure>
+    </div>
+
+    
+  </section>
+
+  <!-- TRAVEL -->
+  <section class="sec" id="travel">
+    <div class="sec-head"><span class="n">03</span><h2>Travel.</h2><span class="r">selected · 2023 — 2026</span></div>
+    <p class="lede">Places I've cooked in, shot in, or just walked around for a while. Six frames out of a longer list that starts in Japan, 2021.</p>
+
+    <div class="grid g3">
+      <figure class="shot-fig" data-path="images/offhours/travel-01.jpg">
+        <img src="images/offhours/travel-01.jpg" alt="New York City"><figcaption>New York City, USA · 2026</figcaption>
+      </figure>
+      <figure class="shot-fig" data-path="images/offhours/travel-02.jpg">
+        <img src="images/offhours/travel-02.jpg" alt="Barcelona"><figcaption>Barcelona, Spain · 2025</figcaption>
+      </figure>
+      <figure class="shot-fig" data-path="images/offhours/travel-03.jpg">
+        <img src="images/offhours/travel-03.jpg" alt="Shanghai"><figcaption>Shanghai, China · 2025</figcaption>
+      </figure>
+      <figure class="shot-fig" data-path="images/offhours/travel-04.jpg">
+        <img src="images/offhours/travel-04.jpg" alt="Warsaw"><figcaption>Warsaw, Poland · 2024</figcaption>
+      </figure>
+      <figure class="shot-fig" data-path="images/offhours/travel-05.jpg">
+        <img src="images/offhours/travel-05.jpg" alt="Istanbul"><figcaption>Istanbul, Türkiye · 2024</figcaption>
+      </figure>
+      <figure class="shot-fig" data-path="images/offhours/travel-06.jpg">
+        <img src="images/offhours/travel-06.jpg" alt="Mexico City and Mérida"><figcaption>Mexico City &amp; Mérida, Mexico · 2023</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <a href="index.html">← index</a>
+    <a href="mailto:cychung@umich.edu">cychung@umich.edu</a>
+    <a href="http://www.linkedin.com/in/joey-chung-793b6a240">linkedin</a>
+    <span class="stamp">JC / 2026</span>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('tg');
+  if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){
+    root.setAttribute('data-theme','dark'); btn.textContent='Light';
+  }
+  btn.addEventListener('click',function(){
+    var d=root.getAttribute('data-theme')==='dark';
+    root.setAttribute('data-theme',d?'light':'dark');
+    btn.textContent=d?'Dark':'Light';
+  });
+  document.querySelectorAll('.shot-fig img').forEach(function(img){
+    img.addEventListener('error',function(){img.closest('.shot-fig').classList.add('empty')});
+    if(img.complete&&img.naturalWidth===0){img.closest('.shot-fig').classList.add('empty')}
+  });
+})();
+</script>
+</body>
+</html>

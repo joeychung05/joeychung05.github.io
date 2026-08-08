@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Experience · Joey Chung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E7E9E8;--paper-2:#F2F3F2;--ink:#171B21;--muted:#5F6872;
+  --line:rgba(23,27,33,.16);--line-soft:rgba(23,27,33,.08);
+  --gold:#8A6414;--violet:#5A55A8;
+}
+[data-theme="dark"]{
+  --paper:#14181C;--paper-2:#1B2026;--ink:#E7E9E8;--muted:#8A939D;
+  --line:rgba(231,233,232,.18);--line-soft:rgba(231,233,232,.09);
+  --gold:#D9A63E;--violet:#8E88DD;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;
+  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;transition:background .35s,color .35s}
+a{color:inherit}
+
+.bar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;gap:24px;
+  padding:13px 28px;background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line-soft)}
+.bar-id{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.bar-id a{color:var(--ink);font-weight:600;text-decoration:none}
+.bar-nav{display:flex;gap:18px;margin-left:auto}
+.bar-nav a{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-decoration:none;color:var(--muted);transition:color .2s}
+.bar-nav a:hover,.bar-nav a[aria-current]{color:var(--gold)}
+.toggle{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  background:none;border:1px solid var(--line);color:var(--muted);padding:5px 11px;cursor:pointer}
+.toggle:hover{color:var(--ink);border-color:var(--ink)}
+.toggle:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.shell{max-width:1000px;margin:0 auto;padding:112px 28px 72px}
+h1.page{font-weight:700;font-size:clamp(40px,6.6vw,68px);letter-spacing:-.045em;line-height:1;margin:0 0 10px}
+h1.page .dot{color:var(--gold)}
+.sub{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
+.intro{font-family:"IBM Plex Serif",Georgia,serif;font-size:17px;line-height:1.7;max-width:62ch;margin:0 0 22px}
+.jump{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:80px}
+.jump a{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.06em;text-decoration:none;
+  border:1px solid var(--line);padding:7px 13px;color:var(--muted);transition:.2s}
+.jump a:hover{color:var(--paper);background:var(--ink);border-color:var(--ink)}
+
+.sec{margin-bottom:100px;scroll-margin-top:88px}
+.sec-top{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;
+  padding-bottom:14px;border-bottom:2px solid var(--ink);margin-bottom:26px}
+.sec-top .id{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.sec-top h2{font-size:clamp(24px,3.4vw,33px);font-weight:600;letter-spacing:-.03em;margin:0 0 4px}
+.sec-top .role{font-size:15px;color:var(--muted)}
+.sec-top .when{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;
+  color:var(--muted);text-align:right;line-height:1.9;white-space:nowrap}
+.sec-top .when b{color:var(--ink);font-weight:500}
+
+.narr{display:grid;grid-template-columns:1fr 240px;gap:40px;align-items:start;margin-bottom:44px}
+.narr p{font-family:"IBM Plex Serif",Georgia,serif;font-size:16.5px;line-height:1.72;margin:0 0 18px;max-width:62ch}
+.narr p:last-child{margin-bottom:0}
+.narr strong{font-family:"IBM Plex Sans",sans-serif;font-weight:600}
+.side{border-top:1px solid var(--line)}
+.side div{padding:9px 0;border-bottom:1px solid var(--line-soft);
+  font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.05em;color:var(--muted)}
+.side div b{display:block;color:var(--ink);font-weight:500;font-size:12px;margin-bottom:1px}
+
+/* plates */
+/* process chain */
+.chain{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;margin-bottom:16px}
+.step{position:relative;border:1px solid var(--line);padding:9px 13px;min-width:96px;
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;color:var(--muted);
+  display:flex;flex-direction:column;justify-content:center}
+.step b{display:block;font-size:11.5px;color:var(--ink);font-weight:500;letter-spacing:.02em}
+.step.mine{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 8%,transparent)}
+.step.mine b{color:var(--gold)}
+.step::after{content:"→";position:absolute;right:-13px;top:50%;transform:translateY(-50%);
+  color:var(--line);font-size:12px}
+.step:last-child::after{content:none}
+.chain-key{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;
+  color:var(--muted);margin-bottom:36px;display:flex;align-items:center;gap:8px}
+.chain-key i{display:inline-block;width:22px;height:9px;border:1px solid var(--gold);
+  background:color-mix(in srgb,var(--gold) 8%,transparent)}
+
+.plates{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.plate{margin:0}
+.plate img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border:1px solid var(--line)}
+.plate figcaption{margin-top:9px;font-size:13.5px;line-height:1.5;color:var(--muted);max-width:52ch}
+.plate figcaption .pn{display:block;font-family:"IBM Plex Mono",monospace;font-size:10px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+.plate.empty img{display:none}
+.plate.empty::before{content:attr(data-path);display:flex;align-items:center;justify-content:center;
+  text-align:center;aspect-ratio:4/3;border:1px dashed var(--gold);color:var(--gold);
+  font-family:"IBM Plex Mono",monospace;font-size:11px;line-height:1.6;padding:12px;
+  background:color-mix(in srgb,var(--gold) 5%,transparent)}
+
+.todo{display:block;font-family:"IBM Plex Mono",monospace;font-size:12px;line-height:1.65;
+  border:1px dashed var(--gold);color:var(--gold);padding:11px 14px;margin:26px 0 0;max-width:66ch}
+.todo::before{content:"⌁ "}
+
+.foot{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:24px;
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.06em}
+.foot a{color:var(--muted);text-decoration:none}
+.foot a:hover{color:var(--gold)}
+.foot .stamp{margin-left:auto;color:var(--line);letter-spacing:.14em}
+
+@media (max-width:820px){
+  .bar-nav{display:none}
+  .narr{grid-template-columns:1fr;gap:26px}
+  .sec-top{grid-template-columns:1fr;align-items:start}
+  .sec-top .when{text-align:left;white-space:normal}
+}
+@media (max-width:560px){.plates{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-id"><a href="index.html">Joey Chung</a> / experience</div>
+  <nav class="bar-nav">
+    <a href="about.html">about</a>
+    <a href="experience.html" aria-current="page">experience</a>
+    <a href="research.html">research</a>
+    <a href="off-hours.html">off-hours</a>
+    <a href="contact.html">contact</a>
+  </nav>
+  <button class="toggle" id="tg">Dark</button>
+</div>
+
+<main class="shell">
+  <h1 class="page">Experience<span class="dot">.</span></h1>
+  <div class="sub">Layers L00 — L02</div>
+  <p class="intro">Three jobs, none of them glamorous, all of them about doing the same thing correctly a large number of times.</p>
+
+  <div class="jump">
+    <a href="#daeyang">daeyang</a>
+    <a href="#police">auxiliary police</a>
+    <a href="#madison">uw–madison</a>
+  </div>
+
+  <!-- DAEYANG -->
+  <section class="sec" id="daeyang">
+    <div class="sec-top">
+      <div>
+        <div class="id">Layer 02</div>
+        <h2>DAEYANG Co., Ltd.</h2>
+        <div class="role">Research Assistant · Thermoelectric module R&amp;D</div>
+      </div>
+      <div class="when"><b>2024.09 — 2025.05</b><br>9 months<br>Daegu, South Korea</div>
+    </div>
+
+    <div class="narr">
+      <div>
+        <p>DAEYANG builds thermoelectric modules and generators. I joined the R&amp;D side and ended up working across most of the line, which turned out to be the useful way to see it. A defect at the cleaning bench doesn't look like anything at the cleaning bench. It looks like a module that reads wrong three weeks later.</p>
+        <p>The line runs like this. A sintered thermoelectric pellet — a thick cylinder — is cut down into <strong>coins</strong>. The coins go through <strong>electroless plating</strong>. Plated coins are then <strong>diced</strong> into individual <strong>legs</strong>, each one close to a cube, which are loaded into trays and carried into <strong>SMT</strong> assembly to become a module. Cutting and dicing run on dedicated equipment handled by the engineer responsible for it; I worked the steps on either side.</p>
+        <p><strong>Cleaning happens twice.</strong> Coins get IPA and sonication cleaning once they're cut, and legs get the same treatment again after dicing — the identical procedure at two stages, because contamination introduced at either one ends up sealed underneath something. During plating I loaded coins into trays, immersed them in the <strong>electroless bath, and managed bath pH</strong> through the run, documenting each one so a bad batch could be traced rather than guessed at.</p>
+        <p>One recurring problem was how coins were held through the plating bath. I designed a custom <strong>titanium holding jig</strong> to secure them and produced the technical drawings and specifications for it. The build was deferred against module production priorities, so I can't claim a finished part — but the exercise of specifying a fixture against a specific failure mode is the part I kept.</p>
+        <p>Downstream I worked on assembly and test: preparing <strong>solder paste for SMT production runs</strong>, soldering positive and negative copper leads to module electrodes after reflow, and applying thermal interface materials. Then measuring what came out — I characterized finished generators across cooling setups for <strong>Vmax and Imax</strong>, calculated peak power to compare trends, and measured module resistance. Diced legs went under digital microscopy for dimensional checks, surface defects, and burr screening, with results reported in Excel tables and plots to senior researchers.</p>
+      </div>
+      <aside class="side">
+        <div><b>Cleaning</b>IPA / sonication — coins and legs</div>
+        <div><b>Deposition</b>Electroless plating · bath pH control</div>
+        <div><b>Assembly</b>SMT paste prep · reflow · hand soldering · TIM</div>
+        <div><b>Test</b>Vmax / Imax · peak power · resistance</div>
+        <div><b>Inspection</b>Digital microscopy · burr screening</div>
+        <div><b>Design</b>Ti jig drawings &amp; specs</div>
+      </aside>
+    </div>
+
+    <div class="chain">
+      <div class="step">01<b>Sintered pellet</b></div>
+      <div class="step">02<b>Coin cut</b></div>
+      <div class="step mine">03<b>Clean — coins</b></div>
+      <div class="step mine">04<b>Plating + pH</b></div>
+      <div class="step">05<b>Dicing → legs</b></div>
+      <div class="step mine">06<b>Clean — legs</b></div>
+      <div class="step mine">07<b>Leg inspection</b></div>
+      <div class="step mine">08<b>SMT → module</b></div>
+      <div class="step mine">09<b>Characterization</b></div>
+    </div>
+    <div class="chain-key"><i></i> steps I worked on · 02 and 05 run on dedicated equipment by the responsible engineer</div>
+
+    <div class="plates">
+      <figure class="plate" data-path="images/daeyang/01.jpg">
+        <img src="images/daeyang/01.jpg" alt="Inspecting a p-type thermoelectric leg held in tweezers">
+        <figcaption><span class="pn">Plate 01</span>A p-type leg under inspection, after dicing. By this stage the plating is already committed — anything wrong underneath it stays wrong.</figcaption>
+      </figure>
+      <figure class="plate" data-path="images/daeyang/02.jpg">
+        <img src="images/daeyang/02.jpg" alt="Technical drawing of the custom titanium holding jig">
+        <figcaption><span class="pn">Plate 02</span>Drawing for the custom titanium holding jig, specified to hold coins in position through the plating bath.</figcaption>
+      </figure>
+      <figure class="plate" data-path="images/daeyang/03.jpg">
+        <img src="images/daeyang/03.jpg" alt="Electroless plating setup">
+        <figcaption><span class="pn">Plate 03</span>Electroless plating, done at the coin stage. Bath condition and how the coin is held decide whether the coating lands evenly across a surface that will later be cut into many legs.</figcaption>
+      </figure>
+      <figure class="plate" data-path="images/daeyang/04.jpg">
+        <img src="images/daeyang/04.jpg" alt="Soldering leads to a thermoelectric generator">
+        <figcaption><span class="pn">Plate 04</span>Soldering copper leads to the electrodes of a finished thermoelectric generator.</figcaption>
+      </figure>
+      <figure class="plate" data-path="images/daeyang/05.jpg">
+        <img src="images/daeyang/05.jpg" alt="Screen showing electrical output measurements of a thermoelectric generator">
+        <figcaption><span class="pn">Plate 05</span>Characterization of a finished generator — Vmax and Imax measured across cooling setups, peak power calculated to compare trends.</figcaption>
+      </figure>
+      <figure class="plate" data-path="images/daeyang/06.jpg">
+        <img src="images/daeyang/06.jpg" alt="Digital microscopy inspection of a thermoelectric leg">
+        <figcaption><span class="pn">Plate 06</span>Digital microscopy on a diced leg: dimensional check, surface defects, and burr screening.</figcaption>
+      </figure>
+    </div>
+
+    
+  </section>
+
+  <!-- POLICE -->
+  <section class="sec" id="police">
+    <div class="sec-top">
+      <div>
+        <div class="id">Layer 01</div>
+        <h2>Republic of Korea Auxiliary Police</h2>
+        <div class="role">Sergeant · Mandatory national service</div>
+      </div>
+      <div class="when"><b>2019.11 — 2021.05</b><br>18 months<br>South Korea</div>
+    </div>
+
+    <div class="narr">
+      <div>
+        <p>Military service is compulsory in South Korea. I served mine in the auxiliary police and finished as a <strong>sergeant leading a 12-officer squad</strong>.</p>
+        <p>Most of the work was perimeter control at high-priority government sites during civil disturbance response — long hours holding a line, where the job is to keep a situation from escalating rather than to act. We also ran on-scene control at emergency incidents, including fire scenes and chemical incident drills, and carried out search operations. I received an official commendation for locating missing individuals.</p>
+        <p>What it left me with is narrower than it sounds. A procedure written in advance is worth very little; a squad that has rehearsed one is worth a great deal. That distinction is most of what I think about when I read a process document now.</p>
+      </div>
+      <aside class="side">
+        <div><b>Rank</b>Sergeant</div>
+        <div><b>Squad</b>12 officers</div>
+        <div><b>Duties</b>Perimeter control · emergency response · search operations</div>
+        <div><b>Recognition</b>Official commendation</div>
+      </aside>
+    </div>
+
+    <div class="plates">
+      <figure class="plate" data-path="images/police/01.jpg">
+        <img src="images/police/01.jpg" alt="Perimeter control during civil disturbance response">
+        <figcaption><span class="pn">Plate 01</span>Perimeter control during civil disturbance response.</figcaption>
+      </figure>
+      <figure class="plate" data-path="images/police/02.jpg">
+        <img src="images/police/02.jpg" alt="Perimeter control during civil disturbance response">
+        <figcaption><span class="pn">Plate 02</span>Holding a line. Most of the shift is standing still and staying alert.</figcaption>
+      </figure>
+      <figure class="plate" data-path="images/police/03.jpg">
+        <img src="images/police/03.jpg" alt="On-scene control at a fire incident">
+        <figcaption><span class="pn">Plate 03</span>On-scene control at a fire incident.</figcaption>
+      </figure>
+      <figure class="plate" data-path="images/police/04.jpg">
+        <img src="images/police/04.jpg" alt="With members of the squad">
+        <figcaption><span class="pn">Plate 04</span>Part of the squad. Eighteen months of the same twelve people.</figcaption>
+      </figure>
+    </div>
+
+    <span class="todo">사진 2·3번의 캡션 문장은 제가 사진을 보지 못한 상태에서 쓴 것입니다. 실제 장면과 맞는지 확인해 주세요. 또한 대원들 얼굴이 식별되는 사진은 당사자 동의 여부를 한 번 생각해 보시길 권합니다. 필요하면 얼굴이 크게 나오지 않는 컷으로 교체하는 편이 안전합니다.</span>
+  </section>
+
+  <!-- MADISON -->
+  <section class="sec" id="madison">
+    <div class="sec-top">
+      <div>
+        <div class="id">Layer 00 · substrate</div>
+        <h2>University of Wisconsin–Madison</h2>
+        <div class="role">Custodial Services · Summer</div>
+      </div>
+      <div class="when"><b>2023.05 — 2023.07</b><br>3 months<br>Madison, WI</div>
+    </div>
+
+    <div class="narr">
+      <div>
+        <p>The summer after my first year I worked custodial services on campus, cleaning and resetting residence hall rooms through <strong>move-out turnover</strong> — the window where an entire building has to be emptied, cleaned, and made ready before summer occupants arrive.</p>
+        <p>It was assigned buildings, a fixed daily schedule, and a crew. I include it because it is the plainest evidence I have of something employers actually care about: I have done repetitive physical work to a standard, on a deadline, with other people depending on my share of it.</p>
+      </div>
+      <aside class="side">
+        <div><b>Scope</b>Residence hall summer turnover</div>
+        <div><b>Mode</b>Fixed daily schedule · assigned buildings</div>
+        <div><b>Team</b>Crew-based</div>
+      </aside>
+    </div>
+
+    <div class="plates">
+      <figure class="plate" data-path="images/madison/01.jpg">
+        <img src="images/madison/01.jpg" alt="Residence hall room during summer turnover">
+        <figcaption><span class="pn">Plate 01</span>A room mid-turnover, after move-out.</figcaption>
+      </figure>
+      <figure class="plate" data-path="images/madison/02.jpg">
+        <img src="images/madison/02.jpg" alt="Residence hall room during summer turnover">
+        <figcaption><span class="pn">Plate 02</span>[ 캡션 확인 ]</figcaption>
+      </figure>
+      <figure class="plate" data-path="images/madison/03.jpg">
+        <img src="images/madison/03.jpg" alt="With the summer crew">
+        <figcaption><span class="pn">Plate 03</span>The crew.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <a href="index.html">← index</a>
+    <a href="research.html">research →</a>
+    <a href="mailto:cychung@umich.edu">cychung@umich.edu</a>
+    <span class="stamp">JC / 2026</span>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('tg');
+  if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){
+    root.setAttribute('data-theme','dark'); btn.textContent='Light';
+  }
+  btn.addEventListener('click',function(){
+    var d=root.getAttribute('data-theme')==='dark';
+    root.setAttribute('data-theme',d?'light':'dark');
+    btn.textContent=d?'Dark':'Light';
+  });
+  document.querySelectorAll('.plate img').forEach(function(img){
+    img.addEventListener('error',function(){img.closest('.plate').classList.add('empty')});
+    if(img.complete&&img.naturalWidth===0){img.closest('.plate').classList.add('empty')}
+  });
+})();
+</script>
+</body>
+</html>

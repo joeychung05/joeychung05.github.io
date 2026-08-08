@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About · Joey Chung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E7E9E8;--paper-2:#F2F3F2;--ink:#171B21;--muted:#5F6872;
+  --line:rgba(23,27,33,.16);--line-soft:rgba(23,27,33,.08);
+  --gold:#8A6414;--violet:#5A55A8;
+}
+[data-theme="dark"]{
+  --paper:#14181C;--paper-2:#1B2026;--ink:#E7E9E8;--muted:#8A939D;
+  --line:rgba(231,233,232,.18);--line-soft:rgba(231,233,232,.09);
+  --gold:#D9A63E;--violet:#8E88DD;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;transition:background .35s,color .35s;
+}
+a{color:inherit}
+
+.bar{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;align-items:center;gap:24px;
+  padding:13px 28px;background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line-soft);
+}
+.bar-id{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.bar-id a{color:var(--ink);font-weight:600;text-decoration:none}
+.bar-nav{display:flex;gap:18px;margin-left:auto}
+.bar-nav a{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-decoration:none;color:var(--muted);transition:color .2s}
+.bar-nav a:hover,.bar-nav a[aria-current]{color:var(--gold)}
+.toggle{
+  font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  background:none;border:1px solid var(--line);color:var(--muted);padding:5px 11px;cursor:pointer;
+}
+.toggle:hover{color:var(--ink);border-color:var(--ink)}
+.toggle:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.shell{max-width:940px;margin:0 auto;padding:112px 28px 72px}
+
+h1.page{font-weight:700;font-size:clamp(40px,6.6vw,68px);letter-spacing:-.045em;line-height:1;margin:0 0 10px}
+h1.page .dot{color:var(--gold)}
+.sub{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:72px}
+
+.sec{margin-bottom:72px}
+.sec-head{display:flex;align-items:baseline;gap:14px;padding-bottom:10px;margin-bottom:28px;border-bottom:1px solid var(--line)}
+.sec-head h2{font-size:21px;font-weight:600;letter-spacing:-.02em;margin:0}
+.sec-head .tag{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
+.prose p{font-family:"IBM Plex Serif",Georgia,serif;font-size:17px;line-height:1.72;max-width:66ch;margin:0 0 22px}
+.prose strong{font-family:"IBM Plex Sans",sans-serif;font-weight:600}
+
+.edu{display:grid;grid-template-columns:160px 1fr;gap:20px;padding:20px 0;border-bottom:1px solid var(--line-soft)}
+.edu .when{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;color:var(--muted);padding-top:4px;line-height:1.9}
+.edu .when .gpa{color:var(--gold)}
+.edu .what b{display:block;font-size:16.5px;font-weight:600}
+.edu .what .deg{font-size:14px;color:var(--muted);margin-bottom:8px}
+.edu .what .act{font-size:13.5px;color:var(--muted)}
+.edu .what .act i{font-style:normal;color:var(--ink)}
+.status{
+  margin-top:20px;font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.04em;
+  border-left:2px solid var(--gold);padding:6px 0 6px 14px;color:var(--muted);
+}
+.status b{color:var(--ink);font-weight:500}
+
+.skillrow{display:grid;grid-template-columns:160px 1fr;gap:20px;padding:15px 0;border-bottom:1px solid var(--line-soft)}
+.skillrow .cat{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding-top:5px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{font-family:"IBM Plex Mono",monospace;font-size:11.5px;border:1px solid var(--line);padding:4px 10px;transition:border-color .2s,color .2s}
+.chip:hover{border-color:var(--gold);color:var(--gold)}
+.skillrow .cat .qual{font-size:9.5px;letter-spacing:.1em;opacity:.7;text-transform:none}
+
+.job{display:grid;grid-template-columns:160px 1fr;gap:20px;padding:30px 0;border-bottom:1px solid var(--line-soft)}
+.job .rail{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.06em;color:var(--muted);line-height:1.85;padding-top:5px}
+.job .rail .id{color:var(--gold);display:block;margin-bottom:6px}
+.job h3{font-size:17.5px;font-weight:600;margin:0 0 3px;letter-spacing:-.015em}
+.job .role{font-size:14px;color:var(--muted);margin-bottom:14px}
+.job ul{margin:0;padding-left:17px}
+.job li{font-size:15px;line-height:1.62;margin-bottom:9px;max-width:64ch}
+.job li b{font-weight:600}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tags span{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:2px}
+
+.todo{
+  display:block;font-family:"IBM Plex Mono",monospace;font-size:12px;line-height:1.65;
+  border:1px dashed var(--gold);color:var(--gold);padding:11px 14px;margin:14px 0;max-width:64ch;
+}
+.todo::before{content:"⌁ "}
+
+.foot{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:24px;
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.06em}
+.foot a{color:var(--muted);text-decoration:none}
+.foot a:hover{color:var(--gold)}
+.foot .stamp{margin-left:auto;color:var(--line);letter-spacing:.14em}
+
+@media (max-width:760px){
+  .edu,.skillrow,.job{grid-template-columns:1fr;gap:8px}
+  .bar-nav{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-id"><a href="index.html">Joey Chung</a> / about</div>
+  <nav class="bar-nav">
+    <a href="about.html" aria-current="page">about</a>
+    <a href="experience.html">experience</a>
+    <a href="research.html">research</a>
+    <a href="off-hours.html">off-hours</a>
+    <a href="contact.html">contact</a>
+  </nav>
+  <button class="toggle" id="tg">Dark</button>
+</div>
+
+<main class="shell">
+  <h1 class="page">About<span class="dot">.</span></h1>
+  <div class="sub">Who's behind the stack</div>
+
+  <section class="sec">
+    <div class="sec-head"><h2>A few paragraphs.</h2><span class="tag">narrative</span></div>
+    <div class="prose">
+      <p>I'm a <strong>Chemistry</strong> undergraduate at the University of Michigan, headed toward process and materials work in semiconductor manufacturing. Almost everything I've done sits at a surface — cleaning and plating thermoelectric coins, soldering leads onto finished modules, measuring how thick a film actually came out. A process only counts once it gives the same result twice.</p>
+
+      <p>I didn't start in chemistry. I started in <strong>Food Science at UW–Madison</strong>, where the first two years were general science anyway: organic and general chemistry, physics, biology. Then I spent nine months at <strong>DAEYANG Co., Ltd.</strong> on thermoelectric module production, and what held my attention wasn't the module. It was <strong>the interface</strong> — the few microns where a module has to sit against its heat source, where a surface is either clean enough to plate or it isn't. Whole devices succeed or fail inside that gap. I already had the chemistry behind me, so I transferred to Michigan for the broader degree that would let me work there.</p>
+
+      <p>That factory floor also taught me how failure travels. An inconsistent cleaning step doesn't announce itself; it shows up as a dead module weeks later. I proposed a <strong>titanium holding jig</strong> to close one of those failure modes and drew the specifications for it. The build was deferred against module priorities, but the habit of tracing a defect back to the step that caused it stayed.</p>
+
+      <p>Before any of it: <strong>18 months as an auxiliary police sergeant</strong> in mandatory national service in South Korea, leading a 12-person squad through perimeter control and emergency response. It taught me what a procedure is actually for, which is the moment conditions change faster than the plan.</p>
+
+      <p>Now I'm in the <strong>Maldonado Group</strong> at Michigan on thin film metrology — measuring layer thickness and reading formation patterns by AFM and ellipsometry, with ALD training underway. Same interface, better instruments.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head"><h2>Background.</h2><span class="tag">education</span></div>
+
+    <div class="edu">
+      <div class="when">2025.08 — 2027.05<br><span class="gpa">GPA 3.99 / 4.00</span><br>32 credits</div>
+      <div class="what">
+        <b>University of Michigan, Ann Arbor</b>
+        <div class="deg">B.S. Chemistry · Class of 2027</div>
+        <div class="act">Activities — <i>Michigan Rifle Team</i>, <i>American Chemical Society (ACS), U-M chapter</i></div>
+      </div>
+    </div>
+
+    <div class="edu">
+      <div class="when">2022.08 — 2024.05<br><span class="gpa">GPA 3.96 / 4.00</span><br>75 credits</div>
+      <div class="what">
+        <b>University of Wisconsin–Madison</b>
+        <div class="deg">B.S. Food Science</div>
+        <div class="act">Activities — <i>UW–Madison Food Science Club</i></div>
+      </div>
+    </div>
+
+    <div class="status">
+      <b>F-1 student</b>, eligible for CPT and OPT. Available for US internships and open to relocating.
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head"><h2>Skills.</h2><span class="tag">inventory</span></div>
+
+    <div class="skillrow">
+      <div class="cat">deposition</div>
+      <div class="chips">
+        <span class="chip">Atomic Layer Deposition</span>
+        <span class="chip">Electroless plating</span>
+      </div>
+    </div>
+    <div class="skillrow">
+      <div class="cat">surface metrology</div>
+      <div class="chips">
+        <span class="chip">Ellipsometry</span>
+        <span class="chip">AFM</span>
+        <span class="chip">Digital microscopy</span>
+      </div>
+    </div>
+    <div class="skillrow">
+      <div class="cat">analytical<br><span class="qual">coursework</span></div>
+      <div class="chips">
+        <span class="chip">NMR</span>
+        <span class="chip">IR</span>
+        <span class="chip">GC-MS</span>
+      </div>
+    </div>
+    <div class="skillrow">
+      <div class="cat">device &amp; assembly</div>
+      <div class="chips">
+        <span class="chip">SMT solder paste prep</span>
+        <span class="chip">Reflow</span>
+        <span class="chip">Hand soldering</span>
+        <span class="chip">Thermal interface materials</span>
+        <span class="chip">I–V characterization</span>
+        <span class="chip">Resistance measurement</span>
+        <span class="chip">Sonication / IPA clean</span>
+      </div>
+    </div>
+    <div class="skillrow">
+      <div class="cat">data &amp; reporting</div>
+      <div class="chips">
+        <span class="chip">Excel — measurement tables, plots</span>
+        <span class="chip">Technical drawings &amp; specs</span>
+      </div>
+    </div>
+    <div class="skillrow">
+      <div class="cat">language</div>
+      <div class="chips">
+        <span class="chip">Korean — native</span>
+        <span class="chip">English — fluent</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head"><h2>Experience.</h2><span class="tag">deposition log</span></div>
+
+    <div class="job">
+      <div class="rail"><span class="id">L03</span>2026.04 — present<br>Ann Arbor, MI</div>
+      <div>
+        <h3>Maldonado Group, University of Michigan</h3>
+        <div class="role">Undergraduate Research Assistant</div>
+        <ul>
+          <li>Measuring <b>layer thickness</b> and reading <b>layer formation patterns</b> on sample sets by AFM and ellipsometry.</li>
+          <li>Recording instrument conditions, baselines, and results for group review.</li>
+          <li>Training on <b>atomic layer deposition</b>; instrument work in progress.</li>
+        </ul>
+        <div class="tags"><span>AFM</span><span>Ellipsometry</span><span>ALD</span><span>Thin films</span></div>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="rail"><span class="id">L02</span>2024.09 — 2025.05<br>Daegu, South Korea</div>
+      <div>
+        <h3>DAEYANG Co., Ltd.</h3>
+        <div class="role">Research Assistant · Thermoelectric R&amp;D</div>
+        <ul>
+          <li>Cleaned coins and diced legs by <b>IPA and sonication</b> at both stages of the line, and managed <b>electroless bath pH</b> through plating runs, documenting each run so batches could be traced.</li>
+          <li>Designed a custom <b>titanium holding jig</b> to secure coins through the electroless plating bath, producing technical drawings and specifications; build deferred against module priorities.</li>
+          <li>Soldered positive and negative copper leads to module electrodes after reflow and applied thermal interface materials during assembly.</li>
+          <li>Prepared <b>solder paste for SMT production runs</b>, handling post-run cleanup and waste disposal.</li>
+          <li>Characterized finished generators — measured <b>Vmax and Imax</b> across cooling setups, calculated peak power, and measured module resistance.</li>
+          <li>Inspected diced legs by digital microscopy (dimensional checks, surface defects, burr screening) and reported results in Excel tables and plots to senior researchers.</li>
+        </ul>
+        <div class="tags"><span>Thermoelectrics</span><span>Electroless plating</span><span>SMT</span><span>Metrology</span><span>Production support</span></div>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="rail"><span class="id">L01</span>2019.11 — 2021.05<br>South Korea</div>
+      <div>
+        <h3>Republic of Korea Auxiliary Police</h3>
+        <div class="role">Sergeant · Mandatory national service</div>
+        <ul>
+          <li>Led a <b>12-officer squad</b> on perimeter control at high-priority government sites during civil disturbance response.</li>
+          <li>Carried out on-scene control procedures during emergency response, including chemical incident drills and fire scenes.</li>
+          <li>Conducted search operations and located missing individuals; received official commendation.</li>
+        </ul>
+        <div class="tags"><span>Team leadership</span><span>Emergency response</span><span>Safety procedure</span></div>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="rail"><span class="id">—</span>2023.05 — 2023.07<br>Madison, WI</div>
+      <div>
+        <h3>University of Wisconsin–Madison</h3>
+        <div class="role">Custodial Services · Summer</div>
+        <ul>
+          <li>Cleaned and reset residence hall rooms through <b>summer move-out turnover</b>, working assigned buildings on a fixed daily schedule.</li>
+          <li>Worked as part of a crew to keep buildings ready for incoming summer occupants on deadline.</li>
+        </ul>
+        <div class="tags"><span>Physical work</span><span>Schedule discipline</span><span>Crew coordination</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <a href="index.html">← index</a>
+    <a href="mailto:cychung@umich.edu">cychung@umich.edu</a>
+    <a href="http://www.linkedin.com/in/joey-chung-793b6a240">linkedin</a>
+    <span class="stamp">JC / 2026</span>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('tg');
+  if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){
+    root.setAttribute('data-theme','dark'); btn.textContent='Light';
+  }
+  btn.addEventListener('click',function(){
+    var d=root.getAttribute('data-theme')==='dark';
+    root.setAttribute('data-theme',d?'light':'dark');
+    btn.textContent=d?'Dark':'Light';
+  });
+})();
+</script>
+</body>
+</html>

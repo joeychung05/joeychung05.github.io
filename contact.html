@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact · Joey Chung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E7E9E8;--paper-2:#F2F3F2;--ink:#171B21;--muted:#5F6872;
+  --line:rgba(23,27,33,.16);--line-soft:rgba(23,27,33,.08);
+  --gold:#8A6414;--violet:#5A55A8;
+}
+[data-theme="dark"]{
+  --paper:#14181C;--paper-2:#1B2026;--ink:#E7E9E8;--muted:#8A939D;
+  --line:rgba(231,233,232,.18);--line-soft:rgba(231,233,232,.09);
+  --gold:#D9A63E;--violet:#8E88DD;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;
+  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;transition:background .35s,color .35s}
+a{color:inherit}
+
+.bar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;gap:24px;
+  padding:13px 28px;background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line-soft)}
+.bar-id{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.bar-id a{color:var(--ink);font-weight:600;text-decoration:none}
+.bar-nav{display:flex;gap:18px;margin-left:auto}
+.bar-nav a{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-decoration:none;color:var(--muted);transition:color .2s}
+.bar-nav a:hover,.bar-nav a[aria-current]{color:var(--gold)}
+.toggle{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  background:none;border:1px solid var(--line);color:var(--muted);padding:5px 11px;cursor:pointer}
+.toggle:hover{color:var(--ink);border-color:var(--ink)}
+.toggle:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.shell{max-width:940px;margin:0 auto;padding:112px 28px 72px}
+h1.page{font-weight:700;font-size:clamp(40px,6.6vw,68px);letter-spacing:-.045em;line-height:1;margin:0 0 10px}
+h1.page .dot{color:var(--gold)}
+.sub{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:26px}
+.intro{font-family:"IBM Plex Serif",Georgia,serif;font-size:17px;line-height:1.7;max-width:58ch;margin:0 0 54px}
+
+/* primary line */
+.primary{border-top:2px solid var(--ink);border-bottom:1px solid var(--line);padding:30px 0 34px;margin-bottom:54px}
+.primary .lbl{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.mail{display:inline-block;font-weight:600;letter-spacing:-.035em;
+  font-size:clamp(24px,4.6vw,44px);text-decoration:none;line-height:1.1;
+  border-bottom:2px solid var(--line);transition:color .2s,border-color .2s}
+.mail:hover{color:var(--gold);border-color:var(--gold)}
+.mail:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+.primary .note{font-size:14px;color:var(--muted);margin-top:14px}
+
+/* channels */
+.sec{margin-bottom:60px}
+.sec-head{display:flex;align-items:baseline;gap:14px;padding-bottom:10px;margin-bottom:8px;border-bottom:1px solid var(--line)}
+.sec-head h2{font-size:20px;font-weight:600;letter-spacing:-.02em;margin:0}
+.sec-head .tag{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
+.rowline{display:grid;grid-template-columns:150px 1fr auto;gap:20px;padding:15px 0;
+  border-bottom:1px solid var(--line-soft);align-items:baseline}
+.rowline .k{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted)}
+.rowline .v{font-size:15.5px;font-weight:500}
+.rowline .v span{display:block;font-size:13.5px;color:var(--muted);font-weight:400;margin-top:2px}
+.rowline .v a{text-decoration:none;border-bottom:1px solid var(--line)}
+.rowline .v a:hover{color:var(--gold);border-color:var(--gold)}
+.rowline .go{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted)}
+
+.todo{display:block;font-family:"IBM Plex Mono",monospace;font-size:12px;line-height:1.65;
+  border:1px dashed var(--gold);color:var(--gold);padding:11px 14px;margin:20px 0 0;max-width:66ch}
+.todo::before{content:"⌁ "}
+
+.closing{font-family:"IBM Plex Serif",Georgia,serif;font-size:16.5px;line-height:1.7;
+  color:var(--muted);max-width:56ch;border-left:2px solid var(--gold);padding-left:18px;margin:0 0 20px}
+
+.foot{margin-top:60px;padding-top:18px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:24px;
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.06em}
+.foot a{color:var(--muted);text-decoration:none}
+.foot a:hover{color:var(--gold)}
+.foot .stamp{margin-left:auto;color:var(--line);letter-spacing:.14em}
+
+@media (max-width:760px){
+  .bar-nav{display:none}
+  .rowline{grid-template-columns:1fr;gap:5px}
+  .rowline .go{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-id"><a href="index.html">Joey Chung</a> / contact</div>
+  <nav class="bar-nav">
+    <a href="about.html">about</a>
+    <a href="experience.html">experience</a>
+    <a href="research.html">research</a>
+    <a href="off-hours.html">off-hours</a>
+    <a href="contact.html" aria-current="page">contact</a>
+  </nav>
+  <button class="toggle" id="tg">Dark</button>
+</div>
+
+<main class="shell">
+  <h1 class="page">Contact<span class="dot">.</span></h1>
+  <div class="sub">// next layer</div>
+  <p class="intro">Email is the reliable channel. If you're hiring for process, materials, or metrology work and something here fits, write to me directly — I'd rather answer a specific question than a general one.</p>
+
+  <div class="primary">
+    <div class="lbl">Direct</div>
+    <a class="mail" href="mailto:cychung@umich.edu">cychung@umich.edu</a>
+    <div class="note">I reply within a day.</div>
+  </div>
+
+  <section class="sec">
+    <div class="sec-head"><h2>Channels.</h2><span class="tag">where to find me</span></div>
+
+    <div class="rowline">
+      <div class="k">Email</div>
+      <div class="v"><a href="mailto:cychung@umich.edu">cychung@umich.edu</a><span>University of Michigan</span></div>
+      <div class="go">↗</div>
+    </div>
+    <div class="rowline">
+      <div class="k">LinkedIn</div>
+      <div class="v"><a href="http://www.linkedin.com/in/joey-chung-793b6a240">joey-chung</a><span>Full work history and recommendations</span></div>
+      <div class="go">↗</div>
+    </div>
+    <div class="rowline">
+      <div class="k">Phone</div>
+      <div class="v"><a href="tel:+17345832590">+1 734 583 2590</a><span>Call or text · Eastern Time</span></div>
+      <div class="go">↗</div>
+    </div>
+    <div class="rowline">
+      <div class="k">Resume</div>
+      <div class="v"><a href="resume/joey-chung-resume.pdf">joey-chung-resume.pdf</a><span>One page, PDF</span></div>
+      <div class="go">↓</div>
+    </div>
+    <div class="rowline">
+      <div class="k">Based in</div>
+      <div class="v">Ann Arbor, Michigan<span>Eastern Time · open to relocating</span></div>
+      <div class="go"></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head"><h2>What I'm looking for.</h2><span class="tag">so you don't have to ask</span></div>
+
+    <div class="rowline">
+      <div class="k">Role</div>
+      <div class="v">Process, materials, or metrology<span>Semiconductor, thin film, and manufacturing</span></div>
+      <div class="go"></div>
+    </div>
+    <div class="rowline">
+      <div class="k">Now — May 2027</div>
+      <div class="v">Co-op or part-time research<span>Alongside coursework in Ann Arbor, CPT eligible</span></div>
+      <div class="go"></div>
+    </div>
+    <div class="rowline">
+      <div class="k">From May 2027</div>
+      <div class="v">Full-time<span>Available to start immediately after graduation, OPT eligible</span></div>
+      <div class="go"></div>
+    </div>
+    <div class="rowline">
+      <div class="k">Location</div>
+      <div class="v">Anywhere in the US<span>Willing to relocate; no geographic preference</span></div>
+      <div class="go"></div>
+    </div>
+    <div class="rowline">
+      <div class="k">Authorization</div>
+      <div class="v">F-1 student<span>Eligible for CPT and OPT</span></div>
+      <div class="go"></div>
+    </div>
+    <div class="rowline">
+      <div class="k">Graduating</div>
+      <div class="v">May 2027<span>B.S. Chemistry, University of Michigan</span></div>
+      <div class="go"></div>
+    </div>
+  </section>
+
+  <p class="closing">If you got here from the deposition log — the top layer is still growing, and the next one is up to whoever writes back.</p>
+
+  <footer class="foot">
+    <a href="index.html">← index</a>
+    <a href="about.html">about</a>
+    <a href="experience.html">experience</a>
+    <a href="research.html">research</a>
+    <span class="stamp">JC / 2026</span>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('tg');
+  if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){
+    root.setAttribute('data-theme','dark'); btn.textContent='Light';
+  }
+  btn.addEventListener('click',function(){
+    var d=root.getAttribute('data-theme')==='dark';
+    root.setAttribute('data-theme',d?'light':'dark');
+    btn.textContent=d?'Dark':'Light';
+  });
+})();
+</script>
+</body>
+</html>
