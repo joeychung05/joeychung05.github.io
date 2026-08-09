@@ -67,10 +67,9 @@ h1.page .dot{color:var(--gold)}
   font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.05em;color:var(--muted)}
 .side div b{display:block;color:var(--ink);font-weight:500;font-size:12px;margin-bottom:1px}
 
-/* plates */
 /* process chain */
 .chain{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;margin-bottom:16px}
-.step{position:relative;border:1px solid var(--line);padding:9px 13px;min-width:96px;
+.step{position:relative;border:1px solid var(--line);padding:9px 13px;min-width:92px;
   font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;color:var(--muted);
   display:flex;flex-direction:column;justify-content:center}
 .step b{display:block;font-size:11.5px;color:var(--ink);font-weight:500;letter-spacing:.02em}
@@ -84,6 +83,7 @@ h1.page .dot{color:var(--gold)}
 .chain-key i{display:inline-block;width:22px;height:9px;border:1px solid var(--gold);
   background:color-mix(in srgb,var(--gold) 8%,transparent)}
 
+/* plates */
 .plates{display:grid;grid-template-columns:repeat(2,1fr);gap:26px 20px;align-items:start}
 .plate{margin:0}
 .plate img{width:100%;height:auto;display:block;border:1px solid var(--line)}
@@ -95,10 +95,6 @@ h1.page .dot{color:var(--gold)}
   text-align:center;aspect-ratio:4/3;border:1px dashed var(--gold);color:var(--gold);
   font-family:"IBM Plex Mono",monospace;font-size:11px;line-height:1.6;padding:12px;
   background:color-mix(in srgb,var(--gold) 5%,transparent)}
-
-.todo{display:block;font-family:"IBM Plex Mono",monospace;font-size:12px;line-height:1.65;
-  border:1px dashed var(--gold);color:var(--gold);padding:11px 14px;margin:26px 0 0;max-width:66ch}
-.todo::before{content:"⌁ "}
 
 .foot{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:24px;
   font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.06em}
@@ -154,47 +150,56 @@ h1.page .dot{color:var(--gold)}
 
     <div class="narr">
       <div>
-        <p>DAEYANG builds thermoelectric modules and generators. I joined the R&amp;D side and ended up working across most of the line, which turned out to be the useful way to see it. A defect at the cleaning bench doesn't look like anything at the cleaning bench. It looks like a module that reads wrong three weeks later.</p>
-        <p>The line runs like this. A sintered thermoelectric pellet — a thick cylinder — is cut down into <strong>coins</strong>. The coins go through <strong>electroless plating</strong>. Plated coins are then <strong>diced</strong> into individual <strong>legs</strong>, each one close to a cube, which are loaded into trays and carried into <strong>SMT</strong> assembly to become a module. Cutting and dicing run on dedicated equipment handled by the engineer responsible for it; I worked the steps on either side.</p>
-        <p><strong>Cleaning happens twice.</strong> Coins get IPA and sonication cleaning once they're cut, and legs get the same treatment again after dicing — the identical procedure at two stages, because contamination introduced at either one ends up sealed underneath something. During plating I loaded coins into trays, immersed them in the <strong>electroless bath, and managed bath pH</strong> through the run, documenting each one so a bad batch could be traced rather than guessed at.</p>
-        <p>One recurring problem was how coins were held through the plating bath. I designed a custom <strong>titanium holding jig</strong> to secure them and produced the technical drawings and specifications for it. The build was deferred against module production priorities, so I can't claim a finished part — but the exercise of specifying a fixture against a specific failure mode is the part I kept.</p>
-        <p>Downstream I worked on assembly and test: preparing <strong>solder paste for SMT production runs</strong>, soldering positive and negative copper leads to module electrodes after reflow, and applying thermal interface materials. Then measuring what came out — I characterized finished generators across cooling setups for <strong>Vmax and Imax</strong>, calculated peak power to compare trends, and measured module resistance. Diced legs went under digital microscopy for dimensional checks, surface defects, and burr screening, with results reported in Excel tables and plots to senior researchers.</p>
+        <p>DAEYANG is a corporate R&amp;D institute developing thermoelectric materials and modules for energy and environmental applications. I worked across most of the line, which turned out to be the useful way to see it: a wedge that plates unevenly looks like nothing at the bath, and like a module that reads wrong three weeks later.</p>
+        <p>The line runs like this. Bi, Te, and Sb feedstock is ground to size, mixed by <strong>ball milling</strong>, and consolidated under heat and pressure into a thick cylindrical <strong>pellet</strong>. The pellet is sliced perpendicular to its axis into <strong>coins</strong>, and each coin is cut again into quarters or eighths — <strong>sector wedges</strong>. The wedges are cleaned, <strong>plated</strong>, then <strong>diced</strong> into cubes and cleaned again. Only at that point are they <strong>legs</strong>, ready for SMT assembly.</p>
+        <p>My main stretch was the plating bath: <strong>medium-phosphorus (6–8% P) electroless nickel on bismuth telluride</strong>. I handled <strong>IPA cleaning</strong> before and after, <strong>pH monitoring and solution adjustment</strong> through each run, and the handling of samples secured in process fixtures. Deposition rate and coating uniformity both track bath condition, so a drifting bath doesn't fail loudly — it leaves a coating that isn't the same thickness everywhere, on a wedge that will be cut into many legs. One uneven wedge is not one bad part; it is every leg that comes out of it.</p>
+        <p>How the wedges were held through the bath was the related problem. I proposed and designed a custom <strong>titanium holding jig</strong> to improve plating stability, producing the drawings and specifications. Implementation was deferred against production priorities, so I can't claim a finished part — but specifying a fixture against a named failure mode is the part I kept.</p>
+        <p>After dicing I ran <strong>dimensional inspection and defect classification</strong> on the legs: measuring critical dimensions against design tolerances under digital microscopy, and sorting what I found into defect types — machining error, burring, asymmetry — so the pattern rather than the individual reject was what got reported. This work was done in collaboration with the <strong>Korea Electrotechnology Research Institute (KERI)</strong>.</p>
+        <p>On the assembly side I supported senior engineers building <strong>8×8 modules, 128 legs each</strong>: preparing solder paste, setting up substrate mounting frames, loading substrates for automated paste printing and leg placement, and soldering copper lead wires to electrodes after reflow. I sourced lead-free, high-temperature paste from suppliers. Weekly output ran <strong>20 to 30 modules, scaling past 50</strong> during government R&amp;D cycles.</p>
+        <p>At the end of the line I ran <strong>final electrical inspection</strong> — resistance and voltage against spec ranges, documented in Excel for traceability, nonconforming units flagged for retesting — and collected <strong>generator performance data</strong> under senior researcher guidance across five cooling configurations: forced and natural air, forced and natural water, and antifreeze-based.</p>
       </div>
       <aside class="side">
-        <div><b>Cleaning</b>IPA / sonication — coins and legs</div>
-        <div><b>Deposition</b>Electroless plating · bath pH control</div>
-        <div><b>Assembly</b>SMT paste prep · reflow · hand soldering · TIM</div>
-        <div><b>Test</b>Vmax / Imax · peak power · resistance</div>
-        <div><b>Inspection</b>Digital microscopy · burr screening</div>
-        <div><b>Design</b>Ti jig drawings &amp; specs</div>
+        <div><b>Deposition</b>Electroless Ni, 6–8% P, on Bi₂Te₃</div>
+        <div><b>Solution</b>pH monitoring &amp; adjustment · IPA clean</div>
+        <div><b>Design</b>Ti holding jig — drawings &amp; specs</div>
+        <div><b>Inspection</b>Dimensional vs tolerance · defect classification</div>
+        <div><b>Collaboration</b>KERI</div>
+        <div><b>Assembly</b>8×8 modules · 128 legs · SMT support</div>
+        <div><b>Throughput</b>20–30 modules / wk, 50+ peak</div>
+        <div><b>Test</b>Resistance · voltage · cooling configurations</div>
       </aside>
     </div>
 
     <div class="chain">
-      <div class="step">01<b>Sintered pellet</b></div>
-      <div class="step">02<b>Coin cut</b></div>
-      <div class="step mine">03<b>Clean — coins</b></div>
-      <div class="step mine">04<b>Plating + pH</b></div>
-      <div class="step">05<b>Dicing → legs</b></div>
-      <div class="step mine">06<b>Clean — legs</b></div>
-      <div class="step mine">07<b>Leg inspection</b></div>
-      <div class="step mine">08<b>SMT → module</b></div>
-      <div class="step mine">09<b>Characterization</b></div>
+      <div class="step">01<b>Grind · ball mill</b></div>
+      <div class="step">02<b>Sinter → pellet</b></div>
+      <div class="step">03<b>Coin · sector cut</b></div>
+      <div class="step mine">04<b>Clean — IPA</b></div>
+      <div class="step mine">05<b>Electroless Ni + pH</b></div>
+      <div class="step">06<b>Dice → legs</b></div>
+      <div class="step mine">07<b>Clean — IPA</b></div>
+      <div class="step mine">08<b>Leg inspection</b></div>
+      <div class="step mine">09<b>Solder printing</b></div>
+      <div class="step mine">10<b>Leg mounting</b></div>
+      <div class="step">11<b>Covering · reflow</b></div>
+      <div class="step mine">12<b>Wiring</b></div>
+      <div class="step mine">13<b>Final QC</b></div>
+      <div class="step">14<b>Packaging</b></div>
     </div>
-    <div class="chain-key"><i></i> steps I worked on · 02 and 05 run on dedicated equipment by the responsible engineer</div>
+    <div class="chain-key"><i></i> steps I worked on · 09 and 10 in support of senior engineers · 03 and 06 run on dedicated equipment by the responsible engineer</div>
 
     <div class="plates">
       <figure class="plate" data-path="images/daeyang/01.jpg">
         <img src="images/daeyang/01.jpg" alt="Inspecting a p-type thermoelectric leg held in tweezers">
         <figcaption><span class="pn">Plate 01</span>A p-type leg under inspection, after dicing. By this stage the plating is already committed — anything wrong underneath it stays wrong.</figcaption>
       </figure>
-      <figure class="plate" data-path="images/daeyang/02.jpg">
-        <img src="images/daeyang/02.jpg" alt="Technical drawing of the custom titanium holding jig">
+      <figure class="plate" data-path="images/daeyang/02.png">
+        <img src="images/daeyang/02.png" alt="Technical drawing of the custom titanium holding jig">
         <figcaption><span class="pn">Plate 02</span>Drawing for the custom titanium holding jig, specified to hold coins in position through the plating bath.</figcaption>
       </figure>
       <figure class="plate" data-path="images/daeyang/03.jpg">
         <img src="images/daeyang/03.jpg" alt="Electroless plating setup">
-        <figcaption><span class="pn">Plate 03</span>Electroless plating, done at the coin stage. Bath condition and how the coin is held decide whether the coating lands evenly across a surface that will later be cut into many legs.</figcaption>
+        <figcaption><span class="pn">Plate 03</span>Electroless nickel plating, done once the coins have been cut into sector wedges. Bath condition and how the wedge is held decide whether the coating lands evenly across a surface that will later be diced into many legs.</figcaption>
       </figure>
       <figure class="plate" data-path="images/daeyang/04.jpg">
         <img src="images/daeyang/04.jpg" alt="Soldering leads to a thermoelectric generator">
@@ -209,8 +214,6 @@ h1.page .dot{color:var(--gold)}
         <figcaption><span class="pn">Plate 06</span>Digital microscopy on a diced leg: dimensional check, surface defects, and burr screening.</figcaption>
       </figure>
     </div>
-
-    
   </section>
 
   <!-- POLICE -->
@@ -226,26 +229,28 @@ h1.page .dot{color:var(--gold)}
 
     <div class="narr">
       <div>
-        <p>Military service is compulsory in South Korea. I served mine in the auxiliary police and finished as a <strong>sergeant leading a 12-officer squad</strong>.</p>
-        <p>Most of the work was perimeter control at high-priority government sites during civil disturbance response — long hours holding a line, where the job is to keep a situation from escalating rather than to act. We also ran on-scene control at emergency incidents, including fire scenes and chemical incident drills, and carried out search operations. I received an official commendation for locating missing individuals.</p>
+        <p>Military service is compulsory in South Korea. I served mine in the auxiliary police in Pohang, under the Ministry of National Defense and the Korean National Police Agency, and finished as a <strong>sergeant</strong>.</p>
+        <p>For <strong>7 months of the 18</strong> I led a <strong>12-officer squad</strong> through high-pressure field deployments: protest response, and missing person searches across mountainous and coastal terrain. We located <strong>3 missing individuals</strong> and escorted them to safety, which earned an official commendation.</p>
+        <p>The rest was public safety work — managing police lines during civil disturbances, joint counterterrorism drills including <strong>chemical threat response procedures</strong>, driving support for personnel and equipment transport, and station access control while triaging civilian reports.</p>
         <p>What it left me with is narrower than it sounds. A procedure written in advance is worth very little; a squad that has rehearsed one is worth a great deal. That distinction is most of what I think about when I read a process document now.</p>
       </div>
       <aside class="side">
         <div><b>Rank</b>Sergeant</div>
-        <div><b>Squad</b>12 officers</div>
-        <div><b>Duties</b>Perimeter control · emergency response · search operations</div>
-        <div><b>Recognition</b>Official commendation</div>
+        <div><b>Squad lead</b>12 officers, 7 of 18 months</div>
+        <div><b>Deployments</b>Protest response · search &amp; rescue</div>
+        <div><b>Drills</b>Counterterrorism · chemical threat response</div>
+        <div><b>Recognition</b>Official commendation — 3 located</div>
       </aside>
     </div>
 
     <div class="plates">
       <figure class="plate" data-path="images/police/01.jpg">
         <img src="images/police/01.jpg" alt="Perimeter control during civil disturbance response">
-        <figcaption><span class="pn">Plate 01</span>Perimeter control during civil disturbance response.</figcaption>
+        <figcaption><span class="pn">Plate 01</span>Managing a police line during civil disturbance response.</figcaption>
       </figure>
       <figure class="plate" data-path="images/police/02.jpg">
         <img src="images/police/02.jpg" alt="Perimeter control during civil disturbance response">
-        <figcaption><span class="pn">Plate 02</span>Holding a line. Most of the shift is standing still and staying alert.</figcaption>
+        <figcaption><span class="pn">Plate 02</span>Holding position. Most of a deployment is standing still and staying alert.</figcaption>
       </figure>
       <figure class="plate" data-path="images/police/03.jpg">
         <img src="images/police/03.jpg" alt="On-scene control at a fire incident">
@@ -253,11 +258,9 @@ h1.page .dot{color:var(--gold)}
       </figure>
       <figure class="plate" data-path="images/police/04.jpg">
         <img src="images/police/04.jpg" alt="With members of the squad">
-        <figcaption><span class="pn">Plate 04</span>Part of the squad. Eighteen months of the same twelve people.</figcaption>
+        <figcaption><span class="pn">Plate 04</span>Part of the squad.</figcaption>
       </figure>
     </div>
-
-    
   </section>
 
   <!-- MADISON -->
@@ -289,8 +292,8 @@ h1.page .dot{color:var(--gold)}
         <figcaption><span class="pn">Plate 01</span>A room mid-turnover, after move-out.</figcaption>
       </figure>
       <figure class="plate" data-path="images/madison/02.jpg">
-        <img src="images/madison/02.jpg" alt="Residence hall room during summer turnover">
-        <figcaption><span class="pn">Plate 02</span>Sanitation work</figcaption>
+        <img src="images/madison/02.jpg" alt="Sanitation work during summer turnover">
+        <figcaption><span class="pn">Plate 02</span>Sanitation work.</figcaption>
       </figure>
       <figure class="plate" data-path="images/madison/03.jpg">
         <img src="images/madison/03.jpg" alt="With the summer crew">

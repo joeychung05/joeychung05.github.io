@@ -49,7 +49,20 @@ a{color:inherit}
 
 h1.page{font-weight:700;font-size:clamp(40px,6.6vw,68px);letter-spacing:-.045em;line-height:1;margin:0 0 10px}
 h1.page .dot{color:var(--gold)}
-.sub{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:72px}
+.sub{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0}
+.page-head{display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;margin-bottom:72px}
+.portrait{width:158px;height:158px;border-radius:50%;overflow:hidden;position:relative;
+  border:1px solid var(--line);box-shadow:0 0 0 6px color-mix(in srgb,var(--gold) 12%,transparent)}
+.portrait img{width:100%;height:100%;object-fit:cover;display:block}
+.portrait.empty img{display:none}
+.portrait.empty::before{content:attr(data-path);display:flex;align-items:center;justify-content:center;
+  text-align:center;width:100%;height:100%;border:1px dashed var(--gold);border-radius:50%;
+  color:var(--gold);font-family:"IBM Plex Mono",monospace;font-size:9.5px;line-height:1.5;padding:18px;
+  background:color-mix(in srgb,var(--gold) 5%,transparent)}
+.more{display:inline-block;margin-top:16px;font-family:"IBM Plex Mono",monospace;font-size:11px;
+  letter-spacing:.08em;text-decoration:none;color:var(--muted);border-bottom:1px solid var(--line);
+  padding-bottom:2px;transition:.2s}
+.more:hover{color:var(--gold);border-color:var(--gold)}
 
 .sec{margin-bottom:72px}
 .sec-head{display:flex;align-items:baseline;gap:14px;padding-bottom:10px;margin-bottom:28px;border-bottom:1px solid var(--line)}
@@ -103,6 +116,8 @@ h1.page .dot{color:var(--gold)}
 .foot .stamp{margin-left:auto;color:var(--line);letter-spacing:.14em}
 
 @media (max-width:760px){
+  .page-head{grid-template-columns:1fr;gap:22px}
+  .portrait{width:104px;height:104px;order:-1}
   .edu,.skillrow,.job{grid-template-columns:1fr;gap:8px}
   .bar-nav{display:none}
 }
@@ -124,21 +139,28 @@ h1.page .dot{color:var(--gold)}
 </div>
 
 <main class="shell">
-  <h1 class="page">About<span class="dot">.</span></h1>
-  <div class="sub">Who's behind the stack</div>
+  <div class="page-head">
+    <div>
+      <h1 class="page">About<span class="dot">.</span></h1>
+      <div class="sub">Who's behind the stack</div>
+    </div>
+    <div class="portrait" data-path="images/portrait.jpg">
+      <img src="images/portrait.jpg" alt="Joey Chung">
+    </div>
+  </div>
 
   <section class="sec">
     <div class="sec-head"><h2>A few paragraphs.</h2><span class="tag">narrative</span></div>
     <div class="prose">
-      <p>I'm a <strong>Chemistry</strong> undergraduate at the University of Michigan, headed toward process and materials work in semiconductor manufacturing. Almost everything I've done sits at a surface — cleaning and plating thermoelectric coins, soldering leads onto finished modules, measuring how thick a film actually came out. A process only counts once it gives the same result twice.</p>
+      <p>I'm a <strong>Chemistry</strong> undergraduate at the University of Michigan, headed toward process and materials work in semiconductor manufacturing. Almost everything I've done sits at a surface — plating bismuth telluride with electroless nickel, soldering leads onto finished modules, measuring how thick a film actually came out. A process only counts once it gives the same result twice.</p>
 
-      <p>I didn't start in chemistry. I started in <strong>Food Science at UW–Madison</strong>, where the first two years were general science anyway: organic and general chemistry, physics, biology. Then I spent nine months at <strong>DAEYANG Co., Ltd.</strong> on thermoelectric module production, and what held my attention wasn't the module. It was <strong>the interface</strong> — the few microns where a module has to sit against its heat source, where a surface is either clean enough to plate or it isn't. Whole devices succeed or fail inside that gap. I already had the chemistry behind me, so I transferred to Michigan for the broader degree that would let me work there.</p>
+      <p>I didn't start in chemistry. I started in <strong>Food Science at UW–Madison</strong>, where the first two years were general science anyway: organic and general chemistry, physics, biology. Then I spent nine months at <strong>DAEYANG Co., Ltd.</strong> on thermoelectric module production. What stayed with me was <strong>the surface itself</strong> — whether a wedge was clean and evenly plated, and what happened downstream when it wasn't. I already had the chemistry coursework behind me, so I transferred to Michigan for the broader degree, chemistry rather than food science, and pointed it at materials.</p>
 
       <p>That factory floor also taught me how failure travels. An inconsistent cleaning step doesn't announce itself; it shows up as a dead module weeks later. I proposed a <strong>titanium holding jig</strong> to close one of those failure modes and drew the specifications for it. The build was deferred against module priorities, but the habit of tracing a defect back to the step that caused it stayed.</p>
 
-      <p>Before any of it: <strong>18 months as an auxiliary police sergeant</strong> in mandatory national service in South Korea, leading a 12-person squad through perimeter control and emergency response. It taught me what a procedure is actually for, which is the moment conditions change faster than the plan.</p>
+      <p>Before any of it: <strong>18 months in the auxiliary police</strong> in mandatory national service in Pohang, South Korea, 7 of them leading a 12-officer squad. It taught me what a procedure is actually for, which is the moment conditions change faster than the plan.</p>
 
-      <p>Now I'm in the <strong>Maldonado Group</strong> at Michigan on thin film metrology — measuring layer thickness and reading formation patterns by AFM and ellipsometry, with ALD training underway. Same interface, better instruments.</p>
+      <p>Now I'm in the <strong>Maldonado Group</strong> at Michigan on thin film metrology — measuring layer thickness and reading formation patterns by AFM and ellipsometry, with ALD training underway. Same questions, better instruments.</p>
     </div>
   </section>
 
@@ -235,6 +257,7 @@ h1.page .dot{color:var(--gold)}
           <li>Recording instrument conditions, baselines, and results for group review.</li>
           <li>Training on <b>atomic layer deposition</b>; instrument work in progress.</li>
         </ul>
+        <a class="more" href="research.html">Full account →</a>
         <div class="tags"><span>AFM</span><span>Ellipsometry</span><span>ALD</span><span>Thin films</span></div>
       </div>
     </div>
@@ -245,14 +268,13 @@ h1.page .dot{color:var(--gold)}
         <h3>DAEYANG Co., Ltd.</h3>
         <div class="role">Research Assistant · Thermoelectric R&amp;D</div>
         <ul>
-          <li>Cleaned coins and diced legs by <b>IPA and sonication</b> at both stages of the line, and managed <b>electroless bath pH</b> through plating runs, documenting each run so batches could be traced.</li>
-          <li>Designed a custom <b>titanium holding jig</b> to secure coins through the electroless plating bath, producing technical drawings and specifications; build deferred against module priorities.</li>
-          <li>Soldered positive and negative copper leads to module electrodes after reflow and applied thermal interface materials during assembly.</li>
-          <li>Prepared <b>solder paste for SMT production runs</b>, handling post-run cleanup and waste disposal.</li>
-          <li>Characterized finished generators — measured <b>Vmax and Imax</b> across cooling setups, calculated peak power, and measured module resistance.</li>
-          <li>Inspected diced legs by digital microscopy (dimensional checks, surface defects, burr screening) and reported results in Excel tables and plots to senior researchers.</li>
+          <li>Plated bismuth telluride sector wedges with <b>medium-phosphorus (6–8% P) electroless nickel</b>, running IPA cleaning, <b>pH monitoring and solution adjustment</b> through each run, and handling of samples held in process fixtures.</li>
+          <li>Proposed and designed a custom <b>titanium holding jig</b> to hold wedges steady through the bath; drawings and specifications produced, implementation deferred against production priorities.</li>
+          <li>Measured critical dimensions on diced legs against <b>design tolerances</b> and sorted findings into defect types — machining error, burring, asymmetry — in collaboration with the <b>Korea Electrotechnology Research Institute (KERI)</b>.</li>
+          <li>Supported SMT assembly of <b>8×8 modules (128 legs each)</b> at 20–30 modules a week, and ran <b>final electrical inspection</b> against spec ranges with Excel traceability.</li>
         </ul>
-        <div class="tags"><span>Thermoelectrics</span><span>Electroless plating</span><span>SMT</span><span>Metrology</span><span>Production support</span></div>
+        <a class="more" href="experience.html#daeyang">Full account →</a>
+        <div class="tags"><span>Electroless Ni plating</span><span>Bi₂Te₃</span><span>Defect classification</span><span>SMT</span><span>QA traceability</span><span>KERI</span></div>
       </div>
     </div>
 
@@ -262,10 +284,10 @@ h1.page .dot{color:var(--gold)}
         <h3>Republic of Korea Auxiliary Police</h3>
         <div class="role">Sergeant · Mandatory national service</div>
         <ul>
-          <li>Led a <b>12-officer squad</b> on perimeter control at high-priority government sites during civil disturbance response.</li>
-          <li>Carried out on-scene control procedures during emergency response, including chemical incident drills and fire scenes.</li>
-          <li>Conducted search operations and located missing individuals; received official commendation.</li>
+          <li>Led a <b>12-officer squad for 7 months</b> of an 18-month service term through protest response and missing person searches across mountainous and coastal terrain; located <b>3 missing individuals</b> and escorted them to safety, earning an official commendation.</li>
+          <li>Managed police lines during civil disturbances and ran joint counterterrorism drills including <b>chemical threat response procedures</b>.</li>
         </ul>
+        <a class="more" href="experience.html#police">Full account →</a>
         <div class="tags"><span>Team leadership</span><span>Emergency response</span><span>Safety procedure</span></div>
       </div>
     </div>
@@ -279,6 +301,7 @@ h1.page .dot{color:var(--gold)}
           <li>Cleaned and reset residence hall rooms through <b>summer move-out turnover</b>, working assigned buildings on a fixed daily schedule.</li>
           <li>Worked as part of a crew to keep buildings ready for incoming summer occupants on deadline.</li>
         </ul>
+        <a class="more" href="experience.html#madison">Full account →</a>
         <div class="tags"><span>Physical work</span><span>Schedule discipline</span><span>Crew coordination</span></div>
       </div>
     </div>
@@ -303,6 +326,11 @@ h1.page .dot{color:var(--gold)}
     root.setAttribute('data-theme',d?'light':'dark');
     btn.textContent=d?'Dark':'Light';
   });
+  var pi=document.querySelector('.portrait img');
+  if(pi){
+    pi.addEventListener('error',function(){pi.parentNode.classList.add('empty')});
+    if(pi.complete&&pi.naturalWidth===0){pi.parentNode.classList.add('empty')}
+  }
 })();
 </script>
 </body>
