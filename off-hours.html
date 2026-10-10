@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>(function(){var t='dark';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}document.documentElement.setAttribute('data-theme',t);})();</script>
 <title>Off-Hours · Joey Chung</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -140,7 +141,7 @@ h1.page .dot{color:var(--gold)}
     <a href="off-hours.html" aria-current="page">off-hours</a>
     <a href="contact.html">contact</a>
   </nav>
-  <button class="toggle" id="tg">Dark</button>
+  <button class="toggle" id="tg">Light</button>
 </div>
 
 <main class="shell">
@@ -271,13 +272,15 @@ h1.page .dot{color:var(--gold)}
 <script>
 (function(){
   var root=document.documentElement, btn=document.getElementById('tg');
-  if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){
-    root.setAttribute('data-theme','dark'); btn.textContent='Light';
-  }
+  function label(){btn.textContent=root.getAttribute('data-theme')==='dark'?'Light':'Dark';}
+  function sync(){var t='dark';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}root.setAttribute('data-theme',t);label();}
+  label();
+  window.addEventListener('pageshow',sync);
   btn.addEventListener('click',function(){
-    var d=root.getAttribute('data-theme')==='dark';
-    root.setAttribute('data-theme',d?'light':'dark');
-    btn.textContent=d?'Dark':'Light';
+    var t=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',t);
+    try{localStorage.setItem('jc-theme',t);}catch(e){}
+    label();
   });
   document.querySelectorAll('.shot-fig img').forEach(function(img){
     img.addEventListener('error',function(){img.closest('.shot-fig').classList.add('empty')});

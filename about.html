@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>(function(){var t='dark';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}document.documentElement.setAttribute('data-theme',t);})();</script>
 <title>About · Joey Chung</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -135,7 +136,7 @@ h1.page .dot{color:var(--gold)}
     <a href="off-hours.html">off-hours</a>
     <a href="contact.html">contact</a>
   </nav>
-  <button class="toggle" id="tg">Dark</button>
+  <button class="toggle" id="tg">Light</button>
 </div>
 
 <main class="shell">
@@ -160,7 +161,7 @@ h1.page .dot{color:var(--gold)}
 
       <p>Before any of it: <strong>18 months in the auxiliary police</strong> as mandatory national service in Pohang, South Korea, 7 of them leading a 12-officer squad. It taught me what a procedure is actually for: the moment conditions change faster than the plan.</p>
 
-      <p>Now I'm in the <strong>Maldonado Group</strong> at Michigan on thin film metrology, measuring layer thickness, reading formation patterns by AFM and ellipsometry, and taking part in the group's ALD work. Same questions, better instruments.</p>
+      <p>Now I'm in the <strong>Maldonado Group</strong> at Michigan, making thin film samples on silicon and measuring them by ellipsometry and AFM. Same questions, better instruments.</p>
     </div>
   </section>
 
@@ -203,9 +204,18 @@ h1.page .dot{color:var(--gold)}
     <div class="skillrow">
       <div class="cat">surface metrology</div>
       <div class="chips">
-        <span class="chip">Ellipsometry</span>
-        <span class="chip">AFM</span>
+        <span class="chip">Spectroscopic ellipsometry</span>
+        <span class="chip">Tapping mode AFM</span>
         <span class="chip">Digital microscopy</span>
+      </div>
+    </div>
+    <div class="skillrow">
+      <div class="cat">wafer prep</div>
+      <div class="chips">
+        <span class="chip">Piranha clean</span>
+        <span class="chip">NH₄F / HF etching</span>
+        <span class="chip">Solvent degreasing</span>
+        <span class="chip">Plasma treatment</span>
       </div>
     </div>
     <div class="skillrow">
@@ -253,12 +263,12 @@ h1.page .dot{color:var(--gold)}
         <h3>Maldonado Group, University of Michigan</h3>
         <div class="role">Undergraduate Research Assistant</div>
         <ul>
-          <li>Measuring <b>layer thickness</b> and reading <b>layer formation patterns</b> on sample sets by AFM and ellipsometry.</li>
-          <li>Recording instrument conditions, baselines, and results for group review.</li>
-          <li>Taking part in the group's <b>atomic layer deposition</b> work, operating the system to grow films to target thickness.</li>
+          <li>Measuring film thickness by <b>spectroscopic ellipsometry</b> (layer models in DeltaPsi2, fits judged by χ²) and step heights by <b>tapping mode AFM</b>, on my own and group members' samples.</li>
+          <li>Keeping both instruments calibrated: the ellipsometer on an aluminum mirror standard checked against a 100 nm thermal oxide, the AFM against pitch and step height standards.</li>
+          <li>Preparing n-type Si(111) through degreasing, <b>piranha</b>, <b>NH₄F/HF etching</b>, and plasma treatment, then growing Al₂O₃ by <b>thermal ALD</b> for a group project.</li>
         </ul>
         <a class="more" href="research.html">Full account →</a>
-        <div class="tags"><span>AFM</span><span>Ellipsometry</span><span>ALD</span><span>Thin films</span></div>
+        <div class="tags"><span>AFM</span><span>Ellipsometry</span><span>ALD</span><span>Wet chemistry</span><span>Thin films</span></div>
       </div>
     </div>
 
@@ -318,13 +328,15 @@ h1.page .dot{color:var(--gold)}
 <script>
 (function(){
   var root=document.documentElement, btn=document.getElementById('tg');
-  if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){
-    root.setAttribute('data-theme','dark'); btn.textContent='Light';
-  }
+  function label(){btn.textContent=root.getAttribute('data-theme')==='dark'?'Light':'Dark';}
+  function sync(){var t='dark';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}root.setAttribute('data-theme',t);label();}
+  label();
+  window.addEventListener('pageshow',sync);
   btn.addEventListener('click',function(){
-    var d=root.getAttribute('data-theme')==='dark';
-    root.setAttribute('data-theme',d?'light':'dark');
-    btn.textContent=d?'Dark':'Light';
+    var t=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',t);
+    try{localStorage.setItem('jc-theme',t);}catch(e){}
+    label();
   });
   var pi=document.querySelector('.portrait img');
   if(pi){

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>(function(){var t='dark';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}document.documentElement.setAttribute('data-theme',t);})();</script>
 <title>Research · Joey Chung</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,6 +65,10 @@ h1.page .dot{color:var(--gold)}
 .side div b{display:block;color:var(--ink);font-weight:500;font-size:12px;margin-bottom:1px}
 
 .plates{display:grid;grid-template-columns:repeat(2,1fr);gap:26px 20px;align-items:start}
+.shell{counter-reset:plate}
+.plate:not(.pending){counter-increment:plate}
+.plate .pn::before{content:"Plate " counter(plate,decimal-leading-zero)}
+.plate.pending{display:none}
 .plate{margin:0}
 .plate img{width:100%;height:auto;display:block;border:1px solid var(--line)}
 .plate figcaption{margin-top:9px;font-size:13.5px;line-height:1.5;color:var(--muted);max-width:52ch}
@@ -74,6 +79,33 @@ h1.page .dot{color:var(--gold)}
   text-align:center;aspect-ratio:4/3;border:1px dashed var(--gold);color:var(--gold);
   font-family:"IBM Plex Mono",monospace;font-size:11px;line-height:1.6;padding:12px;
   background:color-mix(in srgb,var(--gold) 5%,transparent)}
+
+/* parts */
+.part{margin-top:64px}
+.part-head{display:flex;align-items:baseline;gap:14px;padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:28px}
+.part-head .pid{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.part-head h3{font-size:clamp(21px,2.8vw,26px);font-weight:600;letter-spacing:-.025em;margin:0}
+.tool{display:grid;grid-template-columns:1fr 240px;gap:40px;align-items:start;margin-bottom:36px}
+.tool h4{font-size:15px;font-weight:600;letter-spacing:.01em;margin:0 0 10px}
+.tool p{font-family:"IBM Plex Serif",Georgia,serif;font-size:16px;line-height:1.72;margin:0 0 14px;max-width:62ch}
+.tool p:last-child{margin-bottom:0}
+.part .plates{margin-top:6px}
+
+/* process chain */
+.chain{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;margin-bottom:16px}
+.step{position:relative;border:1px solid var(--line);padding:9px 13px;min-width:92px;
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;color:var(--muted);
+  display:flex;flex-direction:column;justify-content:center}
+.step b{display:block;font-size:11.5px;color:var(--ink);font-weight:500;letter-spacing:.02em}
+.step.mine{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 8%,transparent)}
+.step.mine b{color:var(--gold)}
+.step::after{content:"→";position:absolute;right:-13px;top:50%;transform:translateY(-50%);
+  color:var(--line);font-size:12px}
+.step:last-child::after{content:none}
+.chain-key{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;
+  color:var(--muted);margin-bottom:30px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.chain-key i{display:inline-block;width:22px;height:9px;border:1px solid var(--gold);
+  background:color-mix(in srgb,var(--gold) 8%,transparent)}
 
 .status-note{margin-top:44px;border-left:2px solid var(--gold);padding:4px 0 4px 16px;
   font-size:14.5px;line-height:1.65;color:var(--muted);max-width:62ch}
@@ -92,7 +124,7 @@ h1.page .dot{color:var(--gold)}
 
 @media (max-width:820px){
   .bar-nav{display:none}
-  .narr{grid-template-columns:1fr;gap:26px}
+  .narr,.tool{grid-template-columns:1fr;gap:22px}
   .sec-top{grid-template-columns:1fr;align-items:start}
   .sec-top .when{text-align:left;white-space:normal}
 }
@@ -111,7 +143,7 @@ h1.page .dot{color:var(--gold)}
     <a href="off-hours.html">off-hours</a>
     <a href="contact.html">contact</a>
   </nav>
-  <button class="toggle" id="tg">Dark</button>
+  <button class="toggle" id="tg">Light</button>
 </div>
 
 <main class="shell">
@@ -130,46 +162,124 @@ h1.page .dot{color:var(--gold)}
 
   <div class="narr">
     <div>
-      <p>The Maldonado Group works on electrochemistry and semiconductor materials under <strong>Prof. Stephen Maldonado</strong>. I joined in April 2026 as an undergraduate researcher on the thin film side.</p>
-      <p>My work so far is <strong>metrology</strong>: measuring how thick a deposited layer actually came out, and reading how it formed. <strong>Ellipsometry</strong> gives thickness and optical constants by measuring how polarized light changes on reflection from the film. <strong>AFM</strong> gives the surface itself: roughness, and whether a layer grew uniformly or in islands. Run together, they answer a question a deposition recipe alone can't: not what should have landed, but what did.</p>
-      <p>I'm also taking part in the group's <strong>atomic layer deposition</strong> work, which sits on the other side of the same question. ALD builds a film one self-limiting cycle at a time, so thickness is set by cycle count rather than by time or flux. It's the deposition method with the most direct relationship to measurement, which is why I wanted in on it.</p>
-      <p>Alongside the instrument work I keep the documentation: setup conditions, baselines, and results, recorded so a measurement can be repeated rather than remembered.</p>
+      <p>The Maldonado Group works on electrochemistry and semiconductor materials under <strong>Prof. Stephen Maldonado</strong>. I joined in April 2026 on the thin film side, and since May I have been responsible for the group's <strong>spectroscopic ellipsometer</strong> and <strong>AFM</strong>.</p>
+      <p>The work has two halves. One is measuring: how thick a layer actually came out, and what the surface looks like afterward. The other is making the samples in the first place, from a bare silicon wafer to a coated film. Working on both ends means I know the history of a sample before I put it under an instrument.</p>
     </div>
     <aside class="side">
       <div><b>Group</b>Maldonado Group, U-M Chemistry</div>
       <div><b>PI</b>Prof. Stephen Maldonado</div>
-      <div><b>Metrology</b>Ellipsometry · AFM</div>
-      <div><b>Deposition</b>ALD · group project</div>
-      <div><b>Measures</b>Layer thickness · formation pattern · surface morphology</div>
+      <div><b>Instruments</b>HORIBA UVISEL II · Veeco MultiMode AFM</div>
+      <div><b>Deposition</b>Anric AT410 thermal ALD</div>
+      <div><b>Wet chemistry</b>Piranha · NH₄F / HF · solvent degreasing</div>
       <div><b>Since</b>April 2026</div>
     </aside>
   </div>
 
-  <div class="plates">
-    <figure class="plate" data-path="images/research/01.jpg">
-      <img src="images/research/01.jpg" alt="Ellipsometer">
-      <figcaption><span class="pn">Plate 01</span>The ellipsometer. Thickness is inferred from how polarized light changes on reflection; nothing touches the sample.</figcaption>
-    </figure>
-    <figure class="plate" data-path="images/research/02.jpg">
-      <img src="images/research/02.jpg" alt="Ellipsometry measurement data on screen">
-      <figcaption><span class="pn">Plate 02</span>Ellipsometry data. The measured curve is fitted against a model of the layer stack to extract thickness and optical constants.</figcaption>
-    </figure>
-    <figure class="plate" data-path="images/research/03.jpg">
-      <img src="images/research/03.jpg" alt="AFM measurement data on screen">
-      <figcaption><span class="pn">Plate 03</span>AFM scan. Surface morphology and roughness: whether the layer grew uniformly or gathered into islands.</figcaption>
-    </figure>
-    <figure class="plate" data-path="images/research/04.jpg">
-      <img src="images/research/04.jpg" alt="Atomic layer deposition system">
-      <figcaption><span class="pn">Plate 04</span>The ALD system. Film thickness is set by cycle count rather than by exposure time.</figcaption>
-    </figure>
-  </div>
+  <!-- PART 01 -->
+  <section class="part">
+    <div class="part-head"><span class="pid">Part 01</span><h3>Surface analysis</h3></div>
+
+    <div class="tool">
+      <div>
+        <h4>Spectroscopic ellipsometry</h4>
+        <p>On the HORIBA UVISEL II I measure film thickness by building a layer model in DeltaPsi2 and fitting it to the measured spectra. The fit quality, χ², is the check on whether the model, the sample, and the instrument agree.</p>
+        <p>Calibration runs on an aluminum mirror standard, and every calibration is checked against a 100 nm thermal oxide standard before a real sample goes on the stage.</p>
+      </div>
+      <aside class="side">
+        <div><b>Instrument</b>HORIBA Jobin Yvon UVISEL II</div>
+        <div><b>Software</b>DeltaPsi2 · layer modeling</div>
+        <div><b>Calibration</b>Al mirror standard</div>
+        <div><b>Verification</b>100 nm thermal oxide · χ²</div>
+      </aside>
+    </div>
+
+    <div class="tool">
+      <div>
+        <h4>Atomic force microscopy</h4>
+        <p>On the Veeco MultiMode I image in tapping mode: the cantilever oscillates near resonance and lightly taps the surface, the feedback loop holds that oscillation at a setpoint, and the scanner's vertical motion becomes the height map. I scan my own samples and other group members', then measure step heights and raised growth features in NanoScope Analysis.</p>
+        <p>The scanner is calibrated against pitch and step height standards. When a 100 nm standard read 110 nm, I recalculated the Z sensitivity from 11.32 to 10.29 nm/V, and the next scan read 100.1 nm. I also train new users on startup, laser alignment, and scan settings.</p>
+      </div>
+      <aside class="side">
+        <div><b>Instrument</b>Veeco MultiMode · NanoScope IIIa</div>
+        <div><b>Mode</b>Tapping</div>
+        <div><b>Analysis</b>NanoScope Analysis · step height</div>
+        <div><b>Calibration</b>Pitch &amp; step height standards</div>
+      </aside>
+    </div>
+
+    <div class="plates">
+      <figure class="plate" data-path="images/research/01.jpg">
+        <img src="images/research/01.jpg" alt="HORIBA UVISEL II spectroscopic ellipsometer">
+        <figcaption><span class="pn"></span>The HORIBA UVISEL II. Thickness comes from how polarized light changes on reflection; nothing touches the sample.</figcaption>
+      </figure>
+      <figure class="plate" data-path="images/research/02.jpg">
+        <img src="images/research/02.jpg" alt="DeltaPsi2 model fit of a thermal oxide standard">
+        <figcaption><span class="pn"></span>A DeltaPsi2 fit on the thermal oxide standard. The measured spectra are fitted against a SiO₂ on Si model, and χ² reports how well they agree.</figcaption>
+      </figure>
+      <figure class="plate pending" data-path="images/research/afm.jpg">
+        <img src="images/research/afm.jpg" alt="Veeco MultiMode AFM head and stage">
+        <figcaption><span class="pn"></span>The Veeco MultiMode. A laser reflects off the back of the cantilever onto a photodetector, which is how the tip's motion is read.</figcaption>
+      </figure>
+      <figure class="plate" data-path="images/research/03.jpg">
+        <img src="images/research/03.jpg" alt="AFM scan of a calibration standard in NanoScope">
+        <figcaption><span class="pn"></span>An AFM scan of a pitch and step height calibration standard in NanoScope, the reference for the X, Y, and Z sensitivities.</figcaption>
+      </figure>
+      <figure class="plate pending" data-path="images/research/nanoscope-section.jpg">
+        <img src="images/research/nanoscope-section.jpg" alt="Section profile measurement in NanoScope Analysis">
+        <figcaption><span class="pn"></span>A section profile in NanoScope Analysis. Step height is read between the flat regions on either side of an edge.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- PART 02 -->
+  <section class="part">
+    <div class="part-head"><span class="pid">Part 02</span><h3>Sample fabrication</h3></div>
+
+    <div class="tool">
+      <div>
+        <p>Samples start as pieces of n-type Si(111) wafer and go through a cleaning and etching sequence before any film goes on. Solvents strip grease and organics, piranha oxidizes what is left, NH₄F and HF take off the oxide in the HF hood, and a plasma treatment follows.</p>
+        <p>The Al₂O₃ layer is then grown by thermal ALD from TMA and water at 150 °C, with the cycle count chosen for the thickness each sample needs. Half of each piece is masked with Kapton tape so the coated and bare regions can be compared by AFM. This work feeds a group ALD project.</p>
+      </div>
+      <aside class="side">
+        <div><b>Substrate</b>n-type Si(111)</div>
+        <div><b>Film</b>Al₂O₃ · TMA / H₂O · 150 °C</div>
+        <div><b>Deposition</b>Anric AT410 thermal ALD</div>
+        <div><b>Runs</b>30 and 75 ALD cycles</div>
+      </aside>
+    </div>
+
+    <div class="chain">
+      <div class="step mine">01<b>Cut wafer</b></div>
+      <div class="step mine">02<b>Degrease</b></div>
+      <div class="step mine">03<b>Piranha</b></div>
+      <div class="step mine">04<b>NH₄F / HF</b></div>
+      <div class="step mine">05<b>Plasma</b></div>
+      <div class="step mine">06<b>Kapton mask</b></div>
+      <div class="step mine">07<b>ALD Al₂O₃</b></div>
+      <div class="step mine">08<b>AFM scan</b></div>
+    </div>
+    <div class="chain-key"><i></i> every step run hands-on · 02 and 03 independently · 04, 05, and 07 alongside a graduate mentor</div>
+
+    <div class="plates">
+      <figure class="plate pending" data-path="images/research/wet-bench.jpg">
+        <img src="images/research/wet-bench.jpg" alt="Wet chemistry setup in the fume hood">
+        <figcaption><span class="pn"></span>The wet chemistry half of sample prep, run in a fume hood with full protective equipment.</figcaption>
+      </figure>
+      <figure class="plate" data-path="images/research/04.jpg">
+        <img src="images/research/04.jpg" alt="Anric AT410 atomic layer deposition system">
+        <figcaption><span class="pn"></span>The Anric AT410. Each ALD cycle adds a fixed increment, so film thickness is set by cycle count rather than by time.</figcaption>
+      </figure>
+      <figure class="plate pending" data-path="images/research/sample.jpg">
+        <img src="images/research/sample.jpg" alt="Si(111) sample with half masked by Kapton tape">
+        <figcaption><span class="pn"></span>A finished n-Si(111) piece: Al₂O₃ on one half, the Kapton-masked half left bare for comparison.</figcaption>
+      </figure>
+    </div>
+  </section>
 
   <div class="status-note">
-    <b>Current status</b>
-    This layer is still forming. Instrument availability has shaped what I've been able to run so far, and a defined project will be posted here once one is underway.
+    <b>Now</b>
+    Kapton tape left adhesive residue that made the coated and bare regions hard to tell apart under the AFM, so a cleaner masking method is next.
   </div>
-
-  
 
   <footer class="foot">
     <a href="index.html">← index</a>
@@ -182,15 +292,21 @@ h1.page .dot{color:var(--gold)}
 <script>
 (function(){
   var root=document.documentElement, btn=document.getElementById('tg');
-  if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){
-    root.setAttribute('data-theme','dark'); btn.textContent='Light';
-  }
+  function label(){btn.textContent=root.getAttribute('data-theme')==='dark'?'Light':'Dark';}
+  function sync(){var t='dark';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}root.setAttribute('data-theme',t);label();}
+  label();
+  window.addEventListener('pageshow',sync);
   btn.addEventListener('click',function(){
-    var d=root.getAttribute('data-theme')==='dark';
-    root.setAttribute('data-theme',d?'light':'dark');
-    btn.textContent=d?'Dark':'Light';
+    var t=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',t);
+    try{localStorage.setItem('jc-theme',t);}catch(e){}
+    label();
   });
-  document.querySelectorAll('.plate img').forEach(function(img){
+  document.querySelectorAll('.plate.pending img').forEach(function(img){
+    var show=function(){img.closest('.plate').classList.remove('pending')};
+    if(img.complete&&img.naturalWidth>0){show()}else{img.addEventListener('load',show)}
+  });
+  document.querySelectorAll('.plate:not(.pending) img').forEach(function(img){
     img.addEventListener('error',function(){img.closest('.plate').classList.add('empty')});
     if(img.complete&&img.naturalWidth===0){img.closest('.plate').classList.add('empty')}
   });

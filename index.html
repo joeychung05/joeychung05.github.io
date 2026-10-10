@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>(function(){var t='dark';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}document.documentElement.setAttribute('data-theme',t);})();</script>
 <title>Joey Chung · Chemistry, University of Michigan</title>
 <meta name="description" content="Joey Chung · B.S. Chemistry, University of Michigan. Thin film deposition, surface characterization, and process control. Seeking semiconductor and manufacturing internships.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -165,7 +166,7 @@ h1 .dot{color:var(--gold)}
 
 <div class="bar">
   <div class="bar-id"><b>Joey Chung</b> / index</div>
-  <button class="toggle" id="tg">Dark</button>
+  <button class="toggle" id="tg">Light</button>
 </div>
 
 <main class="shell">
@@ -197,8 +198,8 @@ h1 .dot{color:var(--gold)}
         <span class="band growing"></span>
         <span class="rtext">
           <b>Maldonado Group, University of Michigan</b>
-          <span>Undergraduate Research Assistant · Thin film metrology</span>
-          <em>AFM · ELLIPSOMETRY · ALD</em>
+          <span>Undergraduate Research Assistant · Thin film fabrication &amp; metrology</span>
+          <em>AFM · ELLIPSOMETRY · ALD · WET CHEMISTRY</em>
         </span>
         <span class="rmeas">2026.04 — present<br><b>depositing</b></span>
       </a>
@@ -262,13 +263,15 @@ h1 .dot{color:var(--gold)}
 <script>
 (function(){
   var root=document.documentElement, btn=document.getElementById('tg');
-  if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){
-    root.setAttribute('data-theme','dark'); btn.textContent='Light';
-  }
+  function label(){btn.textContent=root.getAttribute('data-theme')==='dark'?'Light':'Dark';}
+  function sync(){var t='dark';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}root.setAttribute('data-theme',t);label();}
+  label();
+  window.addEventListener('pageshow',sync);
   btn.addEventListener('click',function(){
-    var d=root.getAttribute('data-theme')==='dark';
-    root.setAttribute('data-theme',d?'light':'dark');
-    btn.textContent=d?'Dark':'Light';
+    var t=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',t);
+    try{localStorage.setItem('jc-theme',t);}catch(e){}
+    label();
   });
 })();
 </script>
