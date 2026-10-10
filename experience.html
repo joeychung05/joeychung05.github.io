@@ -79,6 +79,10 @@ h1.page .dot{color:var(--gold)}
 .step::after{content:"→";position:absolute;right:-13px;top:50%;transform:translateY(-50%);
   color:var(--line);font-size:12px}
 .step:last-child::after{content:none}
+.chain.grid7{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px 16px}
+.chain.grid7 .step{min-width:0;padding:9px 11px}
+.chain.grid7 .step::after{right:-13px}
+.chain.grid7 .step:nth-child(7n)::after{content:none}
 .chain-key{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;
   color:var(--muted);margin-bottom:36px;display:flex;align-items:center;gap:8px}
 .chain-key i{display:inline-block;width:22px;height:9px;border:1px solid var(--gold);
@@ -118,6 +122,9 @@ h1.page .dot{color:var(--gold)}
 @media (max-width:820px){
   .bar-nav{display:none}
   .narr,.tool{grid-template-columns:1fr;gap:22px}
+  .chain.grid7{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .chain.grid7 .step:nth-child(7n)::after{content:"→"}
+  .chain.grid7 .step:nth-child(2n)::after{content:none}
   .sec-top{grid-template-columns:1fr;align-items:start}
   .sec-top .when{text-align:left;white-space:normal}
 }
@@ -168,12 +175,12 @@ h1.page .dot{color:var(--gold)}
       </div>
       <aside class="side">
         <div><b>Material</b>Bi₂Te₃ based (Bi, Te, Sb)</div>
-        <div><b>Product</b>8×8 thermoelectric modules · 128 legs</div>
+        <div><b>Product</b>Thermoelectric modules · mainly 8×8, 128 legs (64 N / 64 P) · also 64-leg and other formats</div>
         <div><b>Line</b>Pellet → wedge → leg → module</div>
       </aside>
     </div>
 
-    <div class="chain">
+    <div class="chain grid7">
       <div class="step">01<b>Grind · ball mill</b></div>
       <div class="step">02<b>Sinter → pellet</b></div>
       <div class="step">03<b>Coin · sector cut</b></div>
@@ -225,7 +232,7 @@ h1.page .dot{color:var(--gold)}
       <div class="tool">
         <div>
           <p>After dicing I ran <strong>dimensional inspection and defect classification</strong> on the legs: critical dimensions against design tolerances under digital microscopy, sorted into defect types (machining error, burring, asymmetry).</p>
-          <p>Not all the legs were ours, either. DAEYANG runs joint national R&amp;D with the <strong>Korea Electrotechnology Research Institute (KERI)</strong>, and on one commissioned build using KERI's own legs, I separately ran <strong>incoming inspection</strong> and tray loading. Whatever the source, nonconforming legs came out before SMT: one bad leg in a 128-leg module is a bad module.</p>
+          <p>Not all the legs were ours, either. DAEYANG runs joint national R&amp;D with the <strong>Korea Electrotechnology Research Institute (KERI)</strong>, and on one commissioned build using KERI's own legs, I separately ran <strong>incoming inspection</strong> and tray loading. Whatever the source, nonconforming legs came out before SMT: one bad leg is a bad module.</p>
         </div>
         <aside class="side">
           <div><b>Inspection</b>Dimensional vs tolerance · defect classification</div>
@@ -249,11 +256,11 @@ h1.page .dot{color:var(--gold)}
       <div class="part-head"><span class="pid">Part 03</span><h3>Module assembly &amp; test</h3></div>
       <div class="tool">
         <div>
-          <p>On the assembly side I supported senior engineers building <strong>8×8 modules, 128 legs each</strong>: solder paste prep, substrate mounting frame setup, automated paste printing and leg placement, soldering positive and negative lead wires to electrodes after reflow, and sourcing lead-free, high-temperature paste. Weekly output ran <strong>20 to 30 modules, scaling past 50</strong> during government R&amp;D cycles.</p>
+          <p>On the assembly side I supported senior engineers building thermoelectric modules, mostly the <strong>8×8 format with 128 legs</strong> (64 N-type, 64 P-type) alongside 64-leg and other formats: solder paste prep, substrate mounting frame setup, automated paste printing and leg placement, soldering positive and negative lead wires to electrodes after reflow, and sourcing lead-free, high-temperature paste. Weekly output ran <strong>20 to 30 modules, scaling past 50</strong> during government R&amp;D cycles.</p>
           <p>At the end of the line I ran <strong>final electrical inspection</strong>: resistance and voltage against spec, results documented in Excel for traceability, nonconforming units flagged for retest. I also collected <strong>generator performance data</strong> under senior researcher guidance across five cooling configurations: forced and natural air, forced and natural water, and antifreeze based.</p>
         </div>
         <aside class="side">
-          <div><b>Assembly</b>8×8 modules · 128 legs · SMT support</div>
+          <div><b>Assembly</b>Mainly 8×8 · 128 legs · SMT support</div>
           <div><b>Throughput</b>20–30 modules / wk, 50+ peak</div>
           <div><b>Test</b>Resistance · voltage · cooling configurations</div>
         </aside>
