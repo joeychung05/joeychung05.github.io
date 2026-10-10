@@ -69,6 +69,9 @@ h1.page .dot{color:var(--gold)}
 .plate:not(.pending){counter-increment:plate}
 .plate .pn::before{content:"Plate " counter(plate,decimal-leading-zero)}
 .plate.pending{display:none}
+.plates.pair{margin-bottom:40px}
+.plates.pair .plate img{aspect-ratio:16/10;object-fit:cover;object-position:center}
+.plates.pair .plate img.top{object-position:top}
 .plate{margin:0}
 .plate img{width:100%;height:auto;display:block;border:1px solid var(--line)}
 .plate figcaption{margin-top:9px;font-size:13.5px;line-height:1.5;color:var(--muted);max-width:52ch}
@@ -193,6 +196,18 @@ h1.page .dot{color:var(--gold)}
       </aside>
     </div>
 
+    <div class="plates pair">
+      <figure class="plate" data-path="images/research/01.jpg">
+        <img src="images/research/01.jpg" alt="HORIBA UVISEL II spectroscopic ellipsometer">
+        <figcaption><span class="pn"></span>The HORIBA UVISEL II. Thickness comes from how polarized light changes on reflection; nothing touches the sample.</figcaption>
+      </figure>
+      <figure class="plate" data-path="images/research/02.jpg">
+        <img src="images/research/02.jpg" alt="DeltaPsi2 model fit of a thermal oxide standard" class="top">
+        <figcaption><span class="pn"></span>A DeltaPsi2 fit on the thermal oxide standard. The measured spectra are fitted against a SiO₂ on Si model, and χ² reports how well they agree.</figcaption>
+      </figure>
+    </div>
+
+
     <div class="tool">
       <div>
         <h4>Atomic force microscopy</h4>
@@ -207,15 +222,8 @@ h1.page .dot{color:var(--gold)}
       </aside>
     </div>
 
-    <div class="plates">
-      <figure class="plate" data-path="images/research/01.jpg">
-        <img src="images/research/01.jpg" alt="HORIBA UVISEL II spectroscopic ellipsometer">
-        <figcaption><span class="pn"></span>The HORIBA UVISEL II. Thickness comes from how polarized light changes on reflection; nothing touches the sample.</figcaption>
-      </figure>
-      <figure class="plate" data-path="images/research/02.jpg">
-        <img src="images/research/02.jpg" alt="DeltaPsi2 model fit of a thermal oxide standard">
-        <figcaption><span class="pn"></span>A DeltaPsi2 fit on the thermal oxide standard. The measured spectra are fitted against a SiO₂ on Si model, and χ² reports how well they agree.</figcaption>
-      </figure>
+    <div class="plates pair">
+      <!-- PHOTO TO ADD: afm.jpg | Veeco MultiMode head on its base, shot from the front at about head height. Show the head (laser and photodetector housing), the scanner and sample stage, and the base display if lit. Landscape, no people, no other members' samples. -->
       <figure class="plate pending" data-path="images/research/afm.jpg">
         <img src="images/research/afm.jpg" alt="Veeco MultiMode AFM head and stage">
         <figcaption><span class="pn"></span>The Veeco MultiMode. A laser reflects off the back of the cantilever onto a photodetector, which is how the tip's motion is read.</figcaption>
@@ -224,11 +232,8 @@ h1.page .dot{color:var(--gold)}
         <img src="images/research/03.jpg" alt="AFM scan of a calibration standard in NanoScope">
         <figcaption><span class="pn"></span>An AFM scan of a pitch and step height calibration standard in NanoScope, the reference for the X, Y, and Z sensitivities.</figcaption>
       </figure>
-      <figure class="plate pending" data-path="images/research/nanoscope-section.jpg">
-        <img src="images/research/nanoscope-section.jpg" alt="Section profile measurement in NanoScope Analysis">
-        <figcaption><span class="pn"></span>A section profile in NanoScope Analysis. Step height is read between the flat regions on either side of an edge.</figcaption>
-      </figure>
     </div>
+
   </section>
 
   <!-- PART 02 -->
@@ -260,7 +265,8 @@ h1.page .dot{color:var(--gold)}
     </div>
     <div class="chain-key"><i></i> every step run hands-on · 02 and 03 independently · 04, 05, and 07 alongside a graduate mentor</div>
 
-    <div class="plates">
+    <div class="plates pair">
+      <!-- PHOTO TO ADD: wet-bench.jpg | Inside the fume hood during piranha (beaker on hot plate) or the NH4F/HF step (plastic labware, dropper). Gloved hands are fine, no faces. Sash lowered, everything inside the hood. Landscape. -->
       <figure class="plate pending" data-path="images/research/wet-bench.jpg">
         <img src="images/research/wet-bench.jpg" alt="Wet chemistry setup in the fume hood">
         <figcaption><span class="pn"></span>The wet chemistry half of sample prep, run in a fume hood with full protective equipment.</figcaption>
@@ -269,9 +275,17 @@ h1.page .dot{color:var(--gold)}
         <img src="images/research/04.jpg" alt="Anric AT410 atomic layer deposition system">
         <figcaption><span class="pn"></span>The Anric AT410. Each ALD cycle adds a fixed increment, so film thickness is set by cycle count rather than by time.</figcaption>
       </figure>
+    </div>
+    <div class="plates pair">
+      <!-- PHOTO TO ADD: sample.jpg | Close-up of your own Si piece held in tweezers, Kapton-masked half visible (or the coated/bare boundary after removal). Dark or neutral background, angled to avoid glare on the mirror surface. Mirrors DAEYANG Plate 01. -->
       <figure class="plate pending" data-path="images/research/sample.jpg">
         <img src="images/research/sample.jpg" alt="Si(111) sample with half masked by Kapton tape">
         <figcaption><span class="pn"></span>A finished n-Si(111) piece: Al₂O₃ on one half, the Kapton-masked half left bare for comparison.</figcaption>
+      </figure>
+      <!-- PHOTO TO ADD: nanoscope-section.jpg | Windows screenshot (not a phone photo of the monitor) of NanoScope Analysis Section or Step tool: the 2D image with the line drawn across a step, the height profile, cursors, and the measured height visible. Your own sample only. If only a calibration standard is available, use it and move this plate to Part 01. -->
+      <figure class="plate pending" data-path="images/research/nanoscope-section.jpg">
+        <img src="images/research/nanoscope-section.jpg" alt="Section profile measurement in NanoScope Analysis">
+        <figcaption><span class="pn"></span>A section profile in NanoScope Analysis on one of my samples. Step height is read between the flat regions on either side of the edge.</figcaption>
       </figure>
     </div>
   </section>
