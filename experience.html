@@ -84,6 +84,18 @@ h1.page .dot{color:var(--gold)}
 .chain-key i{display:inline-block;width:22px;height:9px;border:1px solid var(--gold);
   background:color-mix(in srgb,var(--gold) 8%,transparent)}
 
+/* parts */
+.part{margin-top:56px}
+.part-head{display:flex;align-items:baseline;gap:14px;padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:26px}
+.part-head .pid{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.part-head h3{font-size:clamp(20px,2.6vw,24px);font-weight:600;letter-spacing:-.025em;margin:0}
+.tool{display:grid;grid-template-columns:1fr 240px;gap:40px;align-items:start;margin-bottom:30px}
+.tool p{font-family:"IBM Plex Serif",Georgia,serif;font-size:16px;line-height:1.72;margin:0 0 14px;max-width:62ch}
+.tool p:last-child{margin-bottom:0}
+.tool strong{font-family:"IBM Plex Sans",sans-serif;font-weight:600}
+.plates.pair .plate img{aspect-ratio:16/10;object-fit:cover;object-position:center}
+.plates.pair .plate img.fit{object-fit:contain;background:#fff}
+
 /* plates */
 .plates{display:grid;grid-template-columns:repeat(2,1fr);gap:26px 20px;align-items:start}
 .plate{margin:0}
@@ -105,7 +117,7 @@ h1.page .dot{color:var(--gold)}
 
 @media (max-width:820px){
   .bar-nav{display:none}
-  .narr{grid-template-columns:1fr;gap:26px}
+  .narr,.tool{grid-template-columns:1fr;gap:22px}
   .sec-top{grid-template-columns:1fr;align-items:start}
   .sec-top .when{text-align:left;white-space:normal}
 }
@@ -151,23 +163,13 @@ h1.page .dot{color:var(--gold)}
 
     <div class="narr">
       <div>
-        <p>DAEYANG is a corporate R&amp;D institute developing thermoelectric materials and modules for energy and environmental applications. I worked across most of the line, which turned out useful: a wedge that plates unevenly looks like nothing at the bath, but like a module that reads wrong three weeks later.</p>
-        <p>The line runs like this: Bi, Te, and Sb feedstock is ground, mixed by <strong>ball milling</strong>, and consolidated under heat and pressure into a cylindrical <strong>pellet</strong>. The pellet is sliced into <strong>coins</strong>, then cut into quarters or eighths, called <strong>sector wedges</strong>. Wedges are cleaned, <strong>plated</strong>, <strong>diced</strong> into cubes, and cleaned again. Only then are they <strong>legs</strong>, ready for SMT.</p>
-        <p>My main stretch was the plating bath: <strong>medium-phosphorus (6–8% P) electroless nickel on bismuth telluride</strong>, with <strong>IPA cleaning</strong>, <strong>pH monitoring and solution adjustment</strong> through each run, and handling of samples in process fixtures. A drifting bath doesn't fail loudly; it leaves an uneven coating on a wedge that becomes many legs. One uneven wedge isn't one bad part. It's every leg that comes out of it.</p>
-        <p>How the wedges were held through the bath was the related problem, so I proposed a custom <strong>titanium holding jig</strong> on my own initiative, drawings and specifications included, and brought it to a senior researcher. Scheduling, fabricator sourcing, and minimum order quantities stalled the build, but specifying a fixture against a named failure mode is the part I kept.</p>
-        <p>After dicing I ran <strong>dimensional inspection and defect classification</strong> on the legs: critical dimensions against design tolerances under digital microscopy, sorted into defect types (machining error, burring, asymmetry). Not all the legs were ours, either. DAEYANG runs joint national R&amp;D with the <strong>Korea Electrotechnology Research Institute (KERI)</strong>, and on one commissioned build using KERI's own legs, I separately ran <strong>incoming inspection</strong> and tray loading. Whatever the source, nonconforming legs came out before SMT: one bad leg in a 128-leg module is a bad module.</p>
-        <p>On the assembly side I supported senior engineers building <strong>8×8 modules, 128 legs each</strong>: solder paste prep, substrate mounting frame setup, automated paste printing and leg placement, soldering positive and negative lead wires to electrodes after reflow, and sourcing lead-free, high-temperature paste. Weekly output ran <strong>20 to 30 modules, scaling past 50</strong> during government R&amp;D cycles.</p>
-        <p>At the end of the line I ran <strong>final electrical inspection</strong>: resistance and voltage against spec, results documented in Excel for traceability, nonconforming units flagged for retest. I also collected <strong>generator performance data</strong> under senior researcher guidance across five cooling configurations: forced and natural air, forced and natural water, and antifreeze based.</p>
+        <p>DAEYANG is a corporate R&amp;D institute developing thermoelectric materials and modules for energy and environmental applications. I worked across most of the line, which turned out to be useful: a wedge that plates unevenly looks like nothing at the bath, but like a module that reads wrong three weeks later.</p>
+        <p>The line runs like this: Bi, Te, and Sb feedstock is ground, mixed by <strong>ball milling</strong>, and consolidated under heat and pressure into a cylindrical <strong>pellet</strong>. The pellet is sliced into <strong>coins</strong>, then cut into quarters or eighths, called <strong>sector wedges</strong>. Wedges are degreased, <strong>plated</strong>, <strong>diced</strong> into cubes, and cleaned again. Only then are they <strong>legs</strong>, ready for SMT.</p>
       </div>
       <aside class="side">
-        <div><b>Deposition</b>Electroless Ni, 6–8% P, on Bi₂Te₃</div>
-        <div><b>Solution</b>pH monitoring &amp; adjustment · IPA clean</div>
-        <div><b>Design</b>Ti holding jig: drawings &amp; specs</div>
-        <div><b>Inspection</b>Dimensional vs tolerance · defect classification</div>
-        <div><b>Incoming QC</b>KERI-supplied legs · tray loading</div>
-        <div><b>Assembly</b>8×8 modules · 128 legs · SMT support</div>
-        <div><b>Throughput</b>20–30 modules / wk, 50+ peak</div>
-        <div><b>Test</b>Resistance · voltage · cooling configurations</div>
+        <div><b>Material</b>Bi₂Te₃ based (Bi, Te, Sb)</div>
+        <div><b>Product</b>8×8 thermoelectric modules · 128 legs</div>
+        <div><b>Line</b>Pellet → wedge → leg → module</div>
       </aside>
     </div>
 
@@ -175,44 +177,97 @@ h1.page .dot{color:var(--gold)}
       <div class="step">01<b>Grind · ball mill</b></div>
       <div class="step">02<b>Sinter → pellet</b></div>
       <div class="step">03<b>Coin · sector cut</b></div>
-      <div class="step mine">04<b>Electroless Ni + pH</b></div>
-      <div class="step">05<b>Dice → legs</b></div>
-      <div class="step mine">06<b>Clean — IPA</b></div>
-      <div class="step mine">07<b>Leg inspection</b></div>
-      <div class="step mine">08<b>Solder printing</b></div>
-      <div class="step mine">09<b>Leg mounting</b></div>
-      <div class="step">10<b>Covering · reflow</b></div>
-      <div class="step mine">11<b>Wiring</b></div>
-      <div class="step mine">12<b>Final QC</b></div>
-      <div class="step">13<b>Packaging</b></div>
+      <div class="step mine">04<b>Degrease · IPA</b></div>
+      <div class="step mine">05<b>Electroless Ni + pH</b></div>
+      <div class="step">06<b>Dice → legs</b></div>
+      <div class="step mine">07<b>Clean · IPA</b></div>
+      <div class="step mine">08<b>Leg inspection</b></div>
+      <div class="step mine">09<b>Solder printing</b></div>
+      <div class="step mine">10<b>Leg mounting</b></div>
+      <div class="step">11<b>Covering · reflow</b></div>
+      <div class="step mine">12<b>Wiring</b></div>
+      <div class="step mine">13<b>Final QC</b></div>
+      <div class="step">14<b>Packaging</b></div>
     </div>
-    <div class="chain-key"><i></i> steps I worked on · 08 and 09 in support of senior engineers · 03 and 05 run on dedicated equipment by the responsible engineer</div>
+    <div class="chain-key"><i></i> steps I worked on · 09 and 10 in support of senior engineers · 03 and 06 run on dedicated equipment by the responsible engineer</div>
 
-    <div class="plates">
-      <figure class="plate" data-path="images/daeyang/01.jpg">
-        <img src="images/daeyang/01.jpg" alt="Inspecting a p-type thermoelectric leg held in tweezers">
-        <figcaption><span class="pn">Plate 01</span>A p-type leg under inspection, after dicing. By this stage the plating is already committed: anything wrong underneath it stays wrong.</figcaption>
-      </figure>
-      <figure class="plate" data-path="images/daeyang/02.jpg">
-        <img src="images/daeyang/02.jpg" alt="Technical drawing of the custom titanium holding jig">
-        <figcaption><span class="pn">Plate 02</span>Drawing for the custom titanium holding jig, specified to hold coins in position through the plating bath.</figcaption>
-      </figure>
-      <figure class="plate" data-path="images/daeyang/03.jpg">
-        <img src="images/daeyang/03.jpg" alt="Electroless plating setup">
-        <figcaption><span class="pn">Plate 03</span>Electroless nickel plating, done once the coins have been cut into sector wedges. Bath condition and how the wedge is held decide whether the coating lands evenly across a surface that will later be diced into many legs.</figcaption>
-      </figure>
-      <figure class="plate" data-path="images/daeyang/04.jpg">
-        <img src="images/daeyang/04.jpg" alt="Soldering leads to a thermoelectric generator">
-        <figcaption><span class="pn">Plate 04</span>Soldering copper leads to the electrodes of a finished thermoelectric generator.</figcaption>
-      </figure>
-      <figure class="plate" data-path="images/daeyang/05.jpg">
-        <img src="images/daeyang/05.jpg" alt="Screen showing electrical output measurements of a thermoelectric generator">
-        <figcaption><span class="pn">Plate 05</span>Characterization of a finished generator: Vmax and Imax measured across cooling setups, peak power calculated to compare trends.</figcaption>
-      </figure>
-      <figure class="plate" data-path="images/daeyang/06.jpg">
-        <img src="images/daeyang/06.jpg" alt="Digital microscopy inspection of a thermoelectric leg">
-        <figcaption><span class="pn">Plate 06</span>Digital microscopy on a diced leg: dimensional check, surface defects, and burr screening.</figcaption>
-      </figure>
+    <!-- PART 01 -->
+    <div class="part">
+      <div class="part-head"><span class="pid">Part 01</span><h3>Surface prep &amp; plating</h3></div>
+      <div class="tool">
+        <div>
+          <p>My main stretch was surface preparation and the plating bath. Before plating, wedges were <strong>degreased</strong>, mainly by sonication in IPA, so residue from cutting and handling didn't end up under the coating; the diced legs went through the same cleaning afterward.</p>
+          <p>Plating was <strong>medium-phosphorus (6–8% P) electroless nickel on bismuth telluride</strong>, with <strong>pH monitoring and solution adjustment</strong> through each run and samples handled in process fixtures. A drifting bath doesn't fail loudly; it leaves an uneven coating on a wedge that becomes many legs. One uneven wedge isn't one bad part. It's every leg that comes out of it.</p>
+          <p>How the wedges were held through the bath was the related problem, so I proposed a custom <strong>titanium holding jig</strong> on my own initiative, drawings and specifications included, and brought it to a senior researcher. Scheduling, fabricator sourcing, and minimum order quantities stalled the build, but specifying a fixture against a named failure mode is the part I kept.</p>
+        </div>
+        <aside class="side">
+          <div><b>Surface prep</b>Degreasing · IPA sonication</div>
+          <div><b>Deposition</b>Electroless Ni, 6–8% P, on Bi₂Te₃</div>
+          <div><b>Bath control</b>pH monitoring &amp; adjustment</div>
+          <div><b>Design</b>Ti holding jig: drawings &amp; specs</div>
+        </aside>
+      </div>
+      <div class="plates pair">
+        <figure class="plate" data-path="images/daeyang/03.jpg">
+          <img src="images/daeyang/03.jpg" alt="Electroless plating setup">
+          <figcaption><span class="pn">Plate 01</span>Electroless nickel plating on sector wedges. Bath condition and how the wedge is held decide whether the coating lands evenly across a surface that will later be diced into many legs.</figcaption>
+        </figure>
+        <figure class="plate" data-path="images/daeyang/02.jpg">
+          <img src="images/daeyang/02.jpg" alt="Technical drawing of the custom titanium holding jig" class="fit">
+          <figcaption><span class="pn">Plate 02</span>Drawing for the custom titanium holding jig, specified to hold coins in position through the plating bath.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- PART 02 -->
+    <div class="part">
+      <div class="part-head"><span class="pid">Part 02</span><h3>Inspection &amp; incoming QC</h3></div>
+      <div class="tool">
+        <div>
+          <p>After dicing I ran <strong>dimensional inspection and defect classification</strong> on the legs: critical dimensions against design tolerances under digital microscopy, sorted into defect types (machining error, burring, asymmetry).</p>
+          <p>Not all the legs were ours, either. DAEYANG runs joint national R&amp;D with the <strong>Korea Electrotechnology Research Institute (KERI)</strong>, and on one commissioned build using KERI's own legs, I separately ran <strong>incoming inspection</strong> and tray loading. Whatever the source, nonconforming legs came out before SMT: one bad leg in a 128-leg module is a bad module.</p>
+        </div>
+        <aside class="side">
+          <div><b>Inspection</b>Dimensional vs tolerance · defect classification</div>
+          <div><b>Incoming QC</b>KERI-supplied legs · tray loading</div>
+        </aside>
+      </div>
+      <div class="plates pair">
+        <figure class="plate" data-path="images/daeyang/06.jpg">
+          <img src="images/daeyang/06.jpg" alt="Digital microscopy inspection of a thermoelectric leg">
+          <figcaption><span class="pn">Plate 03</span>Digital microscopy on a diced leg: dimensional check, surface defects, and burr screening.</figcaption>
+        </figure>
+        <figure class="plate" data-path="images/daeyang/01.jpg">
+          <img src="images/daeyang/01.jpg" alt="Inspecting a p-type thermoelectric leg held in tweezers">
+          <figcaption><span class="pn">Plate 04</span>A p-type leg under inspection, after dicing. By this stage the plating is already committed: anything wrong underneath it stays wrong.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- PART 03 -->
+    <div class="part">
+      <div class="part-head"><span class="pid">Part 03</span><h3>Module assembly &amp; test</h3></div>
+      <div class="tool">
+        <div>
+          <p>On the assembly side I supported senior engineers building <strong>8×8 modules, 128 legs each</strong>: solder paste prep, substrate mounting frame setup, automated paste printing and leg placement, soldering positive and negative lead wires to electrodes after reflow, and sourcing lead-free, high-temperature paste. Weekly output ran <strong>20 to 30 modules, scaling past 50</strong> during government R&amp;D cycles.</p>
+          <p>At the end of the line I ran <strong>final electrical inspection</strong>: resistance and voltage against spec, results documented in Excel for traceability, nonconforming units flagged for retest. I also collected <strong>generator performance data</strong> under senior researcher guidance across five cooling configurations: forced and natural air, forced and natural water, and antifreeze based.</p>
+        </div>
+        <aside class="side">
+          <div><b>Assembly</b>8×8 modules · 128 legs · SMT support</div>
+          <div><b>Throughput</b>20–30 modules / wk, 50+ peak</div>
+          <div><b>Test</b>Resistance · voltage · cooling configurations</div>
+        </aside>
+      </div>
+      <div class="plates pair">
+        <figure class="plate" data-path="images/daeyang/04.jpg">
+          <img src="images/daeyang/04.jpg" alt="Soldering leads to a thermoelectric generator">
+          <figcaption><span class="pn">Plate 05</span>Soldering copper leads to the electrodes of a finished thermoelectric generator.</figcaption>
+        </figure>
+        <figure class="plate" data-path="images/daeyang/05.jpg">
+          <img src="images/daeyang/05.jpg" alt="Screen showing electrical output measurements of a thermoelectric generator">
+          <figcaption><span class="pn">Plate 06</span>Characterization of a finished generator: Vmax and Imax measured across cooling setups, peak power calculated to compare trends.</figcaption>
+        </figure>
+      </div>
     </div>
   </section>
 
