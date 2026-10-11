@@ -14,11 +14,13 @@
   --paper:#F6F2E3;--paper-2:#FBF8EE;--ink:#1C1E22;--muted:#5C6168;
   --line:rgba(40,36,24,.18);--line-soft:rgba(40,36,24,.09);
   --gold:#8C6510;--violet:#504B9E;
+  --grid:rgba(60,52,30,.035);--grid-major:rgba(60,52,30,.06);--shine:#FFFFFF;
 }
 [data-theme="dark"]{
   --paper:#14181C;--paper-2:#1B2026;--ink:#E7E9E8;--muted:#8A939D;
   --line:rgba(231,233,232,.18);--line-soft:rgba(231,233,232,.09);
   --gold:#D9A63E;--violet:#8E88DD;
+  --grid:rgba(200,214,226,.035);--grid-major:rgba(200,214,226,.06);--shine:#DCE3EA;
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
@@ -27,6 +29,19 @@ body{
   font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:16px;line-height:1.55;
   -webkit-font-smoothing:antialiased;transition:background .35s,color .35s;
 }
+/* cleanroom grid */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:
+    linear-gradient(var(--grid-major) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid-major) 1px,transparent 1px),
+    linear-gradient(var(--grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:120px 120px,120px 120px,24px 24px,24px 24px;
+  background-position:center -1px;
+  -webkit-mask-image:radial-gradient(ellipse 75% 70% at 50% 45%,rgba(0,0,0,.45),#000);
+          mask-image:radial-gradient(ellipse 75% 70% at 50% 45%,rgba(0,0,0,.45),#000);
+}
+/* cleanroom grid end */
 a{color:inherit}
 
 /* bar */
@@ -70,7 +85,8 @@ h1 .dot{color:var(--gold)}
 .log-head .key{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;color:var(--muted)}
 .log-lede{font-size:14.5px;color:var(--muted);max-width:62ch;margin:0 0 26px}
 
-.stack{display:flex;flex-direction:column;gap:10px}
+.stack{display:flex;flex-direction:column;gap:18px}
+.row{--hov:color-mix(in srgb,var(--face) 50%,color-mix(in srgb,var(--ink) 34%,var(--paper-2)))}
 .row{
   display:grid;grid-template-columns:44px 120px 1fr auto;gap:0 22px;align-items:center;
   min-height:64px;text-decoration:none;position:relative;
@@ -83,11 +99,13 @@ h1 .dot{color:var(--gold)}
 .band{height:100%;position:relative;display:flex;align-items:flex-end;justify-content:center}
 .band svg{display:block;overflow:visible;width:100%;max-width:120px;height:auto;margin:4px 0}
 .pl{transition:transform .45s cubic-bezier(.2,.7,.3,1);transform:translateY(0)}
-.pl .top{fill:var(--face);stroke:var(--ink);stroke-width:1;stroke-linejoin:round;transition:fill .3s}
-.pl .sl{fill:color-mix(in srgb,var(--face) 72%,var(--ink));stroke:var(--ink);stroke-width:1;stroke-linejoin:round}
-.pl .sr{fill:color-mix(in srgb,var(--face) 84%,var(--ink));stroke:var(--ink);stroke-width:1;stroke-linejoin:round}
-.row:hover .pl,.row:focus-visible .pl{transform:translateY(calc(var(--k) * -10px))}
-.row:hover .pl:last-child .top{fill:color-mix(in srgb,var(--gold) 55%,var(--face))}
+.pl polygon{stroke:color-mix(in srgb,var(--ink) 58%,var(--face));stroke-width:.7;stroke-linejoin:round}
+.pl .top{fill:var(--g)}
+.pl .sl{fill:color-mix(in srgb,var(--face) 66%,var(--ink))}
+.pl .sr{fill:color-mix(in srgb,var(--face) 80%,var(--ink))}
+.pl .rim{fill:none;stroke:var(--shine);stroke-width:.7;opacity:.75}
+.row:hover .pl,.row:focus-visible .pl{transform:translateY(calc(var(--k) * var(--spread) * -1px))}
+.row:hover .pl:last-child .top,.row:focus-visible .pl:last-child .top{fill:var(--gh)}
 .rtext b{display:block;font-size:clamp(15px,1.8vw,19px);font-weight:600;letter-spacing:-.02em;transition:color .25s}
 .row:hover .rtext b{color:var(--gold)}
 .rtext span{display:block;font-size:13.5px;color:var(--muted);margin-top:2px}
@@ -108,7 +126,7 @@ h1 .dot{color:var(--gold)}
 /* plates settle in one by one, the newest keeps arriving */
 .pl{animation:plate-in .38s cubic-bezier(.2,.8,.3,1) backwards;animation-delay:var(--d)}
 @keyframes plate-in{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
-.pl.fresh .top{fill:color-mix(in srgb,var(--gold) 60%,var(--face))}
+.pl.fresh .top{fill:var(--gf)}
 .pl.fresh{animation:plate-in .38s cubic-bezier(.2,.8,.3,1) backwards,fresh 3.2s ease-in-out infinite;animation-delay:var(--d),calc(var(--d) + .6s)}
 @keyframes fresh{0%,100%{opacity:1;transform:translateY(0)}45%{opacity:.25;transform:translateY(-7px)}55%{opacity:.25;transform:translateY(-7px)}}
 
@@ -270,29 +288,56 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
 
 <script>
 (function(){
-  var NS='http://www.w3.org/2000/svg', W=100, HH=14, T=2, GAP=8, X=60;
-  function poly(cls,pts){var p=document.createElementNS(NS,'polygon');p.setAttribute('class',cls);p.setAttribute('points',pts.map(function(q){return q.join(',')}).join(' '));return p;}
+  var NS='http://www.w3.org/2000/svg', W=100, HH=14, T=1.6, GAP=4.6, X=60;
+  function el(tag,attrs){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);return e;}
+  function pts(a){return a.map(function(q){return q.join(',')}).join(' ');}
   function plate(y,t){
-    var g=document.createElementNS(NS,'g'),l=X-W/2,r=X+W/2;
-    g.appendChild(poly('sl',[[l,y],[X,y+HH],[X,y+HH+t],[l,y+t]]));
-    g.appendChild(poly('sr',[[X,y+HH],[r,y],[r,y+t],[X,y+HH+t]]));
-    g.appendChild(poly('top',[[l,y],[X,y-HH],[r,y],[X,y+HH]]));
+    var g=el('g',{}),l=X-W/2,r=X+W/2;
+    g.appendChild(el('polygon',{'class':'sl',points:pts([[l,y],[X,y+HH],[X,y+HH+t],[l,y+t]])}));
+    g.appendChild(el('polygon',{'class':'sr',points:pts([[X,y+HH],[r,y],[r,y+t],[X,y+HH+t]])}));
+    g.appendChild(el('polygon',{'class':'top',points:pts([[l,y],[X,y-HH],[r,y],[X,y+HH]])}));
+    g.appendChild(el('polyline',{'class':'rim',points:pts([[l+1.5,y+.4],[X,y+HH-.6],[r-1.5,y+.4]])}));
     return g;
+  }
+  /* brushed metal: a soft diagonal sheen with one bright glint that slides when the row is hovered */
+  function metal(id,base){
+    var gr=el('linearGradient',{id:id,x1:'0',y1:'0',x2:'1',y2:'.55'}), anims=[];
+    var mix=function(p,c){return 'color-mix(in srgb,'+base+' '+p+'%,'+c+')';};
+    var stops=[[0,mix(62,'var(--shine)')],[.22,base],[null,base,-.13],[null,mix(30,'var(--shine)'),0],[null,base,.13],[.82,base],[1,mix(80,'var(--ink)')]];
+    stops.forEach(function(st){
+      var o=st[0]===null?(.36+st[2]):st[0], s=el('stop',{offset:o});
+      s.setAttribute('style','stop-color:'+st[1]);
+      if(st[0]===null){
+        var f=el('animate',{attributeName:'offset',from:o,to:(.66+st[2]).toFixed(2),dur:'.7s',begin:'indefinite',fill:'freeze'});
+        var bk=el('animate',{attributeName:'offset',from:(.66+st[2]).toFixed(2),to:o,dur:'.7s',begin:'indefinite',fill:'freeze'});
+        s.appendChild(f);s.appendChild(bk);anims.push([f,bk]);
+      }
+      gr.appendChild(s);
+    });
+    return {node:gr,anims:anims};
   }
   var now=new Date(), rowDelay=[1.0,.7,.4,.1];
   document.querySelectorAll('.stack .band').forEach(function(band,ri){
     var kind=band.dataset.kind||'layer', n=+band.dataset.n||1, t=T;
     if(kind==='growing'){var f=band.dataset.from.split('-');n=(now.getFullYear()-f[0])*12+(now.getMonth()+1-f[1])+1;if(n<1)n=1;}
-    if(kind==='substrate'){n=1;t=16;}
-    var H=HH*2+t+(n-1)*GAP+4, svg=document.createElementNS(NS,'svg');
-    svg.setAttribute('viewBox','0 0 120 '+H);svg.setAttribute('aria-hidden','true');
+    if(kind==='substrate'){n=1;t=12;}
+    var H=HH*2+t+(n-1)*GAP+4, svg=el('svg',{viewBox:'0 0 120 '+H,'aria-hidden':'true'});
+    var defs=el('defs',{}), id='m'+ri;
+    var gN=metal(id,'var(--face)'), gH=metal(id+'h','var(--hov)'), gF=metal(id+'f','color-mix(in srgb,var(--gold) 55%,var(--face))');
+    defs.appendChild(gN.node);defs.appendChild(gH.node);defs.appendChild(gF.node);svg.appendChild(defs);
+    svg.style.setProperty('--g','url(#'+id+')');svg.style.setProperty('--gh','url(#'+id+'h)');svg.style.setProperty('--gf','url(#'+id+'f)');
+    svg.style.setProperty('--spread',Math.min(1.6*(n-1),14).toFixed(1));
     for(var i=0;i<n;i++){
-      var y=H-2-HH-t-i*GAP, g=plate(y,t);
+      var g=plate(H-2-HH-t-i*GAP,t);
       g.setAttribute('class','pl'+(kind==='growing'&&i===n-1?' fresh':''));
       g.style.setProperty('--k',n>1?(i/(n-1)).toFixed(3):0);g.style.setProperty('--d',(rowDelay[ri]+i*.035).toFixed(3)+'s');
       svg.appendChild(g);
     }
     band.appendChild(svg);
+    var all=gN.anims.concat(gH.anims,gF.anims), row=band.closest('.row');
+    function run(k){all.forEach(function(p){try{p[k].beginElement()}catch(e){}});}
+    row.addEventListener('mouseenter',function(){run(0)});row.addEventListener('focus',function(){run(0)});
+    row.addEventListener('mouseleave',function(){run(1)});row.addEventListener('blur',function(){run(1)});
   });
 })();
 </script>

@@ -13,11 +13,13 @@
   --paper:#F6F2E3;--paper-2:#FBF8EE;--ink:#1C1E22;--muted:#5C6168;
   --line:rgba(40,36,24,.18);--line-soft:rgba(40,36,24,.09);
   --gold:#8C6510;--violet:#504B9E;
+  --grid:rgba(60,52,30,.035);--grid-major:rgba(60,52,30,.06);--shine:#FFFFFF;
 }
 [data-theme="dark"]{
   --paper:#14181C;--paper-2:#1B2026;--ink:#E7E9E8;--muted:#8A939D;
   --line:rgba(231,233,232,.18);--line-soft:rgba(231,233,232,.09);
   --gold:#D9A63E;--violet:#8E88DD;
+  --grid:rgba(200,214,226,.035);--grid-major:rgba(200,214,226,.06);--shine:#DCE3EA;
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
@@ -26,6 +28,19 @@ body{
   font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:16px;line-height:1.55;
   -webkit-font-smoothing:antialiased;transition:background .35s,color .35s;
 }
+/* cleanroom grid */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:
+    linear-gradient(var(--grid-major) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid-major) 1px,transparent 1px),
+    linear-gradient(var(--grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:120px 120px,120px 120px,24px 24px,24px 24px;
+  background-position:center -1px;
+  -webkit-mask-image:radial-gradient(ellipse 75% 70% at 50% 45%,rgba(0,0,0,.45),#000);
+          mask-image:radial-gradient(ellipse 75% 70% at 50% 45%,rgba(0,0,0,.45),#000);
+}
+/* cleanroom grid end */
 a{color:inherit}
 
 .bar{
