@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>(function(){var t='dark';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}document.documentElement.setAttribute('data-theme',t);})();</script>
+<script>(function(){var t='light';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}document.documentElement.setAttribute('data-theme',t);})();</script>
 <title>Research · Joey Chung</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#E7E9E8;--paper-2:#F2F3F2;--ink:#171B21;--muted:#5F6872;
-  --line:rgba(23,27,33,.16);--line-soft:rgba(23,27,33,.08);
-  --gold:#8A6414;--violet:#5A55A8;
+  --paper:#F6F2E3;--paper-2:#FBF8EE;--ink:#1C1E22;--muted:#5C6168;
+  --line:rgba(40,36,24,.18);--line-soft:rgba(40,36,24,.09);
+  --gold:#8C6510;--violet:#504B9E;
 }
 [data-theme="dark"]{
   --paper:#14181C;--paper-2:#1B2026;--ink:#E7E9E8;--muted:#8A939D;
@@ -157,7 +157,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
     <a href="off-hours.html">off-hours</a>
     <a href="contact.html">contact</a>
   </nav>
-  <button class="toggle" id="tg">Light</button>
+  <button class="toggle" id="tg">Dark</button>
 </div>
 
 <main class="shell">
@@ -177,7 +177,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
   <div class="narr">
     <div>
       <p>The Maldonado Group works on electrochemistry and semiconductor materials under <strong>Prof. Stephen Maldonado</strong>. I joined in April 2026 on the thin film side, and since May I have been responsible for the group's <strong>spectroscopic ellipsometer</strong> and <strong>AFM</strong>.</p>
-      <p>The work has two halves. One is measuring: how thick a layer actually came out, and what the surface looks like afterward. The other is making the samples in the first place, from a bare silicon wafer to a coated film. Working on both ends means I know the history of a sample before I put it under an instrument.</p>
+      <p>The work has two halves. One is measuring how thick a layer actually came out and what the surface looks like afterward. The other is making the samples in the first place, starting from a bare silicon wafer. Doing both means I know the history of a sample before I ever put it under an instrument.</p>
     </div>
     <aside class="side">
       <div><b>Group</b>Maldonado Group, U-M Chemistry</div>
@@ -210,7 +210,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
     <div class="plates pair">
       <figure class="plate" data-path="images/research/01.jpg">
         <img src="images/research/01.jpg" alt="HORIBA UVISEL spectroscopic ellipsometer">
-        <figcaption><span class="pn"></span>The HORIBA UVISEL. Thickness comes from how polarized light changes on reflection; nothing touches the sample.</figcaption>
+        <figcaption><span class="pn"></span>The HORIBA UVISEL. Thickness comes from how polarized light changes on reflection, so nothing touches the sample.</figcaption>
       </figure>
       <figure class="plate" data-path="images/research/02-fit.jpg">
         <img src="images/research/02-fit.jpg" alt="DeltaPsi2 model fit of a thermal oxide standard">
@@ -222,7 +222,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
     <div class="tool">
       <div>
         <h4>Atomic force microscopy</h4>
-        <p>On the Veeco MultiMode I image in tapping mode: the cantilever oscillates near resonance and lightly taps the surface, the feedback loop holds that oscillation at a setpoint, and the scanner's vertical motion becomes the height map. I scan my own samples and other group members', then measure step heights and raised growth features in NanoScope Analysis.</p>
+        <p>On the Veeco MultiMode I image in tapping mode. The cantilever oscillates near resonance and lightly taps the surface, the feedback loop holds that oscillation at a setpoint, and the scanner's vertical motion becomes the height map. I scan my own samples and other group members', then measure step heights and raised growth features in NanoScope Analysis.</p>
         <p>The scanner is calibrated against pitch and step height standards. When a 100 nm standard read 110 nm, I recalculated the Z sensitivity from 11.32 to 10.29 nm/V, and the next scan read 100.1 nm. I also train new users on startup, laser alignment, and scan settings.</p>
       </div>
       <aside class="side">
@@ -254,7 +254,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
     <div class="tool">
       <div>
         <p>Samples start as pieces of n-type Si(111) wafer and go through a cleaning and etching sequence before any film goes on. Solvents strip grease and organics, piranha oxidizes what is left, NH₄F and HF take off the oxide in the HF hood, and a plasma treatment follows.</p>
-        <p>The film is then grown by thermal ALD, one cycle at a time, with the cycle count set for the target thickness. Al₂O₃ comes first, with other layers to follow. The question I keep coming back to sits before the deposition: how the surface preparation decides whether a film grows evenly across the wafer and lands at the thickness it was meant to. AFM then checks what actually grew.</p>
+        <p>The film is then grown by thermal ALD, one cycle at a time, with the cycle count set for the target thickness. Al₂O₃ comes first, with other layers to follow. The question I keep coming back to comes before the deposition. How does the surface preparation decide whether a film grows evenly across the wafer and lands at the thickness it was meant to? AFM then checks what actually grew.</p>
       </div>
       <aside class="side">
         <div><b>Substrate</b>n-type Si(111)</div>
@@ -313,7 +313,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
 (function(){
   var root=document.documentElement, btn=document.getElementById('tg');
   function label(){btn.textContent=root.getAttribute('data-theme')==='dark'?'Light':'Dark';}
-  function sync(){var t='dark';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}root.setAttribute('data-theme',t);label();}
+  function sync(){var t='light';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}root.setAttribute('data-theme',t);label();}
   label();
   window.addEventListener('pageshow',sync);
   btn.addEventListener('click',function(){

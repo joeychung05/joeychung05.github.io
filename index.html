@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>(function(){var t='dark';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}document.documentElement.setAttribute('data-theme',t);})();</script>
+<script>(function(){var t='light';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}document.documentElement.setAttribute('data-theme',t);})();</script>
 <title>Joey Chung · Chemistry, University of Michigan</title>
 <meta name="description" content="Joey Chung · B.S. Chemistry, University of Michigan. Thin film deposition, surface characterization, and process control. Seeking semiconductor and manufacturing internships.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,9 +11,9 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#E7E9E8;--paper-2:#F2F3F2;--ink:#171B21;--muted:#5F6872;
-  --line:rgba(23,27,33,.16);--line-soft:rgba(23,27,33,.08);
-  --gold:#8A6414;--violet:#5A55A8;
+  --paper:#F6F2E3;--paper-2:#FBF8EE;--ink:#1C1E22;--muted:#5C6168;
+  --line:rgba(40,36,24,.18);--line-soft:rgba(40,36,24,.09);
+  --gold:#8C6510;--violet:#504B9E;
 }
 [data-theme="dark"]{
   --paper:#14181C;--paper-2:#1B2026;--ink:#E7E9E8;--muted:#8A939D;
@@ -70,22 +70,24 @@ h1 .dot{color:var(--gold)}
 .log-head .key{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;color:var(--muted)}
 .log-lede{font-size:14.5px;color:var(--muted);max-width:62ch;margin:0 0 26px}
 
-.stack{display:flex;flex-direction:column;gap:3px}
+.stack{display:flex;flex-direction:column;gap:10px}
 .row{
-  display:grid;grid-template-columns:44px 108px 1fr auto;gap:0 20px;align-items:center;
-  height:var(--h);text-decoration:none;position:relative;
+  display:grid;grid-template-columns:44px 120px 1fr auto;gap:0 22px;align-items:center;
+  min-height:64px;text-decoration:none;position:relative;
   border-bottom:1px solid transparent;
   transition:border-color .25s;
 }
 .row:hover,.row:focus-visible{border-bottom-color:var(--gold);outline:none}
 .rid{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;color:var(--muted);transition:color .25s}
 .row:hover .rid{color:var(--gold)}
-.band{
-  height:100%;background:var(--face);border:1px solid var(--line);
-  transition:transform .3s cubic-bezier(.2,.7,.3,1),border-color .3s;
-  position:relative;overflow:hidden;
-}
-.row:hover .band{transform:translateX(8px);border-color:var(--gold)}
+.band{height:100%;position:relative;display:flex;align-items:flex-end;justify-content:center}
+.band svg{display:block;overflow:visible;width:100%;max-width:120px;height:auto;margin:4px 0}
+.pl{transition:transform .45s cubic-bezier(.2,.7,.3,1);transform:translateY(0)}
+.pl .top{fill:var(--face);stroke:var(--ink);stroke-width:1;stroke-linejoin:round;transition:fill .3s}
+.pl .sl{fill:color-mix(in srgb,var(--face) 72%,var(--ink));stroke:var(--ink);stroke-width:1;stroke-linejoin:round}
+.pl .sr{fill:color-mix(in srgb,var(--face) 84%,var(--ink));stroke:var(--ink);stroke-width:1;stroke-linejoin:round}
+.row:hover .pl,.row:focus-visible .pl{transform:translateY(calc(var(--k) * -10px))}
+.row:hover .pl:last-child .top{fill:color-mix(in srgb,var(--gold) 55%,var(--face))}
 .rtext b{display:block;font-size:clamp(15px,1.8vw,19px);font-weight:600;letter-spacing:-.02em;transition:color .25s}
 .row:hover .rtext b{color:var(--gold)}
 .rtext span{display:block;font-size:13.5px;color:var(--muted);margin-top:2px}
@@ -101,19 +103,14 @@ h1 .dot{color:var(--gold)}
 .row:hover .rmeas b{color:var(--gold)}
 
 /* substrate */
-.row.sub .band{
-  border-color:var(--ink);
-  background:linear-gradient(180deg,rgba(90,85,168,.26),rgba(138,100,20,.16) 45%,transparent 75%),var(--face);
-}
 .row.sub .rtext b{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
 
-/* still depositing */
-.growing::after{
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--gold) 45%,transparent),transparent);
-  animation:sweep 3.6s ease-in-out infinite;
-}
-@keyframes sweep{0%,100%{transform:translateX(-101%)}50%{transform:translateX(101%)}}
+/* plates settle in one by one, the newest keeps arriving */
+.pl{animation:plate-in .38s cubic-bezier(.2,.8,.3,1) backwards;animation-delay:var(--d)}
+@keyframes plate-in{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+.pl.fresh .top{fill:color-mix(in srgb,var(--gold) 60%,var(--face))}
+.pl.fresh{animation:plate-in .38s cubic-bezier(.2,.8,.3,1) backwards,fresh 3.2s ease-in-out infinite;animation-delay:var(--d),calc(var(--d) + .6s)}
+@keyframes fresh{0%,100%{opacity:1;transform:translateY(0)}45%{opacity:.25;transform:translateY(-7px)}55%{opacity:.25;transform:translateY(-7px)}}
 
 /* deposition sequence on load */
 .row{opacity:0;animation:deposit .5s cubic-bezier(.2,.8,.3,1) forwards}
@@ -152,7 +149,7 @@ h1 .dot{color:var(--gold)}
 @media (max-width:760px){
   .ident{grid-template-columns:1fr;gap:20px;align-items:start}
   .ident-meta{text-align:left;white-space:normal}
-  .row{grid-template-columns:32px 56px 1fr;gap:0 14px}
+  .row{grid-template-columns:28px 84px 1fr;gap:0 12px}
   .rmeas{display:none}
   .shell{padding-top:90px}
 }
@@ -177,7 +174,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
 
 <div class="bar">
   <div class="bar-id"><b>Joey Chung</b> / index</div>
-  <button class="toggle" id="tg">Light</button>
+  <button class="toggle" id="tg">Dark</button>
 </div>
 
 <main class="shell">
@@ -200,13 +197,13 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
       <h2>Deposition Log</h2>
       <span class="key">4 layers · 2019 → present</span>
     </div>
-    <p class="log-lede">Every experience I've built on, stacked in the order it went down. Layer thickness scales with time spent. The top layer is still growing.</p>
+    <p class="log-lede">Everything I've built on, stacked in the order it went down. One plate is one month, and the top layer is still growing.</p>
 
     <div class="stack">
 
-      <a class="row" href="research.html" style="--h:74px;--face:color-mix(in srgb,var(--gold) 30%,var(--paper-2))">
+      <a class="row" href="research.html" style="--face:color-mix(in srgb,var(--gold) 30%,var(--paper-2))">
         <span class="rid">L03</span>
-        <span class="band growing"></span>
+        <span class="band" data-from="2026-04" data-kind="growing"></span>
         <span class="rtext">
           <b>Maldonado Group, University of Michigan</b>
           <span>Undergraduate Research Assistant · Thin film fabrication &amp; metrology</span>
@@ -215,9 +212,9 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
         <span class="rmeas">2026.04 — present<br><b>depositing</b></span>
       </a>
 
-      <a class="row" href="experience.html#daeyang" style="--h:106px;--face:color-mix(in srgb,var(--violet) 22%,var(--paper-2))">
+      <a class="row" href="experience.html#daeyang" style="--face:color-mix(in srgb,var(--violet) 22%,var(--paper-2))">
         <span class="rid">L02</span>
-        <span class="band"></span>
+        <span class="band" data-n="9"></span>
         <span class="rtext">
           <b>DAEYANG Co., Ltd.</b>
           <span>Research Assistant · Thermoelectric module R&amp;D, Daegu KR</span>
@@ -226,9 +223,9 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
         <span class="rmeas">2024.09 — 2025.05<br><b>9 mo</b></span>
       </a>
 
-      <a class="row" href="experience.html#police" style="--h:170px;--face:color-mix(in srgb,var(--ink) 13%,var(--paper-2))">
+      <a class="row" href="experience.html#police" style="--face:color-mix(in srgb,var(--ink) 13%,var(--paper-2))">
         <span class="rid">L01</span>
-        <span class="band"></span>
+        <span class="band" data-n="18"></span>
         <span class="rtext">
           <b>Republic of Korea Auxiliary Police</b>
           <span>Sergeant · 12-officer squad lead, mandatory national service</span>
@@ -237,9 +234,9 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
         <span class="rmeas">2019.11 — 2021.05<br><b>18 mo</b></span>
       </a>
 
-      <a class="row sub" href="about.html" style="--h:64px;--face:color-mix(in srgb,var(--ink) 7%,var(--paper-2))">
+      <a class="row sub" href="about.html" style="--face:color-mix(in srgb,var(--ink) 7%,var(--paper-2))">
         <span class="rid">L00</span>
-        <span class="band"></span>
+        <span class="band" data-kind="substrate"></span>
         <span class="rtext">
           <b>Substrate</b>
           <span>UW–Madison, Food Science → University of Michigan, Chemistry</span>
@@ -250,7 +247,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
     </div>
 
     <div class="log-foot">
-      <span>Hover a layer to open it.</span>
+      <span>Hover or tap a layer to open it.</span>
       <span>SUBSTRATE ↑ SURFACE</span>
     </div>
   </section>
@@ -265,7 +262,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
 
   <footer class="foot">
     <a href="mailto:cychung@umich.edu">cychung@umich.edu</a>
-    <a href="http://www.linkedin.com/in/joey-chung-793b6a240">linkedin</a>
+    <a href="https://www.linkedin.com/in/joey-chung-793b6a240">linkedin</a>
     <a href="resume/joey-chung-resume.pdf">resume ↓</a>
     <span class="stamp">JC / 2026</span>
   </footer>
@@ -273,9 +270,37 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
 
 <script>
 (function(){
+  var NS='http://www.w3.org/2000/svg', W=100, HH=14, T=2, GAP=8, X=60;
+  function poly(cls,pts){var p=document.createElementNS(NS,'polygon');p.setAttribute('class',cls);p.setAttribute('points',pts.map(function(q){return q.join(',')}).join(' '));return p;}
+  function plate(y,t){
+    var g=document.createElementNS(NS,'g'),l=X-W/2,r=X+W/2;
+    g.appendChild(poly('sl',[[l,y],[X,y+HH],[X,y+HH+t],[l,y+t]]));
+    g.appendChild(poly('sr',[[X,y+HH],[r,y],[r,y+t],[X,y+HH+t]]));
+    g.appendChild(poly('top',[[l,y],[X,y-HH],[r,y],[X,y+HH]]));
+    return g;
+  }
+  var now=new Date(), rowDelay=[1.0,.7,.4,.1];
+  document.querySelectorAll('.stack .band').forEach(function(band,ri){
+    var kind=band.dataset.kind||'layer', n=+band.dataset.n||1, t=T;
+    if(kind==='growing'){var f=band.dataset.from.split('-');n=(now.getFullYear()-f[0])*12+(now.getMonth()+1-f[1])+1;if(n<1)n=1;}
+    if(kind==='substrate'){n=1;t=16;}
+    var H=HH*2+t+(n-1)*GAP+4, svg=document.createElementNS(NS,'svg');
+    svg.setAttribute('viewBox','0 0 120 '+H);svg.setAttribute('aria-hidden','true');
+    for(var i=0;i<n;i++){
+      var y=H-2-HH-t-i*GAP, g=plate(y,t);
+      g.setAttribute('class','pl'+(kind==='growing'&&i===n-1?' fresh':''));
+      g.style.setProperty('--k',n>1?(i/(n-1)).toFixed(3):0);g.style.setProperty('--d',(rowDelay[ri]+i*.035).toFixed(3)+'s');
+      svg.appendChild(g);
+    }
+    band.appendChild(svg);
+  });
+})();
+</script>
+<script>
+(function(){
   var root=document.documentElement, btn=document.getElementById('tg');
   function label(){btn.textContent=root.getAttribute('data-theme')==='dark'?'Light':'Dark';}
-  function sync(){var t='dark';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}root.setAttribute('data-theme',t);label();}
+  function sync(){var t='light';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}root.setAttribute('data-theme',t);label();}
   label();
   window.addEventListener('pageshow',sync);
   btn.addEventListener('click',function(){

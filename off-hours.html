@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>(function(){var t='dark';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}document.documentElement.setAttribute('data-theme',t);})();</script>
+<script>(function(){var t='light';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}document.documentElement.setAttribute('data-theme',t);})();</script>
 <title>Off-Hours · Joey Chung</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#E7E9E8;--paper-2:#F2F3F2;--ink:#171B21;--muted:#5F6872;
-  --line:rgba(23,27,33,.16);--line-soft:rgba(23,27,33,.08);
-  --gold:#8A6414;--violet:#5A55A8;
+  --paper:#F6F2E3;--paper-2:#FBF8EE;--ink:#1C1E22;--muted:#5C6168;
+  --line:rgba(40,36,24,.18);--line-soft:rgba(40,36,24,.09);
+  --gold:#8C6510;--violet:#504B9E;
 }
 [data-theme="dark"]{
   --paper:#14181C;--paper-2:#1B2026;--ink:#E7E9E8;--muted:#8A939D;
@@ -154,13 +154,13 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
     <a href="off-hours.html" aria-current="page">off-hours</a>
     <a href="contact.html">contact</a>
   </nav>
-  <button class="toggle" id="tg">Light</button>
+  <button class="toggle" id="tg">Dark</button>
 </div>
 
 <main class="shell">
   <h1 class="page">Off-Hours<span class="dot">.</span></h1>
   <div class="sub">What I do when I'm not in the lab</div>
-  <p class="intro">Two things have followed me across every place I've lived: a rifle range and a kitchen. One rewards holding still. The other rewards adjusting fast. I've needed both.</p>
+  <p class="intro">A rifle range and a kitchen have followed me to every place I've lived. One rewards holding still. The other rewards adjusting fast. I've needed both.</p>
 
   <div class="jump">
     <a href="#range">rifle team</a>
@@ -171,7 +171,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
   <!-- RANGE -->
   <section class="sec" id="range">
     <div class="sec-head"><span class="n">01</span><h2>Michigan Rifle Team.</h2><span class="r">since 2025.08</span></div>
-    <p class="lede">I shoot <b>air rifle</b> and <b>three-position</b> relays with the Michigan Rifle Team. Precision rifle is mostly not about the shot; it's about controlling everything that happens before it. Breathing, position, trigger break, and the discipline to do it identically every time. <b>Repeatability under pressure is the entire sport</b>, which is probably not unrelated to why I ended up drawn to process work.</p>
+    <p class="lede">I shoot <b>air rifle</b> and <b>three-position</b> relays with the Michigan Rifle Team. Precision rifle is mostly not about the shot. It's about everything that happens before it. Breathing, position, the trigger break, and doing all of it the same way every time. <b>Repeatability under pressure is the entire sport</b>, which is probably not unrelated to why I ended up drawn to process work.</p>
 
     <div class="rifle">
       <svg class="target" viewBox="0 0 100 100" aria-label="Rifle target with a shot group">
@@ -223,7 +223,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
   <section class="sec" id="kitchen">
     <div class="sec-head"><span class="n">02</span><h2>Kitchen.</h2><span class="r">since 2021</span></div>
     <p class="lede">Cooking is how I meet people. I show up somewhere, cook Korean food for friends who have never eaten it, and by the end of the night they're teaching me theirs. In Poland that meant standing at a counter learning to fold pierogi from people who had grown up folding them. <b>It goes both directions, and that's the part I actually travel for.</b></p>
-    <p class="lede">The food never stays Korean, because the ingredients aren't there. Gochujang cut into tomato sauce becomes a calzone base. Bulgogi ends up in a tortilla in Mexico. <b>What survives the substitutions is the part worth sharing anyway</b>: the way a table works when everyone is eating something unfamiliar at the same time.</p>
+    <p class="lede">The food never stays Korean, because the ingredients aren't there. Gochujang cut into tomato sauce becomes a calzone base. Bulgogi ends up in a tortilla in Mexico. <b>What survives the substitutions is the part worth sharing anyway</b>, which is how a table feels when everyone is eating something new at the same time.</p>
 
     <div class="countries">
       <span>Spain</span><span>Poland</span><span>Mexico</span><span>Türkiye</span><span>Japan</span><span>China</span>
@@ -277,7 +277,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
   <footer class="foot">
     <a href="index.html">← index</a>
     <a href="mailto:cychung@umich.edu">cychung@umich.edu</a>
-    <a href="http://www.linkedin.com/in/joey-chung-793b6a240">linkedin</a>
+    <a href="https://www.linkedin.com/in/joey-chung-793b6a240">linkedin</a>
     <span class="stamp">JC / 2026</span>
   </footer>
 </main>
@@ -286,7 +286,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
 (function(){
   var root=document.documentElement, btn=document.getElementById('tg');
   function label(){btn.textContent=root.getAttribute('data-theme')==='dark'?'Light':'Dark';}
-  function sync(){var t='dark';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}root.setAttribute('data-theme',t);label();}
+  function sync(){var t='light';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}root.setAttribute('data-theme',t);label();}
   label();
   window.addEventListener('pageshow',sync);
   btn.addEventListener('click',function(){

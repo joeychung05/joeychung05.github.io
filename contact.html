@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>(function(){var t='dark';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}document.documentElement.setAttribute('data-theme',t);})();</script>
+<script>(function(){var t='light';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}document.documentElement.setAttribute('data-theme',t);})();</script>
 <title>Contact · Joey Chung</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#E7E9E8;--paper-2:#F2F3F2;--ink:#171B21;--muted:#5F6872;
-  --line:rgba(23,27,33,.16);--line-soft:rgba(23,27,33,.08);
-  --gold:#8A6414;--violet:#5A55A8;
+  --paper:#F6F2E3;--paper-2:#FBF8EE;--ink:#1C1E22;--muted:#5C6168;
+  --line:rgba(40,36,24,.18);--line-soft:rgba(40,36,24,.09);
+  --gold:#8C6510;--violet:#504B9E;
 }
 [data-theme="dark"]{
   --paper:#14181C;--paper-2:#1B2026;--ink:#E7E9E8;--muted:#8A939D;
@@ -114,18 +114,18 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
     <a href="off-hours.html">off-hours</a>
     <a href="contact.html" aria-current="page">contact</a>
   </nav>
-  <button class="toggle" id="tg">Light</button>
+  <button class="toggle" id="tg">Dark</button>
 </div>
 
 <main class="shell">
   <h1 class="page">Contact<span class="dot">.</span></h1>
   <div class="sub">// next layer</div>
-  <p class="intro">Email is the reliable channel. If you're hiring for process, materials, or metrology work and something here fits, write to me directly; I'd rather answer a specific question than a general one.</p>
+  <p class="intro">Email is the reliable channel. If you're hiring for process, materials, or metrology work and something here fits, write to me directly. I'd rather answer a specific question than a general one.</p>
 
   <div class="primary">
     <div class="lbl">Direct</div>
     <a class="mail" href="mailto:cychung@umich.edu">cychung@umich.edu</a>
-    <div class="note">I reply within a day.</div>
+    <div class="note">I usually reply within a day.</div>
   </div>
 
   <section class="sec">
@@ -138,7 +138,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
     </div>
     <div class="rowline">
       <div class="k">LinkedIn</div>
-      <div class="v"><a href="http://www.linkedin.com/in/joey-chung-793b6a240">joey-chung</a><span>Full work history and recommendations</span></div>
+      <div class="v"><a href="https://www.linkedin.com/in/joey-chung-793b6a240">joey-chung</a><span>Full work history</span></div>
       <div class="go">↗</div>
     </div>
     <div class="rowline">
@@ -178,7 +178,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
     </div>
     <div class="rowline">
       <div class="k">Location</div>
-      <div class="v">Anywhere in the US<span>Willing to relocate; no geographic preference</span></div>
+      <div class="v">Anywhere in the US<span>Willing to relocate, no geographic preference</span></div>
       <div class="go"></div>
     </div>
     <div class="rowline">
@@ -193,7 +193,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
     </div>
   </section>
 
-  <p class="closing">If you got here from the deposition log: the top layer is still growing, and the next one is up to whoever writes back.</p>
+  <p class="closing">If you got here from the deposition log, the top layer is still growing. The next one depends on who writes back.</p>
 
   <footer class="foot">
     <a href="index.html">← index</a>
@@ -208,7 +208,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
 (function(){
   var root=document.documentElement, btn=document.getElementById('tg');
   function label(){btn.textContent=root.getAttribute('data-theme')==='dark'?'Light':'Dark';}
-  function sync(){var t='dark';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}root.setAttribute('data-theme',t);label();}
+  function sync(){var t='light';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}root.setAttribute('data-theme',t);label();}
   label();
   window.addEventListener('pageshow',sync);
   btn.addEventListener('click',function(){

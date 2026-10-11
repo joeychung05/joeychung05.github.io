@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>(function(){var t='dark';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}document.documentElement.setAttribute('data-theme',t);})();</script>
+<script>(function(){var t='light';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}document.documentElement.setAttribute('data-theme',t);})();</script>
 <title>Experience · Joey Chung</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#E7E9E8;--paper-2:#F2F3F2;--ink:#171B21;--muted:#5F6872;
-  --line:rgba(23,27,33,.16);--line-soft:rgba(23,27,33,.08);
-  --gold:#8A6414;--violet:#5A55A8;
+  --paper:#F6F2E3;--paper-2:#FBF8EE;--ink:#1C1E22;--muted:#5C6168;
+  --line:rgba(40,36,24,.18);--line-soft:rgba(40,36,24,.09);
+  --gold:#8C6510;--violet:#504B9E;
 }
 [data-theme="dark"]{
   --paper:#14181C;--paper-2:#1B2026;--ink:#E7E9E8;--muted:#8A939D;
@@ -156,7 +156,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
     <a href="off-hours.html">off-hours</a>
     <a href="contact.html">contact</a>
   </nav>
-  <button class="toggle" id="tg">Light</button>
+  <button class="toggle" id="tg">Dark</button>
 </div>
 
 <main class="shell">
@@ -183,8 +183,8 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
 
     <div class="narr">
       <div>
-        <p>DAEYANG is a corporate R&amp;D institute developing thermoelectric materials and modules for energy and environmental applications. I worked across most of the line, which turned out to be useful: a wedge that plates unevenly looks like nothing at the bath, but like a module that reads wrong three weeks later.</p>
-        <p>The line runs like this: Bi, Te, and Sb feedstock is ground, mixed by <strong>ball milling</strong>, and consolidated under heat and pressure into a cylindrical <strong>pellet</strong>. The pellet is sliced into <strong>coins</strong>, then cut into quarters or eighths, called <strong>sector wedges</strong>. Wedges are degreased, <strong>plated</strong>, <strong>diced</strong> into cubes, and cleaned again. Only then are they <strong>legs</strong>, ready for SMT.</p>
+        <p>DAEYANG is a corporate R&amp;D institute developing thermoelectric materials and modules for energy and environmental applications. I worked across most of the line, and that turned out to matter. A wedge that plates unevenly looks like nothing at the bath. Three weeks later it looks like a module that reads wrong.</p>
+        <p>The line starts with Bi, Te, and Sb feedstock, which is ground, mixed by <strong>ball milling</strong>, and pressed under heat into a cylindrical <strong>pellet</strong>. The pellet is sliced into <strong>coins</strong>, and each coin is cut into quarters or eighths called <strong>sector wedges</strong>. Wedges are degreased, <strong>plated</strong>, <strong>diced</strong> into cubes, and cleaned again. Only then are they <strong>legs</strong>, ready for SMT.</p>
       </div>
       <aside class="side">
         <div><b>Material</b>Bi₂Te₃ based (Bi, Te, Sb)</div>
@@ -216,15 +216,15 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
       <div class="part-head"><span class="pid">Part 01</span><h3>Surface prep &amp; plating</h3></div>
       <div class="tool">
         <div>
-          <p>My main stretch was surface preparation and the plating bath. Before plating, wedges were <strong>degreased</strong>, mainly by sonication in IPA, so residue from cutting and handling didn't end up under the coating; the diced legs went through the same cleaning afterward.</p>
-          <p>Plating was <strong>medium-phosphorus (6–8% P) electroless nickel on bismuth telluride</strong>, with <strong>pH monitoring and solution adjustment</strong> through each run and samples handled in process fixtures. A drifting bath doesn't fail loudly; it leaves an uneven coating on a wedge that becomes many legs. One uneven wedge isn't one bad part. It's every leg that comes out of it.</p>
-          <p>How the wedges were held through the bath was the related problem, so I proposed a custom <strong>titanium holding jig</strong> on my own initiative, drawings and specifications included, and brought it to a senior researcher. Scheduling, fabricator sourcing, and minimum order quantities stalled the build, but specifying a fixture against a named failure mode is the part I kept.</p>
+          <p>Most of my time went into surface preparation and the plating bath. Before plating, the wedges were <strong>degreased</strong>, mainly by sonication in IPA, so residue from cutting and handling wouldn't end up under the coating. The diced legs got the same cleaning afterward.</p>
+          <p>The plating itself was <strong>medium-phosphorus (6–8% P) electroless nickel on bismuth telluride</strong>, with <strong>pH monitoring and solution adjustment</strong> through every run and samples held in process fixtures. A drifting bath doesn't fail loudly. It just leaves an uneven coating on a wedge that later becomes many legs, so one bad wedge is never just one bad part.</p>
+          <p>How the wedges sat in the bath was part of the same problem. On my own initiative I drew up a custom <strong>titanium holding jig</strong>, with full drawings and specifications, and brought it to a senior researcher. Scheduling, fabricator sourcing, and minimum order quantities kept it from being built. Designing a fixture around a specific failure is still the part of that job I think about most.</p>
         </div>
         <aside class="side">
           <div><b>Surface prep</b>Degreasing · IPA sonication</div>
           <div><b>Deposition</b>Electroless Ni, 6–8% P, on Bi₂Te₃</div>
           <div><b>Bath control</b>pH monitoring &amp; adjustment</div>
-          <div><b>Design</b>Ti holding jig: drawings &amp; specs</div>
+          <div><b>Design</b>Ti holding jig · drawings &amp; specs</div>
         </aside>
       </div>
       <div class="plates pair">
@@ -244,8 +244,8 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
       <div class="part-head"><span class="pid">Part 02</span><h3>Inspection &amp; incoming QC</h3></div>
       <div class="tool">
         <div>
-          <p>After dicing I ran <strong>dimensional inspection and defect classification</strong> on the legs: critical dimensions against design tolerances under digital microscopy, sorted into defect types (machining error, burring, asymmetry).</p>
-          <p>Not all the legs were ours, either. DAEYANG runs joint national R&amp;D with the <strong>Korea Electrotechnology Research Institute (KERI)</strong>, and on one commissioned build using KERI's own legs, I separately ran <strong>incoming inspection</strong> and tray loading. Whatever the source, nonconforming legs came out before SMT: one bad leg is a bad module.</p>
+          <p>After dicing I ran <strong>dimensional inspection and defect classification</strong> on the legs under digital microscopy, checking critical dimensions against design tolerances and sorting defects by type (machining error, burring, asymmetry).</p>
+          <p>Not all the legs were ours, either. DAEYANG runs joint national R&amp;D with the <strong>Korea Electrotechnology Research Institute (KERI)</strong>, and on one commissioned build that used KERI's own legs, I separately ran <strong>incoming inspection</strong> and tray loading. Whatever the source, nonconforming legs came out before SMT, because one bad leg means a bad module.</p>
         </div>
         <aside class="side">
           <div><b>Inspection</b>Dimensional vs tolerance · defect classification</div>
@@ -255,11 +255,11 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
       <div class="plates pair">
         <figure class="plate" data-path="images/daeyang/06.jpg">
           <img src="images/daeyang/06.jpg" alt="Digital microscopy inspection of a thermoelectric leg" class="bottom">
-          <figcaption><span class="pn">Plate 03</span>Digital microscopy on a diced leg: dimensional check, surface defects, and burr screening.</figcaption>
+          <figcaption><span class="pn">Plate 03</span>Digital microscopy on a diced leg, checking dimensions, surface defects, and burrs.</figcaption>
         </figure>
         <figure class="plate" data-path="images/daeyang/01.jpg">
           <img src="images/daeyang/01.jpg" alt="Inspecting a p-type thermoelectric leg held in tweezers">
-          <figcaption><span class="pn">Plate 04</span>A p-type leg under inspection, after dicing. By this stage the plating is already committed: anything wrong underneath it stays wrong.</figcaption>
+          <figcaption><span class="pn">Plate 04</span>A p-type leg under inspection, after dicing. By this stage the plating is already committed, and anything wrong underneath it stays wrong.</figcaption>
         </figure>
       </div>
     </div>
@@ -269,8 +269,8 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
       <div class="part-head"><span class="pid">Part 03</span><h3>Module assembly &amp; test</h3></div>
       <div class="tool">
         <div>
-          <p>On the assembly side I supported senior engineers building thermoelectric modules, mostly the <strong>8×8 format with 128 legs</strong> (64 N-type, 64 P-type) alongside 64-leg and other formats: solder paste prep, substrate mounting frame setup, automated paste printing and leg placement, soldering positive and negative lead wires to electrodes after reflow, and sourcing lead-free, high-temperature paste. Weekly output ran <strong>20 to 30 modules, scaling past 50</strong> during government R&amp;D cycles.</p>
-          <p>At the end of the line I ran <strong>final electrical inspection</strong>: resistance and voltage against spec, results documented in Excel for traceability, nonconforming units flagged for retest. I also collected <strong>generator performance data</strong> under senior researcher guidance across five cooling configurations: forced and natural air, forced and natural water, and antifreeze based.</p>
+          <p>On the assembly side I supported senior engineers building thermoelectric modules, mostly the <strong>8×8 format with 128 legs</strong> (64 N-type, 64 P-type) along with 64-leg and other formats. I prepped solder paste, set up substrate mounting frames, loaded substrates for automated paste printing and leg placement, soldered positive and negative lead wires to the electrodes after reflow, and sourced lead-free, high-temperature paste. Weekly output ran <strong>20 to 30 modules, scaling past 50</strong> during government R&amp;D cycles.</p>
+          <p>At the end of the line I ran <strong>final electrical inspection</strong>, measuring resistance and voltage against spec, logging results in Excel for traceability, and flagging nonconforming units for retest. Under senior researcher guidance I also collected <strong>generator performance data</strong> across five cooling configurations (forced and natural air, forced and natural water, and antifreeze).</p>
         </div>
         <aside class="side">
           <div><b>Assembly</b>Mainly 8×8 · 128 legs · SMT support</div>
@@ -285,7 +285,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
         </figure>
         <figure class="plate" data-path="images/daeyang/05.jpg">
           <img src="images/daeyang/05.jpg" alt="Screen showing electrical output measurements of a thermoelectric generator">
-          <figcaption><span class="pn">Plate 06</span>Characterization of a finished generator: Vmax and Imax measured across cooling setups, peak power calculated to compare trends.</figcaption>
+          <figcaption><span class="pn">Plate 06</span>Characterizing a finished generator. Vmax and Imax were measured across cooling setups, and peak power was calculated to compare trends.</figcaption>
         </figure>
       </div>
     </div>
@@ -305,16 +305,16 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
     <div class="narr">
       <div>
         <p>Military service is compulsory in South Korea. I served mine in the auxiliary police in Pohang, under the Ministry of National Defense and the Korean National Police Agency, and finished as a <strong>sergeant</strong>.</p>
-        <p>For <strong>7 months of the 18</strong> I led a <strong>12-officer squad</strong> through high-pressure field deployments: protest response, and missing person searches across mountainous and coastal terrain. We located <strong>3 missing individuals</strong> and escorted them to safety, which earned an official commendation.</p>
-        <p>The rest was public safety work: police lines during civil disturbances, joint readiness drills with the <strong>ROK Marine Corps</strong> including chemical threat response protocols, driving support for personnel and equipment, and station entry control, guiding civilians to the correct department rather than processing their reports myself.</p>
-        <p>What it left me with is narrower than it sounds. A procedure written in advance is worth very little; a squad that has rehearsed one is worth a great deal. That distinction is most of what I think about when I read a process document now.</p>
+        <p>For <strong>7 months of the 18</strong> I led a <strong>12-officer squad</strong> through high-pressure field deployments, mostly protest response and missing person searches across mountainous and coastal terrain. We found <strong>3 missing people</strong> and brought them back safely, which earned an official commendation.</p>
+        <p>The rest was public safety work. I held police lines during civil disturbances, trained in joint readiness drills with the <strong>ROK Marine Corps</strong> (including chemical threat response), drove personnel and equipment, and staffed station entry, where my job was pointing civilians to the right department rather than taking their reports myself.</p>
+        <p>A procedure on paper is worth very little. A squad that has actually rehearsed it is worth a great deal. I still think about that difference whenever I read a process document.</p>
       </div>
       <aside class="side">
         <div><b>Rank</b>Sergeant</div>
         <div><b>Squad lead</b>12 officers, 7 of 18 months</div>
         <div><b>Deployments</b>Protest response · search &amp; rescue</div>
         <div><b>Drills</b>Counterterrorism · chemical threat response</div>
-        <div><b>Recognition</b>Official commendation: 3 located</div>
+        <div><b>Recognition</b>Official commendation · 3 located</div>
       </aside>
     </div>
 
@@ -351,8 +351,8 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
 
     <div class="narr">
       <div>
-        <p>The summer after my first year I worked custodial services on campus, cleaning and resetting residence hall rooms through <strong>move-out turnover</strong>: emptying, cleaning, and readying an entire building before incoming summer program participants and returning students arrived.</p>
-        <p>It was assigned buildings, a fixed daily schedule, and a crew. I include it because it is the plainest evidence I have of something employers actually care about: I have done repetitive physical work to a standard, on a deadline, with other people depending on my share of it.</p>
+        <p>The summer after my first year I worked custodial services on campus during residence hall <strong>move-out turnover</strong>. That meant emptying, cleaning, and resetting whole buildings before summer program participants and returning students arrived.</p>
+        <p>Assigned buildings, a fixed daily schedule, a crew. I include it because it's the plainest proof I have of something employers care about. I've done repetitive physical work to a standard, on a deadline, with other people counting on my share of it.</p>
       </div>
       <aside class="side">
         <div><b>Scope</b>Residence hall summer turnover</div>
@@ -389,7 +389,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
 (function(){
   var root=document.documentElement, btn=document.getElementById('tg');
   function label(){btn.textContent=root.getAttribute('data-theme')==='dark'?'Light':'Dark';}
-  function sync(){var t='dark';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}root.setAttribute('data-theme',t);label();}
+  function sync(){var t='light';try{var s=localStorage.getItem('jc-theme');if(s==='light'||s==='dark')t=s;}catch(e){}root.setAttribute('data-theme',t);label();}
   label();
   window.addEventListener('pageshow',sync);
   btn.addEventListener('click',function(){
