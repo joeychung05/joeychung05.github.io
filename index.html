@@ -92,7 +92,7 @@ h1 .dot{color:var(--gold)}
   border-bottom:1px solid transparent;
   transition:border-color .25s;
 }
-.row:hover,.row:focus-visible{border-bottom-color:var(--gold);outline:none}
+.row:hover,.row:focus-visible{outline:none}
 .rid{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;color:var(--muted);transition:color .25s}
 .row:hover .rid{color:var(--gold)}
 .band{height:100%}
@@ -120,6 +120,8 @@ h1 .dot{color:var(--gold)}
 .ald .pa{fill:color-mix(in srgb,var(--gold) 80%,var(--ink))}
 .ald .pb{fill:var(--violet)}
 [data-theme="dark"] .ald .pa{fill:var(--gold)}
+.cut{fill:none;stroke:var(--gold);stroke-width:1;stroke-linejoin:round;opacity:0;transition:opacity .25s}
+.cut.on{opacity:1}
 .ald .sheet{fill:var(--shine);opacity:0}
 .ald-tag{font-family:"IBM Plex Mono",monospace;font-size:8.5px;letter-spacing:.12em;fill:var(--muted);text-transform:uppercase}
 .ald-tag tspan.on{fill:var(--gold)}
@@ -339,21 +341,21 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
     F.geo=el('g',{},g);
   });
 
-  var G={}, grow=films.map(function(){return RM?1:0});
+  var G={}, front=RM?-1e9:1e9;
   function layout(){
     var b=films[0].band, x=b.offsetLeft+b.offsetWidth/2, W=Math.min(92,b.offsetWidth-14), HH=W*.14;
     var tops=films.map(function(F){return F.row.offsetTop}), bots=films.map(function(F){return F.row.offsetTop+F.row.offsetHeight});
     var bnd=[tops[0]+2*HH+8];
-    for(var d=0;d<films.length-1;d++)bnd.push((bots[d]+tops[d+1])/2+HH*.5);
-    bnd.push(bots[films.length-1]-2);
-    G={x:x,W:W,HH:HH,l:x-W/2,r:x+W/2,bnd:bnd};
+    for(var d=0;d<films.length-1;d++)bnd.push((bots[d]+tops[d+1])/2+HH);
+    bnd.push(bots[films.length-1]+HH-3);
+    G={x:x,W:W,HH:HH,l:x-W/2,r:x+W/2,bnd:bnd,w:stack.offsetWidth};
   }
   function draw(){
     var x=G.x,l=G.l,r=G.r,HH=G.HH;
     films.forEach(function(F,d){
-      var yb=G.bnd[d+1], ytF=G.bnd[d], p=grow[d], yt=yb-(yb-ytF)*p, geo=F.geo;
+      var yb=G.bnd[d+1], ytF=G.bnd[d], yt=Math.max(ytF,Math.min(yb,front)), geo=F.geo;
       while(geo.firstChild)geo.removeChild(geo.firstChild);
-      F.yt=yt;if(p<=0)return;
+      F.yt=yt;if(yt>=yb-.01)return;
       el('polygon',{'class':'sl edge',points:P([[l,yt-HH],[x,yt],[x,yb],[l,yb-HH]])},geo);
       el('polygon',{'class':'sr edge',points:P([[x,yt],[r,yt-HH],[r,yb-HH],[x,yb]])},geo);
       if(F.kind==='substrate'){
@@ -367,9 +369,14 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
       el('polygon',{'class':'top edge',points:P([[l,yt-HH],[x,yt-2*HH],[r,yt-HH],[x,yt]])},geo);
       if(F.iri)el('polygon',{'class':'iri',points:P([[l,yt-HH],[x,yt-2*HH],[r,yt-HH],[x,yt]])},geo);
       el('polyline',{'class':'rim',points:P([[l+1.5,yt-HH+.4],[x,yt-.6],[r-1.5,yt-HH+.4]])},geo);
-      if(F.kind==='growing'&&p>=1)geo.appendChild(ald.g);
+      if(F.kind==='growing'&&front<=ytF)geo.appendChild(ald.g);
     });
     placeAld();
+    /* hover line: straight across the row gap, dipping into a V along the film's lower edge */
+    films.forEach(function(F,d){
+      var y=G.bnd[d+1];
+      F.cut.setAttribute('d','M0 '+(y-HH).toFixed(2)+'H'+l.toFixed(2)+'L'+x.toFixed(2)+' '+y.toFixed(2)+'L'+r.toFixed(2)+' '+(y-HH).toFixed(2)+'H'+G.w);
+    });
   }
 
   /* ---- ALD cycle on the live surface: pulse, saturate, purge, pulse, purge ---- */
@@ -441,23 +448,33 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
   var raf=null;
 
   /* deposition on load: substrate, then each film grows in turn */
-  var plan=[[1.0,.6],[.7,.55],[.4,.55],[.1,.45]], start=null;
+  /* one continuous front rises from the substrate to the surface; each row appears as the front reaches it */
+  var DUR=1.9, start=null;
+  function inout(t){return t<0?0:t>1?1:.5-Math.cos(Math.PI*t)/2;}
+  function frontAt(t){var lo=G.bnd[G.bnd.length-1],hi=G.bnd[0];return lo-(lo-hi)*inout(t/DUR);}
   function intro(ts){
     if(start===null)start=ts;
-    var t=(ts-start)/1000, done=true;
-    films.forEach(function(F,d){var q=(t-plan[d][0])/plan[d][1];grow[d]=ease(q);if(q<1)done=false;});
-    draw();
-    if(!done)requestAnimationFrame(intro);else if(!RM)raf=requestAnimationFrame(frame);
+    var t=(ts-start)/1000;
+    front=frontAt(t);draw();
+    if(t<DUR)requestAnimationFrame(intro);else{front=-1e9;draw();raf=requestAnimationFrame(frame);}
   }
-  layout();draw();
+  films.forEach(function(F){F.cut=el('path',{'class':'cut'},svg);});
+  layout();
+  if(!RM){
+    films.forEach(function(F,d){
+      var yb=G.bnd[d+1],t=0;while(t<DUR&&frontAt(t)>yb-6)t+=.01;
+      F.row.style.animationDelay=Math.max(0,t-.12).toFixed(2)+'s';
+    });
+  }
+  draw();
   if(RM){draw();}else requestAnimationFrame(intro);
   if('ResizeObserver' in window)new ResizeObserver(function(){layout();draw();}).observe(stack);
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){layout();draw();});
 
   /* hover: films above the chosen one lift away, its own surface shows in a muted tone */
   films.forEach(function(F,d){
-    function on(){films.forEach(function(O){O.g.classList.toggle('lift',O.i>F.i);O.g.classList.toggle('hl',O===F);});}
-    function off(){films.forEach(function(O){O.g.classList.remove('lift','hl');});}
+    function on(){films.forEach(function(O){O.g.classList.toggle('lift',O.i>F.i);O.g.classList.toggle('hl',O===F);O.cut.classList.toggle('on',O===F);});}
+    function off(){films.forEach(function(O){O.g.classList.remove('lift','hl');O.cut.classList.remove('on');});}
     F.row.addEventListener('mouseenter',on);F.row.addEventListener('focus',on);
     F.row.addEventListener('mouseleave',off);F.row.addEventListener('blur',off);
   });
