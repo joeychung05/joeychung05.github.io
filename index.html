@@ -86,7 +86,6 @@ h1 .dot{color:var(--gold)}
 .log-lede{font-size:14.5px;color:var(--muted);max-width:62ch;margin:0 0 26px}
 
 .stack{display:flex;flex-direction:column;gap:18px}
-.row{--hov:color-mix(in srgb,var(--face) 50%,color-mix(in srgb,var(--ink) 34%,var(--paper-2)))}
 .row{
   display:grid;grid-template-columns:44px 120px 1fr auto;gap:0 22px;align-items:center;
   min-height:64px;text-decoration:none;position:relative;
@@ -96,16 +95,34 @@ h1 .dot{color:var(--gold)}
 .row:hover,.row:focus-visible{border-bottom-color:var(--gold);outline:none}
 .rid{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;color:var(--muted);transition:color .25s}
 .row:hover .rid{color:var(--gold)}
-.band{height:100%;position:relative;display:flex;align-items:flex-end;justify-content:center}
-.band svg{display:block;overflow:visible;width:100%;max-width:120px;height:auto;margin:4px 0}
-.pl{transition:transform .45s cubic-bezier(.2,.7,.3,1);transform:translateY(0)}
-.pl polygon{stroke:color-mix(in srgb,var(--ink) 58%,var(--face));stroke-width:.7;stroke-linejoin:round}
-.pl .top{fill:var(--g)}
-.pl .sl{fill:color-mix(in srgb,var(--face) 66%,var(--ink))}
-.pl .sr{fill:color-mix(in srgb,var(--face) 80%,var(--ink))}
-.pl .rim{fill:none;stroke:var(--shine);stroke-width:.7;opacity:.75}
-.row:hover .pl,.row:focus-visible .pl{transform:translateY(calc(var(--k) * var(--spread) * -1px))}
-.row:hover .pl:last-child .top,.row:focus-visible .pl:last-child .top{fill:var(--gh)}
+.band{height:100%}
+/* one continuous film stack drawn behind the band column */
+.stack{position:relative}
+.f3{--face:color-mix(in srgb,var(--gold) 30%,var(--paper-2))}
+.f2{--face:color-mix(in srgb,var(--violet) 22%,var(--paper-2))}
+.f1{--face:color-mix(in srgb,var(--ink) 13%,var(--paper-2))}
+.f0{--face:color-mix(in srgb,var(--ink) 7%,var(--paper-2))}
+.film,.row{--hov:color-mix(in srgb,var(--face) 50%,color-mix(in srgb,var(--ink) 34%,var(--paper-2)))}
+.dep{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.film{transition:transform .45s cubic-bezier(.2,.7,.3,1)}
+.film.lift{transform:translateY(-12px)}
+.film .edge{stroke:color-mix(in srgb,var(--ink) 45%,var(--face));stroke-width:.7;stroke-linejoin:round}
+.film .sl{fill:color-mix(in srgb,var(--face) 80%,var(--ink))}
+.film .sr{fill:color-mix(in srgb,var(--face) 91%,var(--ink))}
+.film .top{fill:var(--g)}
+.film.hl .top{fill:var(--gh)}
+.film .ml{fill:none;stroke:color-mix(in srgb,var(--ink) 18%,transparent);stroke-width:.5}
+.film .ml.now{stroke:var(--gold);stroke-width:.8;opacity:.9}
+.film .rim{fill:none;stroke:var(--shine);stroke-width:.7;opacity:.7}
+.film .hatch{fill:var(--hatch-url);opacity:.55}
+.film .iri{fill:var(--iri);opacity:.32;mix-blend-mode:multiply}
+[data-theme="dark"] .film .iri{opacity:.3;mix-blend-mode:screen}
+.ald .pa{fill:color-mix(in srgb,var(--gold) 80%,var(--ink))}
+.ald .pb{fill:var(--violet)}
+[data-theme="dark"] .ald .pa{fill:var(--gold)}
+.ald .sheet{fill:var(--shine);opacity:0}
+.ald-tag{font-family:"IBM Plex Mono",monospace;font-size:8.5px;letter-spacing:.12em;fill:var(--muted);text-transform:uppercase}
+.ald-tag tspan.on{fill:var(--gold)}
 .rtext b{display:block;font-size:clamp(15px,1.8vw,19px);font-weight:600;letter-spacing:-.02em;transition:color .25s}
 .row:hover .rtext b{color:var(--gold)}
 .rtext span{display:block;font-size:13.5px;color:var(--muted);margin-top:2px}
@@ -122,13 +139,6 @@ h1 .dot{color:var(--gold)}
 
 /* substrate */
 .row.sub .rtext b{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
-
-/* plates settle in one by one, the newest keeps arriving */
-.pl{animation:plate-in .38s cubic-bezier(.2,.8,.3,1) backwards;animation-delay:var(--d)}
-@keyframes plate-in{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
-.pl.fresh .top{fill:var(--gf)}
-.pl.fresh{animation:plate-in .38s cubic-bezier(.2,.8,.3,1) backwards,fresh 3.2s ease-in-out infinite;animation-delay:var(--d),calc(var(--d) + .6s)}
-@keyframes fresh{0%,100%{opacity:1;transform:translateY(0)}45%{opacity:.25;transform:translateY(-7px)}55%{opacity:.25;transform:translateY(-7px)}}
 
 /* deposition sequence on load */
 .row{opacity:0;animation:deposit .5s cubic-bezier(.2,.8,.3,1) forwards}
@@ -215,11 +225,11 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
       <h2>Deposition Log</h2>
       <span class="key">4 layers · 2019 → present</span>
     </div>
-    <p class="log-lede">Everything I've built on, stacked in the order it went down. One plate is one month, and the top layer is still growing.</p>
+    <p class="log-lede">Everything I've built on, deposited in the order it went down. Each fine line is one month, and the top film is still growing.</p>
 
     <div class="stack">
 
-      <a class="row" href="research.html" style="--face:color-mix(in srgb,var(--gold) 30%,var(--paper-2))">
+      <a class="row f3" href="research.html">
         <span class="rid">L03</span>
         <span class="band" data-from="2026-04" data-kind="growing"></span>
         <span class="rtext">
@@ -230,7 +240,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
         <span class="rmeas">2026.04 — present<br><b>depositing</b></span>
       </a>
 
-      <a class="row" href="experience.html#daeyang" style="--face:color-mix(in srgb,var(--violet) 22%,var(--paper-2))">
+      <a class="row f2" href="experience.html#daeyang">
         <span class="rid">L02</span>
         <span class="band" data-n="9"></span>
         <span class="rtext">
@@ -241,7 +251,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
         <span class="rmeas">2024.09 — 2025.05<br><b>9 mo</b></span>
       </a>
 
-      <a class="row" href="experience.html#police" style="--face:color-mix(in srgb,var(--ink) 13%,var(--paper-2))">
+      <a class="row f1" href="experience.html#police">
         <span class="rid">L01</span>
         <span class="band" data-n="18"></span>
         <span class="rtext">
@@ -252,7 +262,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
         <span class="rmeas">2019.11 — 2021.05<br><b>18 mo</b></span>
       </a>
 
-      <a class="row sub" href="about.html" style="--face:color-mix(in srgb,var(--ink) 7%,var(--paper-2))">
+      <a class="row sub f0" href="about.html">
         <span class="rid">L00</span>
         <span class="band" data-kind="substrate"></span>
         <span class="rtext">
@@ -288,56 +298,168 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
 
 <script>
 (function(){
-  var NS='http://www.w3.org/2000/svg', W=100, HH=14, T=1.6, GAP=4.6, X=60;
-  function el(tag,attrs){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);return e;}
-  function pts(a){return a.map(function(q){return q.join(',')}).join(' ');}
-  function plate(y,t){
-    var g=el('g',{}),l=X-W/2,r=X+W/2;
-    g.appendChild(el('polygon',{'class':'sl',points:pts([[l,y],[X,y+HH],[X,y+HH+t],[l,y+t]])}));
-    g.appendChild(el('polygon',{'class':'sr',points:pts([[X,y+HH],[r,y],[r,y+t],[X,y+HH+t]])}));
-    g.appendChild(el('polygon',{'class':'top',points:pts([[l,y],[X,y-HH],[r,y],[X,y+HH]])}));
-    g.appendChild(el('polyline',{'class':'rim',points:pts([[l+1.5,y+.4],[X,y+HH-.6],[r-1.5,y+.4]])}));
-    return g;
-  }
-  /* brushed metal: a soft diagonal sheen with one bright glint that slides when the row is hovered */
-  function metal(id,base){
-    var gr=el('linearGradient',{id:id,x1:'0',y1:'0',x2:'1',y2:'.55'}), anims=[];
-    var mix=function(p,c){return 'color-mix(in srgb,'+base+' '+p+'%,'+c+')';};
-    var stops=[[0,mix(62,'var(--shine)')],[.22,base],[null,base,-.13],[null,mix(30,'var(--shine)'),0],[null,base,.13],[.82,base],[1,mix(80,'var(--ink)')]];
-    stops.forEach(function(st){
-      var o=st[0]===null?(.36+st[2]):st[0], s=el('stop',{offset:o});
-      s.setAttribute('style','stop-color:'+st[1]);
-      if(st[0]===null){
-        var f=el('animate',{attributeName:'offset',from:o,to:(.66+st[2]).toFixed(2),dur:'.7s',begin:'indefinite',fill:'freeze'});
-        var bk=el('animate',{attributeName:'offset',from:(.66+st[2]).toFixed(2),to:o,dur:'.7s',begin:'indefinite',fill:'freeze'});
-        s.appendChild(f);s.appendChild(bk);anims.push([f,bk]);
-      }
-      gr.appendChild(s);
+  var NS='http://www.w3.org/2000/svg', stack=document.querySelector('.stack');
+  if(!stack)return;
+  var rows=[].slice.call(stack.querySelectorAll('.row')), RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function el(tag,a,parent){var e=document.createElementNS(NS,tag);for(var k in a)e.setAttribute(k,a[k]);if(parent)parent.appendChild(e);return e;}
+  function P(a){return a.map(function(q){return q[0].toFixed(2)+','+q[1].toFixed(2)}).join(' ');}
+  function stopsOn(gr,list){list.forEach(function(s){var st=el('stop',{offset:s[0]},gr);st.setAttribute('style','stop-color:'+s[1]);});}
+  function mix(b,p,c){return 'color-mix(in srgb,'+b+' '+p+'%,'+c+')';}
+
+  /* months per film: L03 grows with the calendar */
+  var now=new Date();
+  var films=rows.map(function(row,d){
+    var band=row.querySelector('.band'), kind=band.dataset.kind||'layer', n=+band.dataset.n||1;
+    if(kind==='growing'){var f=band.dataset.from.split('-');n=Math.max(1,(now.getFullYear()-f[0])*12+(now.getMonth()+1-f[1])+1);}
+    if(kind!=='substrate')row.style.minHeight=(50+n*2.5)+'px';
+    return {row:row,band:band,kind:kind,n:n,i:rows.length-1-d,cls:'f'+(rows.length-1-d)};
+  });
+
+  var svg=el('svg',{'class':'dep','aria-hidden':'true'});stack.insertBefore(svg,stack.firstChild);
+  var defs=el('defs',{},svg);
+  var hatch=el('pattern',{id:'hatch',width:'5',height:'5',patternUnits:'userSpaceOnUse',patternTransform:'rotate(45)'},defs);
+  el('line',{x1:'0',y1:'0',x2:'0',y2:'5',style:'stroke:color-mix(in srgb,var(--ink) 22%,transparent);stroke-width:.8'},hatch);
+  svg.style.setProperty('--hatch-url','url(#hatch)');
+
+  /* draw bottom film first so each film covers the top face of the one below */
+  films.slice().sort(function(a,b){return a.i-b.i}).forEach(function(F){
+    var g=el('g',{'class':'film '+F.cls},svg);F.g=g;
+    var d=el('defs',{},g), id='fm'+F.i;
+    [['',"var(--face)"],['h',"var(--hov)"]].forEach(function(v){
+      var gr=el('linearGradient',{id:id+v[0],x1:'0',y1:'0',x2:'1',y2:'.55'},d);
+      stopsOn(gr,[[0,mix(v[1],60,'var(--shine)')],[.25,v[1]],[.42,v[1]],[.5,mix(v[1],38,'var(--shine)')],[.58,v[1]],[.82,v[1]],[1,mix(v[1],82,'var(--ink)')]]);
     });
-    return {node:gr,anims:anims};
-  }
-  var now=new Date(), rowDelay=[1.0,.7,.4,.1];
-  document.querySelectorAll('.stack .band').forEach(function(band,ri){
-    var kind=band.dataset.kind||'layer', n=+band.dataset.n||1, t=T;
-    if(kind==='growing'){var f=band.dataset.from.split('-');n=(now.getFullYear()-f[0])*12+(now.getMonth()+1-f[1])+1;if(n<1)n=1;}
-    if(kind==='substrate'){n=1;t=12;}
-    var H=HH*2+t+(n-1)*GAP+4, svg=el('svg',{viewBox:'0 0 120 '+H,'aria-hidden':'true'});
-    var defs=el('defs',{}), id='m'+ri;
-    var gN=metal(id,'var(--face)'), gH=metal(id+'h','var(--hov)'), gF=metal(id+'f','color-mix(in srgb,var(--gold) 55%,var(--face))');
-    defs.appendChild(gN.node);defs.appendChild(gH.node);defs.appendChild(gF.node);svg.appendChild(defs);
-    svg.style.setProperty('--g','url(#'+id+')');svg.style.setProperty('--gh','url(#'+id+'h)');svg.style.setProperty('--gf','url(#'+id+'f)');
-    svg.style.setProperty('--spread',Math.min(1.6*(n-1),14).toFixed(1));
-    for(var i=0;i<n;i++){
-      var g=plate(H-2-HH-t-i*GAP,t);
-      g.setAttribute('class','pl'+(kind==='growing'&&i===n-1?' fresh':''));
-      g.style.setProperty('--k',n>1?(i/(n-1)).toFixed(3):0);g.style.setProperty('--d',(rowDelay[ri]+i*.035).toFixed(3)+'s');
-      svg.appendChild(g);
+    g.style.setProperty('--g','url(#'+id+')');g.style.setProperty('--gh','url(#'+id+'h)');
+    if(F.kind==='growing'){
+      /* thin film interference: colour drifts with thickness, so it shifts a little every cycle */
+      var ir=el('linearGradient',{id:'iri',x1:'0',y1:'0',x2:'1',y2:'1',spreadMethod:'reflect'},d);
+      stopsOn(ir,[[0,'#C9A24A'],[.3,'#B9708F'],[.55,'#5E73C2'],[.8,'#4FA3A0'],[1,'#C9A24A']]);
+      g.style.setProperty('--iri','url(#iri)');F.iri=ir;
     }
-    band.appendChild(svg);
-    var all=gN.anims.concat(gH.anims,gF.anims), row=band.closest('.row');
-    function run(k){all.forEach(function(p){try{p[k].beginElement()}catch(e){}});}
-    row.addEventListener('mouseenter',function(){run(0)});row.addEventListener('focus',function(){run(0)});
-    row.addEventListener('mouseleave',function(){run(1)});row.addEventListener('blur',function(){run(1)});
+    F.geo=el('g',{},g);
+  });
+
+  var G={}, grow=films.map(function(){return RM?1:0});
+  function layout(){
+    var b=films[0].band, x=b.offsetLeft+b.offsetWidth/2, W=Math.min(92,b.offsetWidth-14), HH=W*.14;
+    var tops=films.map(function(F){return F.row.offsetTop}), bots=films.map(function(F){return F.row.offsetTop+F.row.offsetHeight});
+    var bnd=[tops[0]+2*HH+8];
+    for(var d=0;d<films.length-1;d++)bnd.push((bots[d]+tops[d+1])/2+HH*.5);
+    bnd.push(bots[films.length-1]-2);
+    G={x:x,W:W,HH:HH,l:x-W/2,r:x+W/2,bnd:bnd};
+  }
+  function draw(){
+    var x=G.x,l=G.l,r=G.r,HH=G.HH;
+    films.forEach(function(F,d){
+      var yb=G.bnd[d+1], ytF=G.bnd[d], p=grow[d], yt=yb-(yb-ytF)*p, geo=F.geo;
+      while(geo.firstChild)geo.removeChild(geo.firstChild);
+      F.yt=yt;if(p<=0)return;
+      el('polygon',{'class':'sl edge',points:P([[l,yt-HH],[x,yt],[x,yb],[l,yb-HH]])},geo);
+      el('polygon',{'class':'sr edge',points:P([[x,yt],[r,yt-HH],[r,yb-HH],[x,yb]])},geo);
+      if(F.kind==='substrate'){
+        el('polygon',{'class':'hatch',points:P([[l,yt-HH],[x,yt],[x,yb],[l,yb-HH]])},geo);
+        el('polygon',{'class':'hatch',points:P([[x,yt],[r,yt-HH],[r,yb-HH],[x,yb]])},geo);
+      }else{
+        var s=(yb-ytF)/F.n;
+        for(var k=1;k<F.n;k++){var y=yb-k*s;if(y<=yt+.5)break;
+          el('polyline',{'class':'ml'+(F.kind==='growing'&&k===F.n-1?' now':''),points:P([[l,y-HH],[x,y],[r,y-HH]])},geo);}
+      }
+      el('polygon',{'class':'top edge',points:P([[l,yt-HH],[x,yt-2*HH],[r,yt-HH],[x,yt]])},geo);
+      if(F.iri)el('polygon',{'class':'iri',points:P([[l,yt-HH],[x,yt-2*HH],[r,yt-HH],[x,yt]])},geo);
+      el('polyline',{'class':'rim',points:P([[l+1.5,yt-HH+.4],[x,yt-.6],[r-1.5,yt-HH+.4]])},geo);
+      if(F.kind==='growing'&&p>=1)geo.appendChild(ald.g);
+    });
+    placeAld();
+  }
+
+  /* ---- ALD cycle on the live surface: pulse, saturate, purge, pulse, purge ---- */
+  var ald={g:el('g',{'class':'ald'})}, M=5, sites=[], A=[], B=[], X=[];
+  ald.sheet=el('polygon',{'class':'sheet'},ald.g);
+  for(var i=0;i<M*M;i++){A.push(el('circle',{'class':'pa',r:'1.35',opacity:'0'},ald.g));B.push(el('circle',{'class':'pb',r:'.95',opacity:'0'},ald.g));}
+  for(i=0;i<7;i++)X.push(el('circle',{'class':'pa',r:'1.35',opacity:'0'},ald.g));
+  ald.tag=el('text',{'class':'ald-tag'},ald.g);
+  var tPulse=el('tspan',{},ald.tag);tPulse.textContent='pulse';
+  var tDot=el('tspan',{},ald.tag);tDot.textContent=' · ';
+  var tPurge=el('tspan',{},ald.tag);tPurge.textContent='purge';
+  var order=[],extra=[];
+  function rnd(seed){return function(){seed=(seed*16807)%2147483647;return (seed-1)/2147483646;}}
+  var R=rnd(7);
+  for(i=0;i<M*M;i++)order.push(i);
+  order.sort(function(){return R()-.5});
+  for(i=0;i<X.length;i++)extra.push(Math.floor(R()*M*M));
+  function placeAld(){
+    var top=films.filter(function(F){return F.kind==='growing'})[0];if(!top||top.yt==null)return;
+    var x=G.x,HH=G.HH,yt=top.yt,Bv=[x,yt],Rv=[G.r,yt-HH],Lv=[G.l,yt-HH];
+    sites=[];
+    for(var a=0;a<M;a++)for(var b=0;b<M;b++){var u=(a+.5)/M,v=(b+.5)/M;
+      sites.push([Bv[0]+u*(Rv[0]-Bv[0])+v*(Lv[0]-Bv[0]),Bv[1]+u*(Rv[1]-Bv[1])+v*(Lv[1]-Bv[1])]);}
+    ald.sheet.setAttribute('points',P([[G.l,yt-HH],[x,yt-2*HH],[G.r,yt-HH],[x,yt]]));
+    ald.tag.setAttribute('x',G.l);ald.tag.setAttribute('y',yt-2*HH-9);
+  }
+  function ease(t){return t<0?0:t>1?1:1-Math.pow(1-t,3);}
+  function clamp(t){return t<0?0:t>1?1:t;}
+  var CYC=5200, t0=null, cycles=0;
+  function setC(c,x,y,o){c.setAttribute('cx',x.toFixed(2));c.setAttribute('cy',y.toFixed(2));c.setAttribute('opacity',o.toFixed(3));}
+  function frame(ts){
+    if(t0===null)t0=ts;
+    var T=(ts-t0)%CYC, c=Math.floor((ts-t0)/CYC);
+    if(c!==cycles){cycles=c;}
+    if(sites.length){
+      var drop=26;
+      /* pulse A: 0 to 1500ms, each precursor lands on its own site */
+      order.forEach(function(si,k){
+        var s=sites[si], ta=(T-k*48)/420, o, y;
+        if(T>4300){o=1-clamp((T-4300)/500);y=s[1];}
+        else{y=s[1]-drop*(1-ease(ta));o=ta<=0?0:Math.min(1,ta*2.5);}
+        setC(A[k],s[0],y,o);
+      });
+      /* late arrivals find the surface already full and bounce off */
+      X.forEach(function(c,k){
+        var s=sites[extra[k]], ta=(T-1250-k*60)/360;
+        if(ta<=0||T>2300){c.setAttribute('opacity','0');return;}
+        var y=ta<1?s[1]-drop*(1-ease(ta)):s[1]-3-(ta-1)*16, o=ta<1?Math.min(1,ta*2):Math.max(0,1-(ta-1)*.7);
+        setC(c,s[0]+(ta>1?(ta-1)*8*(k%2?1:-1):0),y,o*.8);
+      });
+      /* pulse B: 2500 to 3700ms, the second reactant meets each adsorbed site */
+      order.forEach(function(si,k){
+        var s=sites[si], tb=(T-2500-k*34)/380, o, y;
+        if(tb<=0){o=0;y=s[1]-drop;}
+        else if(tb<1){y=s[1]-drop*(1-ease(tb));o=Math.min(1,tb*2.5);}
+        else{y=s[1];o=Math.max(0,1-(tb-1)*1.6);}
+        setC(B[k],s[0],y,o);
+      });
+      /* one monolayer completes and settles into the film */
+      var sh=T>3900&&T<4900?Math.sin(Math.PI*(T-3900)/1000)*.35:0;
+      ald.sheet.setAttribute('opacity',sh.toFixed(3));
+      var purge=(T>1500&&T<2500)||(T>3700&&T<4300)||T>4900;
+      tPulse.setAttribute('class',purge?'':'on');tPurge.setAttribute('class',purge?'on':'');
+      var top=films.filter(function(F){return F.iri})[0];
+      if(top){var off=((ts-t0)/CYC*.035)%2;top.iri.setAttribute('gradientTransform','translate('+off.toFixed(3)+' 0)');}
+    }
+    raf=requestAnimationFrame(frame);
+  }
+  var raf=null;
+
+  /* deposition on load: substrate, then each film grows in turn */
+  var plan=[[1.0,.6],[.7,.55],[.4,.55],[.1,.45]], start=null;
+  function intro(ts){
+    if(start===null)start=ts;
+    var t=(ts-start)/1000, done=true;
+    films.forEach(function(F,d){var q=(t-plan[d][0])/plan[d][1];grow[d]=ease(q);if(q<1)done=false;});
+    draw();
+    if(!done)requestAnimationFrame(intro);else if(!RM)raf=requestAnimationFrame(frame);
+  }
+  layout();draw();
+  if(RM){draw();}else requestAnimationFrame(intro);
+  if('ResizeObserver' in window)new ResizeObserver(function(){layout();draw();}).observe(stack);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){layout();draw();});
+
+  /* hover: films above the chosen one lift away, its own surface shows in a muted tone */
+  films.forEach(function(F,d){
+    function on(){films.forEach(function(O){O.g.classList.toggle('lift',O.i>F.i);O.g.classList.toggle('hl',O===F);});}
+    function off(){films.forEach(function(O){O.g.classList.remove('lift','hl');});}
+    F.row.addEventListener('mouseenter',on);F.row.addEventListener('focus',on);
+    F.row.addEventListener('mouseleave',off);F.row.addEventListener('blur',off);
   });
 })();
 </script>
