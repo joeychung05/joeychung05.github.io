@@ -73,6 +73,9 @@ h1.page .dot{color:var(--gold)}
 .narr{display:grid;grid-template-columns:1fr 240px;gap:40px;align-items:start;margin-bottom:46px}
 .narr p{font-family:"IBM Plex Serif",Georgia,serif;font-size:16.5px;line-height:1.72;margin:0 0 18px;max-width:62ch}
 .narr p:last-child{margin-bottom:0}
+.group{margin:28px 0 0}
+.group img{width:100%;height:auto;aspect-ratio:1600/773;object-fit:cover;display:block;box-sizing:border-box;padding:4px;background:var(--paper-2);border:1px solid color-mix(in srgb,var(--ink) 20%,transparent);outline:1px solid color-mix(in srgb,var(--ink) 8%,transparent);outline-offset:-5px}
+.group figcaption{margin-top:9px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.08em;color:var(--muted)}
 .narr strong{font-family:"IBM Plex Sans",sans-serif;font-weight:600}
 .side{border-top:1px solid var(--line)}
 .side div{padding:9px 0;border-bottom:1px solid var(--line-soft);
@@ -88,7 +91,7 @@ h1.page .dot{color:var(--gold)}
 .plates.pair .plate img{aspect-ratio:16/10;object-fit:cover;object-position:center}
 .plates.pair .plate img.top{object-position:top}
 .plate{margin:0}
-.plate img{width:100%;height:auto;display:block;border:1px solid var(--line)}
+.plate img{width:100%;height:auto;display:block;box-sizing:border-box;padding:4px;background:var(--paper-2);border:1px solid color-mix(in srgb,var(--ink) 20%,transparent);outline:1px solid color-mix(in srgb,var(--ink) 8%,transparent);outline-offset:-5px}
 .plate figcaption{margin-top:9px;font-size:13.5px;line-height:1.5;color:var(--muted);max-width:52ch}
 .plate figcaption .pn{display:block;font-family:"IBM Plex Mono",monospace;font-size:10px;
   letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
@@ -110,14 +113,14 @@ h1.page .dot{color:var(--gold)}
 .part .plates{margin-top:6px}
 
 /* process chain */
-.chain{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;margin-bottom:16px}
+.chain{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:stretch;margin-bottom:16px}
 .step{position:relative;border:1px solid var(--line);padding:9px 13px;min-width:92px;
   font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;color:var(--muted);
   display:flex;flex-direction:column;justify-content:center}
 .step b{display:block;font-size:11.5px;color:var(--ink);font-weight:500;letter-spacing:.02em}
 .step.mine{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 8%,transparent)}
 .step.mine b{color:var(--gold)}
-.step::after{content:"→";position:absolute;right:-13px;top:50%;transform:translateY(-50%);
+.step::after{content:"→";position:absolute;right:-10px;top:50%;transform:translate(50%,-50%);
   color:var(--line);font-size:12px}
 .step:last-child::after{content:none}
 .chain-key{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;
@@ -193,6 +196,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
     <div>
       <p>The Maldonado Group works on electrochemistry and semiconductor materials under <strong>Prof. Stephen Maldonado</strong>. I joined in April 2026 on the thin film side, and since May I have been responsible for the group's <strong>spectroscopic ellipsometer</strong> and <strong>AFM</strong>.</p>
       <p>The work has two halves. One is measuring how thick a layer actually came out and what the surface looks like afterward. The other is making the samples in the first place, starting from a bare silicon wafer. Doing both means I know the history of a sample before I ever put it under an instrument.</p>
+      <figure class="group"><img src="images/research/group.jpg" alt="Members of the Maldonado Group standing together outside the chemistry building" loading="lazy" width="1600" height="773"><figcaption>The Maldonado Group · Department of Chemistry, University of Michigan</figcaption></figure>
     </div>
     <aside class="side">
       <div><b>Group</b>Maldonado Group, U-M Chemistry</div>

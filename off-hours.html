@@ -115,7 +115,7 @@ h1.page .dot{color:var(--gold)}
 .grid{display:grid;gap:20px 16px;align-items:start}
 .g3{grid-template-columns:repeat(3,1fr)}
 .shot-fig{margin:0;position:relative}
-.shot-fig img{width:100%;height:auto;display:block;border:1px solid var(--line)}
+.shot-fig img{width:100%;height:auto;display:block;box-sizing:border-box;padding:4px;background:var(--paper-2);border:1px solid color-mix(in srgb,var(--ink) 20%,transparent);outline:1px solid color-mix(in srgb,var(--ink) 8%,transparent);outline-offset:-5px}
 .shot-fig figcaption{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;color:var(--muted);margin-top:7px;line-height:1.5}
 .shot-fig.empty img{display:none}
 .shot-fig img.r916{aspect-ratio:9/16;object-fit:cover}
