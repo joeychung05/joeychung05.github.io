@@ -254,12 +254,13 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
     <div class="tool">
       <div>
         <p>Samples start as pieces of n-type Si(111) wafer and go through a cleaning and etching sequence before any film goes on. Solvents strip grease and organics, piranha oxidizes what is left, NH₄F and HF take off the oxide in the HF hood, and a plasma treatment follows.</p>
-        <p>The Al₂O₃ layer is then grown by thermal ALD from TMA and water at 150 °C, with the cycle count chosen for the thickness each sample needs. This work feeds a group ALD project.</p>
+        <p>The film is then grown by thermal ALD, one cycle at a time, with the cycle count set for the target thickness. Al₂O₃ comes first, with other layers to follow. The question I keep coming back to sits before the deposition: how the surface preparation decides whether a film grows evenly across the wafer and lands at the thickness it was meant to. AFM then checks what actually grew.</p>
       </div>
       <aside class="side">
         <div><b>Substrate</b>n-type Si(111)</div>
-        <div><b>Film</b>Al₂O₃ · TMA / H₂O · 150 °C</div>
+        <div><b>Films</b>ALD layers · Al₂O₃ first</div>
         <div><b>Deposition</b>Anric AT410 thermal ALD</div>
+        <div><b>Focus</b>Surface prep for uniform, on-target films</div>
       </aside>
     </div>
 
@@ -269,7 +270,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
       <div class="step mine">03<b>Piranha</b></div>
       <div class="step mine">04<b>NH₄F / HF</b></div>
       <div class="step mine">05<b>Plasma</b></div>
-      <div class="step mine">06<b>ALD Al₂O₃</b></div>
+      <div class="step mine">06<b>ALD film</b></div>
       <div class="step mine">07<b>AFM scan</b></div>
     </div>
     <div class="chain-key"><i></i> every step run hands-on · 02 and 03 independently · 04, 05, and 06 alongside a graduate mentor</div>
