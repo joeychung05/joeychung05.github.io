@@ -313,8 +313,8 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
   var films=rows.map(function(row,d){
     var band=row.querySelector('.band'), kind=band.dataset.kind||'layer', n=+band.dataset.n||1;
     if(kind==='growing'){var f=band.dataset.from.split('-');n=Math.max(1,(now.getFullYear()-f[0])*12+(now.getMonth()+1-f[1])+1);}
-    if(kind!=='substrate')row.style.minHeight=(50+n*2.5)+'px';
-    return {row:row,band:band,kind:kind,n:n,i:rows.length-1-d,cls:'f'+(rows.length-1-d)};
+    var base=kind!=='substrate'?(50+n*2.5)+'px':'';row.style.minHeight=base;
+    return {row:row,band:band,kind:kind,n:n,base:base,i:rows.length-1-d,cls:'f'+(rows.length-1-d)};
   });
 
   var svg=el('svg',{'class':'dep','aria-hidden':'true'});stack.insertBefore(svg,stack.firstChild);
@@ -342,7 +342,16 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
   });
 
   var G={}, front=RM?-1e9:1e9;
+  /* thin the substrate and hand that height to the live film, so the stack keeps its total height */
+  function balance(){
+    var sub=films[films.length-1], top=films[0];
+    sub.row.style.minHeight=sub.base;top.row.style.minHeight=top.base;
+    var h0=sub.row.offsetHeight;sub.row.style.minHeight='46px';
+    var d=h0-sub.row.offsetHeight;
+    if(d>0)top.row.style.minHeight=(top.row.offsetHeight+d)+'px';
+  }
   function layout(){
+    balance();
     var b=films[0].band, x=b.offsetLeft+b.offsetWidth/2, W=Math.min(92,b.offsetWidth-14), HH=W*.14;
     var tops=films.map(function(F){return F.row.offsetTop}), bots=films.map(function(F){return F.row.offsetTop+F.row.offsetHeight});
     var bnd=[tops[0]+2*HH+8];
