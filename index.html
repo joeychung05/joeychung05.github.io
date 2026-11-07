@@ -410,7 +410,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
     for(var a=0;a<M;a++)for(var b=0;b<M;b++){var u=(a+.5)/M,v=(b+.5)/M;
       sites.push([Bv[0]+u*(Rv[0]-Bv[0])+v*(Lv[0]-Bv[0]),Bv[1]+u*(Rv[1]-Bv[1])+v*(Lv[1]-Bv[1])]);}
     ald.sheet.setAttribute('points',P([[G.l,yt-HH],[x,yt-2*HH],[G.r,yt-HH],[x,yt]]));
-    ald.tag.setAttribute('x',G.l);ald.tag.setAttribute('y',yt-2*HH-9);
+    ald.tag.setAttribute('x',x);ald.tag.setAttribute('text-anchor','middle');ald.tag.setAttribute('y',yt-2*HH-9);
   }
   function ease(t){return t<0?0:t>1?1:1-Math.pow(1-t,3);}
   function clamp(t){return t<0?0:t>1?1:t;}
