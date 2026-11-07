@@ -156,6 +156,9 @@ main.shell>*:nth-child(5){animation-delay:.24s}
 main.shell>*:nth-child(n+6){animation-delay:.3s}
 @media (prefers-reduced-motion:reduce){main.shell>*{animation:none!important}}
 /* page-rise end */
+/* photo guard */
+img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+/* photo guard end */
 </style>
 </head>
 <body>
@@ -314,6 +317,14 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
     img.addEventListener('error',function(){img.closest('.shot-fig').classList.add('empty')});
     if(img.complete&&img.naturalWidth===0){img.closest('.shot-fig').classList.add('empty')}
   });
+})();
+</script>
+<script>
+/* photo guard: no right-click menu, drag or long-press save on photos */
+(function(){
+  function onImg(e){return e.target&&e.target.closest&&e.target.closest('img,figure,.portrait');}
+  document.addEventListener('contextmenu',function(e){if(onImg(e))e.preventDefault();});
+  document.addEventListener('dragstart',function(e){if(onImg(e))e.preventDefault();});
 })();
 </script>
 </body>
