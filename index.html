@@ -87,7 +87,7 @@ h1 .dot{color:var(--gold)}
 
 .stack{display:flex;flex-direction:column;gap:18px}
 .row{
-  display:grid;grid-template-columns:44px 120px 1fr auto;gap:0 22px;align-items:center;
+  display:grid;grid-template-columns:44px 150px 1fr auto;gap:0 22px;align-items:center;
   min-height:64px;text-decoration:none;position:relative;
   border-bottom:1px solid transparent;
   transition:border-color .25s;
@@ -96,35 +96,66 @@ h1 .dot{color:var(--gold)}
 .rid{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;color:var(--muted);transition:color .25s}
 .row:hover .rid{color:var(--gold)}
 .band{height:100%}
-/* one continuous film stack drawn behind the band column */
+/* exploded chip stack drawn behind the band column */
 .stack{position:relative}
-.f3{--face:color-mix(in srgb,var(--gold) 30%,var(--paper-2))}
-.f2{--face:color-mix(in srgb,var(--violet) 22%,var(--paper-2))}
-.f1{--face:color-mix(in srgb,var(--ink) 13%,var(--paper-2))}
-.f0{--face:color-mix(in srgb,var(--ink) 7%,var(--paper-2))}
-.film,.row{--hov:color-mix(in srgb,var(--face) 50%,color-mix(in srgb,var(--ink) 34%,var(--paper-2)))}
+:root{
+  --pl-hi:#FCFCFD;--pl-mid:#DDE0E4;--pl-lo:#B4B9C1;--pl-side:#A2A8B0;--pl-edge:rgba(28,30,34,.42);
+  --pkg:#3B3F45;--pkg-hi:#4A4F56;--pkg-side:#24272C;--trace:#C9A24A;
+}
+[data-theme="dark"]{
+  --pl-hi:#D7DBE1;--pl-mid:#A9AFB8;--pl-lo:#727982;--pl-side:#555B63;--pl-edge:rgba(0,0,0,.55);
+  --pkg:#2A2E34;--pkg-hi:#353A41;--pkg-side:#191C20;--trace:#D9A63E;
+}
+.f3{--die:#A87A1E}
+.f2{--die:#5E58AE}
+.f1{--die:#5F6873}
+.f0{--die:#C9A24A}
+[data-theme="dark"] .f3{--die:#D9A63E}
+[data-theme="dark"] .f2{--die:#8E88DD}
+[data-theme="dark"] .f1{--die:#3E4650}
+.chip{--hov:color-mix(in srgb,var(--die) 38%,color-mix(in srgb,var(--pl-mid) 70%,var(--muted)))}
 .dep{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
-.film{transition:transform .45s cubic-bezier(.2,.7,.3,1)}
-.film.lift{transform:translateY(-12px)}
-.film .edge{stroke:color-mix(in srgb,var(--ink) 45%,var(--face));stroke-width:.7;stroke-linejoin:round}
-.film .sl{fill:color-mix(in srgb,var(--face) 80%,var(--ink))}
-.film .sr{fill:color-mix(in srgb,var(--face) 91%,var(--ink))}
-.film .top{fill:var(--g)}
-.film.hl .top{fill:var(--gh)}
-.film .ml{fill:none;stroke:color-mix(in srgb,var(--ink) 18%,transparent);stroke-width:.5}
-.film .ml.now{stroke:var(--gold);stroke-width:.8;opacity:.9}
-.film .rim{fill:none;stroke:var(--shine);stroke-width:.7;opacity:.7}
-.film .hatch{fill:var(--hatch-url);opacity:.55}
-.film .iri{fill:var(--iri);opacity:.32;mix-blend-mode:multiply}
-[data-theme="dark"] .film .iri{opacity:.3;mix-blend-mode:screen}
+.chip .edge{stroke:var(--pl-edge);stroke-width:.6;stroke-linejoin:round}
+.chip .sl{fill:color-mix(in srgb,var(--pl-side) 82%,#000)}
+.chip .sr{fill:var(--pl-side)}
+.chip .top{fill:var(--g);transition:opacity .3s}
+.chip .toph{fill:var(--gh);opacity:0;transition:opacity .3s}
+.chip.hl .toph{opacity:1}
+.chip .rim{fill:none;stroke:var(--shine);stroke-width:.8;opacity:.8}
+.chip .die{fill:var(--die);opacity:.82;transition:opacity .3s}
+.chip.hl .die{opacity:1}
+.chip .die-in{fill:none;stroke:color-mix(in srgb,var(--die) 45%,#fff);stroke-width:.5;opacity:.7}
+.chip .slot{fill:none;stroke:var(--die);stroke-width:.6;opacity:.55;stroke-dasharray:1.5 1.5}
+.chip .die.now{fill:var(--gold)}
+.pkg .sl{fill:var(--pkg-side)}
+.pkg .sr{fill:color-mix(in srgb,var(--pkg-side) 70%,var(--pkg))}
+.pkg .top{fill:var(--pkg)}
+.pkg .toph{fill:color-mix(in srgb,var(--pkg) 75%,var(--muted))}
+.pkg .trace{fill:none;stroke:var(--trace);stroke-width:.55;opacity:.85}
+.pkg .bump{fill:var(--trace);opacity:.9}
+.pkg .core{fill:color-mix(in srgb,var(--trace) 70%,var(--pkg));stroke:var(--trace);stroke-width:.5}
+.pkg .core-l{stroke:color-mix(in srgb,var(--trace) 60%,#fff);stroke-width:.4;opacity:.6}
+.pkg .rim{opacity:.35}
+.mesh .hex{fill:rgba(255,255,255,.06);stroke:url(#iri);stroke-width:.9}
+.mesh .tint{fill:url(#iri);opacity:.12}
+[data-theme="dark"] .mesh .tint{opacity:.16}
+.guide{stroke:color-mix(in srgb,var(--ink) 22%,transparent);stroke-width:.6;stroke-dasharray:2 3}
+.chip .iri{fill:var(--iriF);opacity:.28;mix-blend-mode:multiply}
+[data-theme="dark"] .chip .iri{opacity:.26;mix-blend-mode:screen}
+.drop{animation:chip-drop .6s cubic-bezier(.2,.8,.25,1) backwards}
+@keyframes chip-drop{from{opacity:0;transform:translateY(-26px)}to{opacity:1;transform:none}}
+.pop{animation:die-pop .3s ease-out backwards}
+@keyframes die-pop{from{opacity:0}}
 .ald .pa{fill:color-mix(in srgb,var(--gold) 80%,var(--ink))}
 .ald .pb{fill:var(--violet)}
 [data-theme="dark"] .ald .pa{fill:var(--gold)}
 .cut{fill:none;stroke:var(--gold);stroke-width:1;stroke-linejoin:round;opacity:0;transition:opacity .25s}
 .cut.on{opacity:1}
-.ald .sheet{fill:var(--shine);opacity:0}
 .ald-tag{font-family:"IBM Plex Mono",monospace;font-size:8.5px;letter-spacing:.12em;fill:var(--muted);text-transform:uppercase}
 .ald-tag tspan.on{fill:var(--gold)}
+.stack{gap:30px}
+.row{min-height:92px}
+.row.sub{min-height:92px}
 .rtext b{display:block;font-size:clamp(15px,1.8vw,19px);font-weight:600;letter-spacing:-.02em;transition:color .25s}
 .row:hover .rtext b{color:var(--gold)}
 .rtext span{display:block;font-size:13.5px;color:var(--muted);margin-top:2px}
@@ -151,7 +182,7 @@ h1 .dot{color:var(--gold)}
 @keyframes deposit{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
 .log-foot{
-  margin-top:46px;padding-top:11px;border-top:1px solid var(--line-soft);
+  margin-top:26px;padding-top:11px;border-top:1px solid var(--line-soft);
   font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;color:var(--muted);
   display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
 }
@@ -227,7 +258,7 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
       <h2>Deposition Log</h2>
       <span class="key">4 layers · 2019 → present</span>
     </div>
-    <p class="log-lede">Everything I've built on, in the order it went down. Each fine line is one month, and the top film is still growing.</p>
+    <p class="log-lede">Everything I've built on, in the order it went down. Each die on a layer is one month, and the top layer is still growing.</p>
 
     <div class="stack">
 
@@ -302,188 +333,182 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
 (function(){
   var NS='http://www.w3.org/2000/svg', stack=document.querySelector('.stack');
   if(!stack)return;
-  var rows=[].slice.call(stack.querySelectorAll('.row')), RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  function el(tag,a,parent){var e=document.createElementNS(NS,tag);for(var k in a)e.setAttribute(k,a[k]);if(parent)parent.appendChild(e);return e;}
+  var RM=matchMedia('(prefers-reduced-motion:reduce)').matches, T0=performance.now();
+  function el(t,a,p){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
   function P(a){return a.map(function(q){return q[0].toFixed(2)+','+q[1].toFixed(2)}).join(' ');}
-  function stopsOn(gr,list){list.forEach(function(s){var st=el('stop',{offset:s[0]},gr);st.setAttribute('style','stop-color:'+s[1]);});}
-  function mix(b,p,c){return 'color-mix(in srgb,'+b+' '+p+'%,'+c+')';}
+  function stops(g,l){l.forEach(function(s){el('stop',{offset:s[0]},g).setAttribute('style','stop-color:'+s[1]);});}
+  function since(){return (performance.now()-T0)/1000;}
+  function delay(node,cls,at){if(RM)return;node.classList.add(cls);node.style.animationDelay=(at-since()).toFixed(3)+'s';}
 
-  /* months per film: L03 grows with the calendar */
-  var now=new Date();
-  var films=rows.map(function(row,d){
-    var band=row.querySelector('.band'), kind=band.dataset.kind||'layer', n=+band.dataset.n||1;
+  var rows=[].slice.call(stack.querySelectorAll('.row')), now=new Date();
+  /* layers bottom first */
+  var Ls=rows.map(function(row){
+    var band=row.querySelector('.band'),kind=band.dataset.kind||'layer',n=+band.dataset.n||1;
     if(kind==='growing'){var f=band.dataset.from.split('-');n=Math.max(1,(now.getFullYear()-f[0])*12+(now.getMonth()+1-f[1])+1);}
-    var base=kind!=='substrate'?(50+n*2.5)+'px':'';row.style.minHeight=base;
-    return {row:row,band:band,kind:kind,n:n,base:base,i:rows.length-1-d,cls:'f'+(rows.length-1-d)};
-  });
+    return {row:row,band:band,kind:kind,n:n,cls:(row.className.match(/\bf\d\b/)||['f0'])[0]};
+  }).reverse();
+  var START=.15, STEP=.32;
+  Ls.forEach(function(F,i){F.at=START+i*STEP; if(!RM)F.row.style.animationDelay=(F.at+.18).toFixed(2)+'s';});
 
   var svg=el('svg',{'class':'dep','aria-hidden':'true'});stack.insertBefore(svg,stack.firstChild);
   var defs=el('defs',{},svg);
-  var hatch=el('pattern',{id:'hatch',width:'5',height:'5',patternUnits:'userSpaceOnUse',patternTransform:'rotate(45)'},defs);
-  el('line',{x1:'0',y1:'0',x2:'0',y2:'5',style:'stroke:color-mix(in srgb,var(--ink) 22%,transparent);stroke-width:.8'},hatch);
-  svg.style.setProperty('--hatch-url','url(#hatch)');
+  var iri=el('linearGradient',{id:'iri',x1:0,y1:0,x2:1,y2:1},defs);
+  stops(iri,[[0,'#9F8DF2'],[.35,'#7CCFE6'],[.68,'#E3A3D6'],[1,'#AFA0F0']]);
+  var film=el('linearGradient',{id:'film',x1:0,y1:0,x2:1,y2:1,spreadMethod:'reflect'},defs);
+  stops(film,[[0,'#C9A24A'],[.3,'#B9708F'],[.55,'#5E73C2'],[.8,'#4FA3A0'],[1,'#C9A24A']]);
+  var clip=el('clipPath',{id:'sq',clipPathUnits:'userSpaceOnUse'},defs);el('rect',{x:0,y:0,width:100,height:100},clip);
+  /* hexagon mesh in plan units */
+  var hp='',r=6.2,h=Math.sqrt(3)*r;
+  for(var ci=-1;ci<12;ci++)for(var cj=-1;cj<10;cj++){
+    var cx=ci*1.5*r, cy=cj*h+(ci%2?h/2:0), pts=[];
+    for(var a=0;a<6;a++){var t=Math.PI/3*a;pts.push((cx+r*.86*Math.cos(t)).toFixed(1)+' '+(cy+r*.86*Math.sin(t)).toFixed(1));}
+    hp+='M'+pts.join('L')+'Z';
+  }
 
-  /* draw bottom film first so each film covers the top face of the one below */
-  films.slice().sort(function(a,b){return a.i-b.i}).forEach(function(F){
-    var g=el('g',{'class':'film '+F.cls},svg);F.g=g;
-    var d=el('defs',{},g), id='fm'+F.i;
-    [['',"var(--face)"],['h',"var(--hov)"]].forEach(function(v){
-      var gr=el('linearGradient',{id:id+v[0],x1:'0',y1:'0',x2:'1',y2:'.55'},d);
-      stopsOn(gr,[[0,mix(v[1],60,'var(--shine)')],[.25,v[1]],[.42,v[1]],[.5,mix(v[1],38,'var(--shine)')],[.58,v[1]],[.82,v[1]],[1,mix(v[1],82,'var(--ink)')]]);
-    });
+  var guides=el('g',{},svg), G={};
+  var meshes=[];
+  /* one group per layer, bottom drawn first */
+  Ls.forEach(function(F,i){
+    if(i===1||i===3){var m=el('g',{'class':'mesh'},svg);meshes.push({g:m,below:i-1});delay(m,'drop',F.at-.12);}
+    var g=el('g',{'class':'chip '+F.cls+(F.kind==='substrate'?' pkg':'')},svg);F.g=g;
+    var d=el('defs',{},g), id='pl'+i;
+    var gn=el('linearGradient',{id:id,x1:0,y1:0,x2:1,y2:.6},d);
+    stops(gn,[[0,'var(--pl-hi)'],[.42,'var(--pl-mid)'],[.5,'var(--pl-hi)'],[.58,'var(--pl-mid)'],[1,'var(--pl-lo)']]);
+    var gh=el('linearGradient',{id:id+'h',x1:0,y1:0,x2:1,y2:.6},d);
+    stops(gh,[[0,'color-mix(in srgb,var(--hov) 55%,var(--pl-hi))'],[.5,'var(--hov)'],[1,'color-mix(in srgb,var(--hov) 75%,var(--pl-lo))']]);
     g.style.setProperty('--g','url(#'+id+')');g.style.setProperty('--gh','url(#'+id+'h)');
-    if(F.kind==='growing'){
-      /* thin film interference: colour drifts with thickness, so it shifts a little every cycle */
-      var ir=el('linearGradient',{id:'iri',x1:'0',y1:'0',x2:'1',y2:'1',spreadMethod:'reflect'},d);
-      stopsOn(ir,[[0,'#C9A24A'],[.3,'#B9708F'],[.55,'#5E73C2'],[.8,'#4FA3A0'],[1,'#C9A24A']]);
-      g.style.setProperty('--iri','url(#iri)');F.iri=ir;
-    }
+    if(F.kind==='growing')g.style.setProperty('--iriF','url(#film)');
+    delay(g,'drop',F.at);
     F.geo=el('g',{},g);
   });
 
-  var G={}, front=RM?-1e9:1e9;
-  /* thin the substrate and hand that height to the live film, so the stack keeps its total height */
-  function balance(){
-    var sub=films[films.length-1], top=films[0];
-    sub.row.style.minHeight=sub.base;top.row.style.minHeight=top.base;
-    var h0=sub.row.offsetHeight;sub.row.style.minHeight='46px';
-    var d=h0-sub.row.offsetHeight;
-    if(d>0)top.row.style.minHeight=(top.row.offsetHeight+d)+'px';
+  function geom(F,cy){
+    var sub=F.kind==='substrate', W=sub?G.Wb:G.W, HH=W*G.k, t=sub?9:4.5, x=G.x;
+    return {x:x,cy:cy,W:W,HH:HH,t:t,l:x-W/2,r:x+W/2,
+      m:'matrix('+[W/200,HH/100,-W/200,HH/100,x,cy-HH].map(function(v){return v.toFixed(3)}).join(' ')+')',
+      p:function(u,v){return [x+(u-v)*W/200, cy-HH+(u+v)*HH/100];}};
   }
   function layout(){
-    balance();
-    var b=films[0].band, x=b.offsetLeft+b.offsetWidth/2, W=Math.min(92,b.offsetWidth-14), HH=W*.14;
-    var tops=films.map(function(F){return F.row.offsetTop}), bots=films.map(function(F){return F.row.offsetTop+F.row.offsetHeight});
-    var bnd=[tops[0]+2*HH+8];
-    for(var d=0;d<films.length-1;d++)bnd.push((bots[d]+tops[d+1])/2+HH);
-    bnd.push(bots[films.length-1]+HH-3);
-    G={x:x,W:W,HH:HH,l:x-W/2,r:x+W/2,bnd:bnd,w:stack.offsetWidth};
+    var b=Ls[0].band, bw=b.offsetWidth;
+    G.x=b.offsetLeft+bw/2; G.W=Math.min(124,bw*.84); G.Wb=Math.min(158,bw+8); G.k=.2; G.w=stack.offsetWidth;
+    var top=rows.map(function(r){return r.offsetTop}), bot=rows.map(function(r){return r.offsetTop+r.offsetHeight});
+    /* boundary under each row (top order), then flip to bottom-first */
+    var yb=rows.map(function(r,d){return d<rows.length-1?(bot[d]+top[d+1])/2:bot[d]+9;}).reverse();
+    var mid=rows.map(function(r,d){return (top[d]+bot[d])/2;}).reverse();
+    /* each plate sits centred on its own row of text */
+    Ls.forEach(function(F,i){var t=F.kind==='substrate'?9:4.5;F.Q=geom(F,mid[i]-t/2);F.yb=yb[i];});
   }
   function draw(){
-    var x=G.x,l=G.l,r=G.r,HH=G.HH;
-    films.forEach(function(F,d){
-      var yb=G.bnd[d+1], ytF=G.bnd[d], yt=Math.max(ytF,Math.min(yb,front)), geo=F.geo;
+    while(guides.firstChild)guides.removeChild(guides.firstChild);
+    Ls.forEach(function(F,i){
+      var Q=F.Q, geo=F.geo, x=Q.x, cy=Q.cy, HH=Q.HH, t=Q.t, l=Q.l, r=Q.r;
       while(geo.firstChild)geo.removeChild(geo.firstChild);
-      F.yt=yt;if(yt>=yb-.01)return;
-      el('polygon',{'class':'sl edge',points:P([[l,yt-HH],[x,yt],[x,yb],[l,yb-HH]])},geo);
-      el('polygon',{'class':'sr edge',points:P([[x,yt],[r,yt-HH],[r,yb-HH],[x,yb]])},geo);
+      el('polygon',{'class':'sl edge',points:P([[l,cy],[x,cy+HH],[x,cy+HH+t],[l,cy+t]])},geo);
+      el('polygon',{'class':'sr edge',points:P([[x,cy+HH],[r,cy],[r,cy+t],[x,cy+HH+t]])},geo);
+      var face=P([[l,cy],[x,cy-HH],[r,cy],[x,cy+HH]]);
+      el('polygon',{'class':'top edge',points:face},geo);
+      el('polygon',{'class':'toph',points:face},geo);
+      var pl=el('g',{transform:Q.m},geo);
       if(F.kind==='substrate'){
-        el('polygon',{'class':'hatch',points:P([[l,yt-HH],[x,yt],[x,yb],[l,yb-HH]])},geo);
-        el('polygon',{'class':'hatch',points:P([[x,yt],[r,yt-HH],[r,yb-HH],[x,yb]])},geo);
+        el('rect',{'class':'core',x:34,y:34,width:32,height:32,'vector-effect':'non-scaling-stroke'},pl);
+        for(var q=0;q<5;q++){el('line',{'class':'core-l',x1:38+q*6,y1:36,x2:38+q*6,y2:64,'vector-effect':'non-scaling-stroke'},pl);}
+        var tr='';
+        for(var s=0;s<9;s++){var o=36+s*3.5, f=50+(o-50)*2.35;
+          tr+='M'+o+' 34L'+f+' 4M'+o+' 66L'+f+' 96M34 '+o+'L4 '+f+'M66 '+o+'L96 '+f;}
+        el('path',{'class':'trace',d:tr,'vector-effect':'non-scaling-stroke','clip-path':'url(#sq)'},pl);
+        for(var bx=0;bx<4;bx++)for(var by=0;by<4;by++){
+          el('circle',{'class':'bump',cx:8+bx*4.2,cy:80+by*4.2,r:1.1},pl);
+          el('circle',{'class':'bump',cx:80+bx*4.2,cy:8+by*4.2,r:1.1},pl);
+        }
       }else{
-        var s=(yb-ytF)/F.n;
-        for(var k=1;k<F.n;k++){var y=yb-k*s;if(y<=yt+.5)break;
-          el('polyline',{'class':'ml'+(F.kind==='growing'&&k===F.n-1?' now':''),points:P([[l,y-HH],[x,y],[r,y-HH]])},geo);}
+        var slots=Math.max(18,F.n), ROWS=3, COLS=Math.ceil(slots/ROWS), M=9, gap=2.6;
+        var cw=(100-2*M-(COLS-1)*gap)/COLS, ch=(100-2*M-(ROWS-1)*gap)/ROWS;
+        F.dies=[];
+        for(var k=0;k<slots;k++){
+          var cc=k%COLS, rr=Math.floor(k/COLS), u0=M+cc*(cw+gap), v0=M+rr*(ch+gap);
+          if(k<F.n){
+            var dg=el('g',{},pl);
+            var die=el('rect',{'class':'die'+(F.kind==='growing'&&k===F.n-1?' now':''),x:u0,y:v0,width:cw,height:ch},dg);
+            el('rect',{'class':'die-in',x:u0+1.4,y:v0+1.4,width:cw-2.8,height:ch-2.8,'vector-effect':'non-scaling-stroke'},dg);
+            delay(dg,'pop',F.at+.35+k*.03);
+            F.dies.push({u0:u0,v0:v0,u1:u0+cw,v1:v0+ch,node:die});
+          }else el('rect',{'class':'slot',x:u0,y:v0,width:cw,height:ch,'vector-effect':'non-scaling-stroke'},pl);
+        }
+        if(F.kind==='growing')el('polygon',{'class':'iri',points:face},geo);
       }
-      el('polygon',{'class':'top edge',points:P([[l,yt-HH],[x,yt-2*HH],[r,yt-HH],[x,yt]])},geo);
-      if(F.iri)el('polygon',{'class':'iri',points:P([[l,yt-HH],[x,yt-2*HH],[r,yt-HH],[x,yt]])},geo);
-      el('polyline',{'class':'rim',points:P([[l+1.5,yt-HH+.4],[x,yt-.6],[r-1.5,yt-HH+.4]])},geo);
-      if(F.kind==='growing'&&front<=ytF)geo.appendChild(ald.g);
+      el('polyline',{'class':'rim',points:P([[l+1.5,cy+.4],[x,cy+HH-.6],[r-1.5,cy+.4]])},geo);
+      if(F.kind==='growing')geo.appendChild(ald.g);
+      /* exploded-view guides down to the layer below */
+      if(i>0){var B=Ls[i-1].Q;
+        [[l,cy+t,B.cy],[r,cy+t,B.cy],[x,cy+HH+t,B.cy+B.HH]].forEach(function(s){el('line',{'class':'guide',x1:s[0],y1:s[1],x2:s[0],y2:s[2]},guides);});}
+      /* hover line: along the row boundary, up the guide lines, and around the plate's lower edges */
+      var Y=F.yb.toFixed(2);
+      F.cut.setAttribute('d','M0 '+Y+'H'+l.toFixed(2)+'V'+(cy+t).toFixed(2)+'L'+x.toFixed(2)+' '+(cy+HH+t).toFixed(2)+'L'+r.toFixed(2)+' '+(cy+t).toFixed(2)+'V'+Y+'H'+G.w);
+    });
+    meshes.forEach(function(M){
+      var B=Ls[M.below].Q, U=Ls[M.below+1].Q, W=G.W*1.02, HH=W*G.k, cy=(B.cy+U.cy+U.t)/2+2, x=G.x;
+      while(M.g.firstChild)M.g.removeChild(M.g.firstChild);
+      el('polygon',{'class':'tint',points:P([[x-W/2,cy],[x,cy-HH],[x+W/2,cy],[x,cy+HH]])},M.g);
+      var pg=el('g',{transform:'matrix('+[W/200,HH/100,-W/200,HH/100,x,cy-HH].join(' ')+')'},M.g);
+      el('path',{'class':'hex',d:hp,'vector-effect':'non-scaling-stroke','clip-path':'url(#sq)'},pg);
     });
     placeAld();
-    /* hover line: straight across the row gap, dipping into a V along the film's lower edge */
-    films.forEach(function(F,d){
-      var y=G.bnd[d+1];
-      F.cut.setAttribute('d','M0 '+(y-HH).toFixed(2)+'H'+l.toFixed(2)+'L'+x.toFixed(2)+' '+y.toFixed(2)+'L'+r.toFixed(2)+' '+(y-HH).toFixed(2)+'H'+G.w);
-    });
   }
 
-  /* ---- ALD cycle on the live surface: pulse, saturate, purge, pulse, purge ---- */
-  var ald={g:el('g',{'class':'ald'})}, M=5, sites=[], A=[], B=[], X=[];
-  ald.sheet=el('polygon',{'class':'sheet'},ald.g);
-  for(var i=0;i<M*M;i++){A.push(el('circle',{'class':'pa',r:'1.35',opacity:'0'},ald.g));B.push(el('circle',{'class':'pb',r:'.95',opacity:'0'},ald.g));}
-  for(i=0;i<7;i++)X.push(el('circle',{'class':'pa',r:'1.35',opacity:'0'},ald.g));
-  ald.tag=el('text',{'class':'ald-tag'},ald.g);
+  /* ---- ALD cycle on the newest die: pulse, saturate, purge, pulse, purge ---- */
+  var ald={g:el('g',{'class':'ald'})}, sites=[], A=[], B=[], X=[];
+  for(var i2=0;i2<6;i2++){A.push(el('circle',{'class':'pa',r:'1.25',opacity:'0'},ald.g));B.push(el('circle',{'class':'pb',r:'.9',opacity:'0'},ald.g));}
+  for(i2=0;i2<3;i2++)X.push(el('circle',{'class':'pa',r:'1.25',opacity:'0'},ald.g));
+  ald.tag=el('text',{'class':'ald-tag','text-anchor':'middle'},ald.g);
   var tPulse=el('tspan',{},ald.tag);tPulse.textContent='pulse';
-  var tDot=el('tspan',{},ald.tag);tDot.textContent=' · ';
+  el('tspan',{},ald.tag).textContent=' · ';
   var tPurge=el('tspan',{},ald.tag);tPurge.textContent='purge';
-  var order=[],extra=[];
-  function rnd(seed){return function(){seed=(seed*16807)%2147483647;return (seed-1)/2147483646;}}
-  var R=rnd(7);
-  for(i=0;i<M*M;i++)order.push(i);
-  order.sort(function(){return R()-.5});
-  for(i=0;i<X.length;i++)extra.push(Math.floor(R()*M*M));
   function placeAld(){
-    var top=films.filter(function(F){return F.kind==='growing'})[0];if(!top||top.yt==null)return;
-    var x=G.x,HH=G.HH,yt=top.yt,Bv=[x,yt],Rv=[G.r,yt-HH],Lv=[G.l,yt-HH];
-    sites=[];
-    for(var a=0;a<M;a++)for(var b=0;b<M;b++){var u=(a+.5)/M,v=(b+.5)/M;
-      sites.push([Bv[0]+u*(Rv[0]-Bv[0])+v*(Lv[0]-Bv[0]),Bv[1]+u*(Rv[1]-Bv[1])+v*(Lv[1]-Bv[1])]);}
-    ald.sheet.setAttribute('points',P([[G.l,yt-HH],[x,yt-2*HH],[G.r,yt-HH],[x,yt]]));
-    ald.tag.setAttribute('x',x);ald.tag.setAttribute('text-anchor','middle');ald.tag.setAttribute('y',yt-2*HH-9);
+    var F=Ls.filter(function(L){return L.kind==='growing'})[0];if(!F||!F.dies||!F.dies.length)return;
+    var d=F.dies[F.dies.length-1], Q=F.Q; sites=[];
+    for(var a=0;a<3;a++)for(var b=0;b<2;b++)sites.push(Q.p(d.u0+(d.u1-d.u0)*(a+.5)/3,d.v0+(d.v1-d.v0)*(b+.5)/2));
+    ald.tag.setAttribute('x',Q.x);ald.tag.setAttribute('y',Q.cy-Q.HH-12);ald.now=d.node;
   }
   function ease(t){return t<0?0:t>1?1:1-Math.pow(1-t,3);}
   function clamp(t){return t<0?0:t>1?1:t;}
-  var CYC=5200, t0=null, cycles=0;
   function setC(c,x,y,o){c.setAttribute('cx',x.toFixed(2));c.setAttribute('cy',y.toFixed(2));c.setAttribute('opacity',o.toFixed(3));}
+  var CYC=5200,t1=null;
   function frame(ts){
-    if(t0===null)t0=ts;
-    var T=(ts-t0)%CYC, c=Math.floor((ts-t0)/CYC);
-    if(c!==cycles){cycles=c;}
+    if(t1===null)t1=ts;
+    var T=(ts-t1)%CYC, drop=18;
     if(sites.length){
-      var drop=26;
-      /* pulse A: 0 to 1500ms, each precursor lands on its own site */
-      order.forEach(function(si,k){
-        var s=sites[si], ta=(T-k*48)/420, o, y;
-        if(T>4300){o=1-clamp((T-4300)/500);y=s[1];}
-        else{y=s[1]-drop*(1-ease(ta));o=ta<=0?0:Math.min(1,ta*2.5);}
+      sites.forEach(function(s,k){
+        var ta=(T-k*70)/420,o,y;
+        if(T>4300){o=1-clamp((T-4300)/500);y=s[1];}else{y=s[1]-drop*(1-ease(ta));o=ta<=0?0:Math.min(1,ta*2.5);}
         setC(A[k],s[0],y,o);
-      });
-      /* late arrivals find the surface already full and bounce off */
-      X.forEach(function(c,k){
-        var s=sites[extra[k]], ta=(T-1250-k*60)/360;
-        if(ta<=0||T>2300){c.setAttribute('opacity','0');return;}
-        var y=ta<1?s[1]-drop*(1-ease(ta)):s[1]-3-(ta-1)*16, o=ta<1?Math.min(1,ta*2):Math.max(0,1-(ta-1)*.7);
-        setC(c,s[0]+(ta>1?(ta-1)*8*(k%2?1:-1):0),y,o*.8);
-      });
-      /* pulse B: 2500 to 3700ms, the second reactant meets each adsorbed site */
-      order.forEach(function(si,k){
-        var s=sites[si], tb=(T-2500-k*34)/380, o, y;
-        if(tb<=0){o=0;y=s[1]-drop;}
-        else if(tb<1){y=s[1]-drop*(1-ease(tb));o=Math.min(1,tb*2.5);}
-        else{y=s[1];o=Math.max(0,1-(tb-1)*1.6);}
+        var tb=(T-2500-k*55)/380;
+        if(tb<=0){o=0;y=s[1]-drop;}else if(tb<1){y=s[1]-drop*(1-ease(tb));o=Math.min(1,tb*2.5);}else{y=s[1];o=Math.max(0,1-(tb-1)*1.6);}
         setC(B[k],s[0],y,o);
       });
-      /* one monolayer completes and settles into the film */
-      var sh=T>3900&&T<4900?Math.sin(Math.PI*(T-3900)/1000)*.35:0;
-      ald.sheet.setAttribute('opacity',sh.toFixed(3));
+      X.forEach(function(c,k){
+        var s=sites[(k*2+1)%sites.length], ta=(T-1150-k*90)/360;
+        if(ta<=0||T>2300){c.setAttribute('opacity','0');return;}
+        var y=ta<1?s[1]-drop*(1-ease(ta)):s[1]-3-(ta-1)*14, o=ta<1?Math.min(1,ta*2):Math.max(0,1-(ta-1)*.7);
+        setC(c,s[0]+(ta>1?(ta-1)*7*(k%2?1:-1):0),y,o*.8);
+      });
+      if(ald.now)ald.now.style.opacity=(T>3900&&T<4900)?(0.82+0.18*Math.sin(Math.PI*(T-3900)/1000)).toFixed(3):'';
       var purge=(T>1500&&T<2500)||(T>3700&&T<4300)||T>4900;
       tPulse.setAttribute('class',purge?'':'on');tPurge.setAttribute('class',purge?'on':'');
-      var top=films.filter(function(F){return F.iri})[0];
-      if(top){var off=((ts-t0)/CYC*.035)%2;top.iri.setAttribute('gradientTransform','translate('+off.toFixed(3)+' 0)');}
+      film.setAttribute('gradientTransform','translate('+(((ts-t1)/CYC*.035)%2).toFixed(3)+' 0)');
     }
-    raf=requestAnimationFrame(frame);
+    requestAnimationFrame(frame);
   }
-  var raf=null;
 
-  /* deposition on load: substrate, then each film grows in turn */
-  /* one continuous front rises from the substrate to the surface; each row appears as the front reaches it */
-  var DUR=1.9, start=null;
-  function inout(t){return t<0?0:t>1?1:.5-Math.cos(Math.PI*t)/2;}
-  function frontAt(t){var lo=G.bnd[G.bnd.length-1],hi=G.bnd[0];return lo-(lo-hi)*inout(t/DUR);}
-  function intro(ts){
-    if(start===null)start=ts;
-    var t=(ts-start)/1000;
-    front=frontAt(t);draw();
-    if(t<DUR)requestAnimationFrame(intro);else{front=-1e9;draw();raf=requestAnimationFrame(frame);}
-  }
-  films.forEach(function(F){F.cut=el('path',{'class':'cut'},svg);});
-  layout();
-  if(!RM){
-    films.forEach(function(F,d){
-      var yb=G.bnd[d+1],t=0;while(t<DUR&&frontAt(t)>yb-6)t+=.01;
-      F.row.style.animationDelay=Math.max(0,t-.12).toFixed(2)+'s';
-    });
-  }
-  draw();
-  if(RM){draw();}else requestAnimationFrame(intro);
+  Ls.forEach(function(F){F.cut=el('path',{'class':'cut'},svg);});
+  layout();draw();
+  if(!RM)setTimeout(function(){requestAnimationFrame(frame);},Math.max(0,(Ls[Ls.length-1].at+.35+Ls[Ls.length-1].n*.03+.3-since())*1000));
   if('ResizeObserver' in window)new ResizeObserver(function(){layout();draw();}).observe(stack);
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){layout();draw();});
 
-  /* hover: films above the chosen one lift away, its own surface shows in a muted tone */
-  films.forEach(function(F,d){
-    function on(){films.forEach(function(O){O.g.classList.toggle('lift',O.i>F.i);O.g.classList.toggle('hl',O===F);O.cut.classList.toggle('on',O===F);});}
-    function off(){films.forEach(function(O){O.g.classList.remove('lift','hl');O.cut.classList.remove('on');});}
+  /* hover: the chosen layer's surface turns to a muted tone of its own colour */
+  Ls.forEach(function(F){
+    function on(){Ls.forEach(function(O){O.g.classList.toggle('hl',O===F);O.cut.classList.toggle('on',O===F);});}
+    function off(){Ls.forEach(function(O){O.g.classList.remove('hl');O.cut.classList.remove('on');});}
     F.row.addEventListener('mouseenter',on);F.row.addEventListener('focus',on);
     F.row.addEventListener('mouseleave',off);F.row.addEventListener('blur',off);
   });
