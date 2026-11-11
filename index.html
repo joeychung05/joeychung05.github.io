@@ -364,16 +364,14 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
     var bnd=[tops[0]+2*HH+8];
     for(var d=0;d<films.length-1;d++)bnd.push((bots[d]+tops[d+1])/2+HH);
     bnd.push(bots[films.length-1]+HH-3);
-    G={x:x,W:W,HH:HH,l:x-W/2,r:x+W/2,bnd:bnd,w:stack.offsetWidth,gap:5};
+    G={x:x,W:W,HH:HH,l:x-W/2,r:x+W/2,bnd:bnd,w:stack.offsetWidth,gap:0};
   }
   function draw(){
     var x=G.x,l=G.l,r=G.r,HH=G.HH;
     films.forEach(function(F,d){
       var yb=G.bnd[d+1]-(F.kind==='substrate'?0:G.gap), ytF=G.bnd[d], yt=Math.max(ytF,Math.min(yb,front)), geo=F.geo;
       while(geo.firstChild)geo.removeChild(geo.firstChild);
-      F.yt=yt;if(yt>=yb-.01){geo.style.opacity='';return;}
-      /* a new layer condenses in over the first few pixels instead of popping in over the one below */
-      geo.style.opacity=Math.min(1,(yb-yt)/16).toFixed(3);
+      F.yt=yt;if(yt>=yb-.01)return;
       el('polygon',{'class':'sl edge',points:P([[l,yt-HH],[x,yt],[x,yb],[l,yb-HH]])},geo);
       el('polygon',{'class':'sr edge',points:P([[x,yt],[r,yt-HH],[r,yb-HH],[x,yb]])},geo);
       if(F.kind==='substrate'){
