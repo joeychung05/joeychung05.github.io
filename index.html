@@ -337,13 +337,13 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
     var d=el('defs',{},g), id='fm'+F.i;
     [['',"var(--face)"],['h',"var(--hov)"]].forEach(function(v){
       var gr=el('linearGradient',{id:id+v[0],x1:'0',y1:'0',x2:'1',y2:'.55'},d);
-      stopsOn(gr,[[0,mix(v[1],60,'var(--shine)')],[.25,v[1]],[.42,v[1]],[.5,mix(v[1],38,'var(--shine)')],[.58,v[1]],[.82,v[1]],[1,mix(v[1],82,'var(--ink)')]]);
+      stopsOn(gr,[[0,mix(v[1],80,'var(--shine)')],[.25,v[1]],[.42,v[1]],[.5,mix(v[1],72,'var(--shine)')],[.58,v[1]],[.82,v[1]],[1,mix(v[1],90,'var(--ink)')]]);
     });
     g.style.setProperty('--g','url(#'+id+')');g.style.setProperty('--gh','url(#'+id+'h)');
     var gl=el('linearGradient',{id:id+'l',x1:'0',y1:'0',x2:'1',y2:'0'},d);
-    stopsOn(gl,[[0,mix('var(--face)',68,'#000')],[.32,mix('var(--face)',84,'#000')],[.52,mix('var(--face)',78,'var(--shine)')],[.7,mix('var(--face)',84,'#000')],[1,mix('var(--face)',74,'#000')]]);
+    stopsOn(gl,[[0,mix('var(--face)',78,'#000')],[.32,mix('var(--face)',84,'#000')],[.52,mix('var(--face)',90,'var(--shine)')],[.7,mix('var(--face)',85,'#000')],[1,mix('var(--face)',80,'#000')]]);
     var gr2=el('linearGradient',{id:id+'r',x1:'0',y1:'0',x2:'1',y2:'0'},d);
-    stopsOn(gr2,[[0,mix('var(--face)',90,'#000')],[.28,mix('var(--face)',62,'var(--shine)')],[.46,'var(--face)'],[.8,mix('var(--face)',94,'#000')],[1,mix('var(--face)',86,'#000')]]);
+    stopsOn(gr2,[[0,mix('var(--face)',92,'#000')],[.28,mix('var(--face)',86,'var(--shine)')],[.46,'var(--face)'],[.8,mix('var(--face)',95,'#000')],[1,mix('var(--face)',90,'#000')]]);
     g.style.setProperty('--sl','url(#'+id+'l)');g.style.setProperty('--sr','url(#'+id+'r)');
     if(F.kind==='growing'){
       /* thin film interference: colour drifts with thickness, so it shifts a little every cycle */
