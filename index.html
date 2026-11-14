@@ -388,13 +388,13 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
         for(var k=1;k<F.n;k++){var y=yb-k*s;if(y<=yt+.5)break;
           el('polyline',{'class':'ml'+(F.kind==='growing'&&k===F.n-1?' now':''),points:P([[l,y-HH],[x,y],[r,y-HH]])},geo);}
       }
-      var tg=el('g',{},geo); if(yt>ytF+.01)tg.setAttribute('opacity',Math.min(1,(yb-yt)/22).toFixed(3));
+      var tg=el('g',{},geo);
       el('polygon',{'class':'top edge',points:P([[l,yt-HH],[x,yt-2*HH],[r,yt-HH],[x,yt]])},tg);
       if(F.iri){el('polygon',{'class':'iri',points:P([[l,yt-HH],[x,yt-2*HH],[r,yt-HH],[x,yt]])},tg);
         /* faint die grid on the live surface */
         var gp='';for(var q=1;q<6;q++){var o=(q*100/6).toFixed(2);gp+='M'+o+' 0V100M0 '+o+'H100';}
         el('path',{'class':'grid',d:gp,'vector-effect':'non-scaling-stroke',transform:'matrix('+[G.W/200,HH/100,-G.W/200,HH/100,x,yt-2*HH].map(function(v){return v.toFixed(3)}).join(' ')+')'},tg);}
-      if(!F.iri&&yt<=ytF+.01){
+      if(!F.iri){
         /* a light circuit pattern on the surface, seen when the layers above lift on hover */
         var cm=el('g',{transform:'matrix('+[G.W/200,HH/100,-G.W/200,HH/100,x,yt-2*HH].map(function(v){return v.toFixed(3)}).join(' ')+')'},tg);
         el('path',{'class':'circuit','vector-effect':'non-scaling-stroke',d:'M12 18H42V44H72M14 58H28V82H58M52 10V28H86M62 62H90M78 44V88M30 30V46M86 74H94'},cm);
