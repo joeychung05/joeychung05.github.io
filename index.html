@@ -105,7 +105,7 @@ h1 .dot{color:var(--gold)}
 .film,.row{--hov:color-mix(in srgb,var(--face) 50%,color-mix(in srgb,var(--ink) 34%,var(--paper-2)))}
 .dep{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
 .film{transition:transform .45s cubic-bezier(.2,.7,.3,1)}
-.film.lift{transform:translateY(-12px)}
+.film.lift{transform:translateY(-18px)}
 .film .edge{stroke:color-mix(in srgb,var(--ink) 45%,var(--face));stroke-width:.7;stroke-linejoin:round}
 .film .sl{fill:color-mix(in srgb,var(--face) 80%,var(--ink))}
 .film .sr{fill:color-mix(in srgb,var(--face) 91%,var(--ink))}
@@ -113,6 +113,9 @@ h1 .dot{color:var(--gold)}
 .film.hl .top{fill:var(--gh)}
 .film .ml{fill:none;stroke:color-mix(in srgb,var(--ink) 18%,transparent);stroke-width:.5}
 .film .ml.now{stroke:var(--gold);stroke-width:.8;opacity:.9}
+.film .circuit{fill:none;stroke:color-mix(in srgb,var(--face) 35%,var(--ink));stroke-width:.7;stroke-linecap:square;stroke-linejoin:miter;opacity:.8}
+.film .pad{fill:color-mix(in srgb,var(--face) 35%,var(--ink));opacity:.85}
+.film .via{fill:none;stroke:color-mix(in srgb,var(--face) 35%,var(--ink));stroke-width:.6;opacity:.8}
 .film .rim{fill:none;stroke:var(--shine);stroke-width:.7;opacity:.7}
 .film .hatch{fill:var(--hatch-url);opacity:.55}
 .film .iri{fill:var(--iri);opacity:.32;mix-blend-mode:multiply}
@@ -359,6 +362,20 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
     bnd.push(bots[films.length-1]+HH-3);
     G={x:x,W:W,HH:HH,l:x-W/2,r:x+W/2,bnd:bnd,w:stack.offsetWidth};
   }
+  /* plan-view circuits (0-100 square), one per finished layer */
+  var CIRCUITS={
+    /* substrate: a central die with fan-out traces to edge pads */
+    0:{chip:[38,38,24,24],
+       d:'M44 38V14M50 38V8M56 38V14M62 44H86M62 50H92M62 56H86M44 62V86M50 62V92M56 62V86M38 44H14M38 50H8M38 56H14',
+       pads:[[44,14],[50,8],[56,14],[86,44],[92,50],[86,56],[44,86],[50,92],[56,86],[14,44],[8,50],[14,56]]},
+    /* L01: orthogonal routing with right-angle jogs */
+    1:{d:'M10 20H40V46H72M14 60H30V84H60M52 10V28H88M64 64H90M78 46V90M28 30V46M84 76H94',
+       pads:[[10,20],[72,46],[14,60],[60,84],[52,10],[88,28],[64,64],[90,64],[78,90],[28,30],[28,46],[94,76]]},
+    /* L02: a bus of parallel lines with vias and a 45-degree turn */
+    2:{d:'M12 24H56L70 38V78M12 34H52L64 46V82M12 44H48L58 54V86M76 12V30H92M80 52H94M24 62V88H44M34 70H48',
+       pads:[[12,24],[12,34],[12,44],[70,78],[64,82],[58,86],[92,30],[24,62],[44,88]],
+       vias:[[76,12],[94,52],[34,70]]}
+  };
   function draw(){
     var x=G.x,l=G.l,r=G.r,HH=G.HH;
     films.forEach(function(F,d){
@@ -377,6 +394,14 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
       }
       el('polygon',{'class':'top edge',points:P([[l,yt-HH],[x,yt-2*HH],[r,yt-HH],[x,yt]])},geo);
       if(F.iri)el('polygon',{'class':'iri',points:P([[l,yt-HH],[x,yt-2*HH],[r,yt-HH],[x,yt]])},geo);
+      else if(yt<=ytF+.01&&CIRCUITS[F.i]){
+        /* a light circuit pattern on each finished surface, different per layer, seen when the layers above lift */
+        var C=CIRCUITS[F.i], cm=el('g',{transform:'matrix('+[G.W/200,HH/100,-G.W/200,HH/100,x,yt-2*HH].map(function(v){return v.toFixed(3)}).join(' ')+')'},geo);
+        el('path',{'class':'circuit','vector-effect':'non-scaling-stroke',d:C.d},cm);
+        C.pads.forEach(function(p){el('circle',{'class':'pad',cx:p[0],cy:p[1],r:2.1},cm);});
+        (C.vias||[]).forEach(function(p){el('circle',{'class':'via','vector-effect':'non-scaling-stroke',cx:p[0],cy:p[1],r:3.2},cm);});
+        if(C.chip)el('rect',{'class':'via','vector-effect':'non-scaling-stroke',x:C.chip[0],y:C.chip[1],width:C.chip[2],height:C.chip[3]},cm);
+      }
       el('polyline',{'class':'rim',points:P([[l+1.5,yt-HH+.4],[x,yt-.6],[r-1.5,yt-HH+.4]])},geo);
       if(F.kind==='growing'&&front<=ytF)geo.appendChild(ald.g);
     });
