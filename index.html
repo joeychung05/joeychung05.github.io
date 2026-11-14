@@ -372,11 +372,38 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
     bnd.push(bots[films.length-1]+HH-3);
     G={x:x,W:W,HH:HH,l:x-W/2,r:x+W/2,bnd:bnd,w:stack.offsetWidth,gap:0};
   }
+  /* load animation, as in the first 3D version: one plate per month, each
+     dropping 10px into place and fading in, bottom to top, one after another */
+  var introT=null, P0=.1, STEP=.04, PD=.38, istart=null, total=0;
+  films.slice().reverse().forEach(function(F){F.g0=total;total+=(F.kind==='substrate'?1:F.n);});
+  function dropPlates(F,yb,ytF,geo){
+    var x=G.x,l=G.l,r=G.r,HH=G.HH, n=F.kind==='substrate'?1:F.n, s=(yb-ytF)/n;
+    for(var k=0;k<n;k++){
+      var p=(introT-(P0+(F.g0+k)*STEP))/PD; if(p<=0)break;
+      p=p>1?1:p; var e=1-Math.pow(1-p,3), y0=yb-k*s, y1=y0-s;
+      var pg=el('g',{transform:'translate(0 '+(-(1-e)*10).toFixed(2)+')',opacity:e.toFixed(3)},geo);
+      el('polygon',{'class':'sl edge',points:P([[l,y1-HH],[x,y1],[x,y0],[l,y0-HH]])},pg);
+      el('polygon',{'class':'sr edge',points:P([[x,y1],[r,y1-HH],[r,y0-HH],[x,y0]])},pg);
+      if(F.kind==='substrate'){
+        el('polygon',{'class':'hatch',points:P([[l,y1-HH],[x,y1],[x,y0],[l,y0-HH]])},pg);
+        el('polygon',{'class':'hatch',points:P([[x,y1],[r,y1-HH],[r,y0-HH],[x,y0]])},pg);
+      }
+      el('polygon',{'class':'top edge',points:P([[l,y1-HH],[x,y1-2*HH],[r,y1-HH],[x,y1]])},pg);
+      el('polyline',{'class':'rim',points:P([[l+1.5,y1-HH+.4],[x,y1-.6],[r-1.5,y1-HH+.4]])},pg);
+    }
+  }
+  function intro(ts){
+    if(istart===null)istart=ts;
+    introT=(ts-istart)/1000;
+    if(introT>=P0+(total-1)*STEP+PD){introT=null;draw();raf=requestAnimationFrame(frame);return;}
+    draw();requestAnimationFrame(intro);
+  }
   function draw(){
     var x=G.x,l=G.l,r=G.r,HH=G.HH;
     films.forEach(function(F,d){
       var yb=G.bnd[d+1]-(F.kind==='substrate'?0:G.gap), ytF=G.bnd[d], yt=Math.max(ytF,Math.min(yb,front)), geo=F.geo;
       while(geo.firstChild)geo.removeChild(geo.firstChild);
+      if(introT!==null){F.yt=ytF;dropPlates(F,yb,ytF,geo);return;}
       F.yt=yt;if(yt>=yb-.01)return;
       el('polygon',{'class':'sl edge',points:P([[l,yt-HH],[x,yt],[x,yb],[l,yb-HH]])},geo);
       el('polygon',{'class':'sr edge',points:P([[x,yt],[r,yt-HH],[r,yb-HH],[x,yb]])},geo);
@@ -480,26 +507,14 @@ main.shell>*:nth-child(n+6){animation-delay:.3s}
   var raf=null;
 
   /* deposition on load: substrate, then each film grows in turn */
-  /* one continuous front rises from the substrate to the surface; each row appears as the front reaches it */
-  var DUR=1.9, start=null;
-  function inout(t){return t<0?0:t>1?1:.5-Math.cos(Math.PI*t)/2;}
-  function frontAt(t){var lo=G.bnd[G.bnd.length-1],hi=G.bnd[0];return lo-(lo-hi)*inout(t/DUR);}
-  function intro(ts){
-    if(start===null)start=ts;
-    var t=(ts-start)/1000;
-    front=frontAt(t);draw();
-    if(t<DUR)requestAnimationFrame(intro);else{front=-1e9;draw();raf=requestAnimationFrame(frame);}
-  }
   films.forEach(function(F){F.cut=el('path',{'class':'cut'},svg);});
   layout();
   if(!RM){
-    films.forEach(function(F,d){
-      var yb=G.bnd[d+1],t=0;while(t<DUR&&frontAt(t)>yb-6)t+=.01;
-      F.row.style.animationDelay=Math.max(0,t-.12).toFixed(2)+'s';
-    });
-  }
+    films.forEach(function(F){F.row.style.animationDelay=Math.max(0,P0+F.g0*STEP-.05).toFixed(2)+'s';});
+    front=-1e9;introT=0;
+  }else front=-1e9;
   draw();
-  if(RM){draw();}else requestAnimationFrame(intro);
+  if(!RM)requestAnimationFrame(intro);
   if('ResizeObserver' in window)new ResizeObserver(function(){layout();draw();}).observe(stack);
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){layout();draw();});
 
